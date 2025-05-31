@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import useLocalStorage from "use-local-storage";
 
 import { paths } from "@/config/paths";
 
@@ -7,22 +8,34 @@ import "./header-layout.css";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
-  const navigate = useNavigate();
+
+  const defaultLight = window.matchMedia(
+    "(prefers-color-scheme: light)"
+  ).matches;
+  const [theme, setTheme] = useLocalStorage(
+    "theme",
+    defaultLight ? "light" : "dark"
+  );
 
   const navigation = [
     { name: "Tools", to: paths.app.tools.getHref() },
     { name: "Resources", to: paths.app.resources.getHref() },
   ];
 
-  function openSidebar() {
+  const openSidebar = () => {
     navbarRef.current?.classList.add("show");
-  }
-  function closeSidebar() {
+  };
+  const closeSidebar = () => {
     navbarRef.current?.classList.remove("show");
-  }
+  };
+
+  const switchTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+  };
 
   return (
-    <div className="site-container">
+    <div className="site-container" data-theme={theme}>
       <div className="header-wrapper">
         <div className="header-left-content">
           <NavLink
@@ -72,6 +85,9 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
           </ul>
         </nav>
         <div className="header-right-content">
+          <button className="theme-switcher" onClick={switchTheme}>
+            {theme === "light" ? "Dark" : "Light"}
+          </button>
           <NavLink
             key="Login"
             className="header-link accent-link"
