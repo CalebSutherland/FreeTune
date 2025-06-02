@@ -37,7 +37,7 @@
   .landing-wrapper {
     flex-direction: column;
   }
-  .tools-row {
+  .card-row {
     flex-direction: column;
     align-items: center;
     justify-content: center;

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import useLocalStorage from "use-local-storage";
 
@@ -9,13 +9,7 @@ import "./header-layout.css";
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
 
-  const defaultLight = window.matchMedia(
-    "(prefers-color-scheme: light)"
-  ).matches;
-  const [theme, setTheme] = useLocalStorage(
-    "theme",
-    defaultLight ? "light" : "dark"
-  );
+  const [theme, setTheme] = useLocalStorage("theme", "dark");
 
   const navigation = [
     { name: "Tools", to: paths.app.tools.getHref() },
@@ -29,13 +23,20 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
     navbarRef.current?.classList.remove("show");
   };
 
+  useEffect(() => {
+    // clean just in case theme gets saved with quotes
+    const cleanTheme = theme.replace(/['"]+/g, "");
+    document.documentElement.classList.remove("dark-theme", "light-theme");
+    document.documentElement.classList.add(`${cleanTheme}-theme`);
+  }, [theme]);
+
   const switchTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
   };
 
   return (
-    <div className="site-container" data-theme={theme}>
+    <div className="site-container">
       <div className="header-wrapper">
         <div className="header-left-content">
           <NavLink

@@ -8,3 +8,10 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </StrictMode>
 );
+
+window.addEventListener("DOMContentLoaded", () => {
+  const tempStyle = document.getElementById("temp-theme-style");
+  if (tempStyle) {
+    tempStyle.remove();
+  }
+});
