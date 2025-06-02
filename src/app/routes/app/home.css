@@ -10,11 +10,12 @@
 
 .side-content {
   flex: 1 1 0;
+  outline: 2px solid purple;
 }
 
 .main-content {
   outline: 2px solid blue;
-  flex: 2 1 0;
+  flex: 1.5 1 0;
 }
 
 .tools-wrapper {

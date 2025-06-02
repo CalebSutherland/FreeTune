@@ -24,7 +24,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    // clean just in case theme gets saved with quotes
+    // clean just in case theme gets saved with quotes (which they were for some reason)
     const cleanTheme = theme.replace(/['"]+/g, "");
     document.documentElement.classList.remove("dark-theme", "light-theme");
     document.documentElement.classList.add(`${cleanTheme}-theme`);
@@ -102,6 +102,47 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
         </button>
       </div>
       <main className="main">{children}</main>
+      <div className="footer-wrapper">
+        <h2>Footer</h2>
+        <div className="footer-content">
+          <div className="footer-col">
+            <p>Links 1</p>
+            <ul>
+              <li>link</li>
+              <li>link</li>
+              <li>link</li>
+              <li>link</li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <p>Links 2</p>
+            <ul>
+              <li>link</li>
+              <li>link</li>
+              <li>link</li>
+              <li>link</li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <p>Links 3</p>
+            <ul>
+              <li>link</li>
+              <li>link</li>
+              <li>link</li>
+              <li>link</li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <p>Links 4</p>
+            <ul>
+              <li>link</li>
+              <li>link</li>
+              <li>link</li>
+              <li>link</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
