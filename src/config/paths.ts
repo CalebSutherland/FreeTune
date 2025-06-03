@@ -19,16 +19,25 @@ export const paths = {
       getHref: () => "/",
     },
     tools: {
-      path: "tools",
-      getHref: () => "/tools",
+      root: {
+        path: "tools",
+        getHref: () => "/tools",
+      },
+      tuner: {
+        getHref: () => "/tools",
+      },
+      metronome: {
+        path: "metronome",
+        getHref: () => "/tools/metronome",
+      },
+      chord_library: {
+        path: "chord_library",
+        getHref: () => "/tools/chord_library",
+      },
     },
     resources: {
       path: "resources",
       getHref: () => "/resources",
-    },
-    about: {
-      path: "about",
-      getHref: () => "/about",
     },
   },
 } as const;

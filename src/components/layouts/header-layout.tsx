@@ -12,7 +12,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
 
   const navigation = [
-    { name: "Tools", to: paths.app.tools.getHref() },
+    { name: "Tools", to: paths.app.tools.root.getHref() },
     { name: "Resources", to: paths.app.resources.getHref() },
   ];
 
@@ -24,7 +24,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    // clean just in case theme gets saved with quotes (which they were for some reason)
+    // clean just in case theme gets saved with quotes (which they were)
     const cleanTheme = theme.replace(/['"]+/g, "");
     document.documentElement.classList.remove("dark-theme", "light-theme");
     document.documentElement.classList.add(`${cleanTheme}-theme`);

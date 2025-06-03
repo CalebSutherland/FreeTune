@@ -7,6 +7,7 @@ import {
   default as AppRoot,
   ErrorBoundary as AppRootErrorBoundary,
 } from "./routes/app/root";
+import ToolRoot from "./routes/app/tools/tool-root";
 
 const router = createBrowserRouter([
   {
@@ -36,23 +37,37 @@ const router = createBrowserRouter([
           })),
       },
       {
-        path: paths.app.tools.path,
-        lazy: () =>
-          import("./routes/app/tools").then((module) => ({
-            Component: module.default,
-          })),
+        path: paths.app.tools.root.path,
+        element: <ToolRoot />,
+        ErrorBoundary: AppRootErrorBoundary,
+        children: [
+          {
+            index: true,
+            lazy: () =>
+              import("./routes/app/tools/tuner").then((module) => ({
+                Component: module.default,
+              })),
+          },
+          {
+            path: paths.app.tools.metronome.path,
+            lazy: () =>
+              import("./routes/app/tools/metronome").then((module) => ({
+                Component: module.default,
+              })),
+          },
+          {
+            path: paths.app.tools.chord_library.path,
+            lazy: () =>
+              import("./routes/app/tools/chord-library").then((module) => ({
+                Component: module.default,
+              })),
+          },
+        ],
       },
       {
         path: paths.app.resources.path,
         lazy: () =>
           import("./routes/app/resources").then((module) => ({
-            Component: module.default,
-          })),
-      },
-      {
-        path: paths.app.about.path,
-        lazy: () =>
-          import("./routes/app/about").then((module) => ({
             Component: module.default,
           })),
       },
