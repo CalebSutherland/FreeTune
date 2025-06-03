@@ -1,3 +1,8 @@
 export default function Metronome() {
-  return <h1>Metronome</h1>;
+  return (
+    <>
+      <title>Metronome | FreeTune</title>
+      <h1>Metronome</h1>
+    </>
+  );
 }

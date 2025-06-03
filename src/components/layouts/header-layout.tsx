@@ -37,7 +37,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="site-container">
-      <div className="header-wrapper">
+      <header className="header-wrapper">
         <div className="header-left-content">
           <NavLink
             key="Home"
@@ -100,9 +100,9 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
         <button id="open-sidebar-button" onClick={openSidebar}>
           M
         </button>
-      </div>
+      </header>
       <main className="main">{children}</main>
-      <div className="footer-wrapper">
+      <footer className="footer-wrapper">
         <h2>Footer</h2>
         <div className="footer-content">
           <div className="footer-col">
@@ -142,7 +142,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
             </ul>
           </div>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }

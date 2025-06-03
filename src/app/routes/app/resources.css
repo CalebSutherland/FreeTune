@@ -1,31 +1,26 @@
-.home-wrapper {
+.resources-landing-wrapper {
   display: flex;
-  flex-direction: column;
+  min-height: 300px;
 }
 
-.landing-wrapper {
-  display: flex;
-  min-height: 400px;
-}
-
-.side-content {
+.resources-side-content {
   flex: 1 1 0;
   outline: 2px dotted purple;
 }
 
-.main-content {
-  outline: 2px dotted blue;
+.resources-main-content {
   flex: 1.5 1 0;
+  outline: 2px dotted blue;
 }
 
-.tools-wrapper {
+.card-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 200px;
-  outline: 2px dotted red;
+  outline: 2px dotted orange;
 }
 
-.tools-wrapper h2 {
+.card-wrapper h2 {
   align-self: center;
 }
 
@@ -35,7 +30,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .landing-wrapper {
+  .resources-landing-wrapper {
     flex-direction: column;
   }
   .card-row {

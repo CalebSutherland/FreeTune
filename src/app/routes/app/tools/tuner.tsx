@@ -1,3 +1,8 @@
 export default function Tuner() {
-  return <h1>Tuner</h1>;
+  return (
+    <>
+      <title>Tuner | FreeTune</title>
+      <h1>Tuner</h1>
+    </>
+  );
 }
