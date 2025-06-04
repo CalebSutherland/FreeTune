@@ -3,7 +3,10 @@ import { NavLink } from "react-router-dom";
 import useLocalStorage from "use-local-storage";
 
 import { paths } from "@/config/paths";
-
+import { Tooltip } from "@mantine/core";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { FiMenu } from "react-icons/fi";
+import { FaX } from "react-icons/fa6";
 import "./header-layout.css";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
@@ -53,7 +56,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
           <ul>
             <li>
               <button id="close-sidebar-button" onClick={closeSidebar}>
-                X
+                <FaX />
               </button>
             </li>
             {navigation.map((item) => (
@@ -86,9 +89,17 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
           </ul>
         </nav>
         <div className="header-right-content">
-          <button className="theme-switcher" onClick={switchTheme}>
-            {theme === "light" ? "Dark" : "Light"}
-          </button>
+          <Tooltip
+            color="grey"
+            label={theme === "light" ? "Dark Mode" : "Light Mode"}
+            offset={-10}
+            arrowSize={5}
+            withArrow
+          >
+            <button className="theme-switcher" onClick={switchTheme}>
+              {theme === "light" ? <FaMoon /> : <FaSun />}
+            </button>
+          </Tooltip>
           <NavLink
             key="Login"
             className="header-link accent-link"
@@ -98,7 +109,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
           </NavLink>
         </div>
         <button id="open-sidebar-button" onClick={openSidebar}>
-          M
+          <FiMenu />
         </button>
       </header>
       <main className="main">{children}</main>

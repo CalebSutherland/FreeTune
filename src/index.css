@@ -12,14 +12,14 @@
 
   --primary-color: black;
   --hover-color: rgb(40, 40, 40);
-  --accent-color: rgb(255, 94, 0);
+  --accent-color: rgb(22, 96, 192);
   --text-color: white;
 }
 
 .light-theme {
   --primary-color: white;
   --hover-color: rgb(217, 217, 217);
-  --accent-color: rgb(255, 94, 0);
+  --accent-color: rgb(22, 96, 192);
   --text-color: black;
 }
 
