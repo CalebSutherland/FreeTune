@@ -12,77 +12,106 @@
   justify-content: flex-start;
   border-bottom: 1px solid var(--hover-color);
   transition: border-color 0.5s, color 0.5s, background-color 0.5s;
+  height: 64px;
 }
 
 .header-right-content {
-  margin-left: auto;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+  margin-left: auto;
 }
 
 nav ul {
   list-style: none;
   display: flex;
+  height: 100%;
 }
 
 nav li {
   display: flex;
 }
 
-nav .split-li {
-  margin-right: auto;
-}
-
 .nav-link,
 .header-link {
   display: flex;
-  text-decoration: none;
-  color: var(--text-color);
-  padding: 1rem 2rem calc(1rem + 2px);
-  transition: background-color 0.5s, color 0.5s;
-}
-
-.nav-link:hover,
-.header-link:hover {
-  color: var(--text-color);
-  background-color: var(--hover-color);
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 2px);
+  padding: 0 0.5rem;
 }
 
 .nav-link.active-link,
 .header-link.active-link {
   border-bottom: 2px solid var(--accent-color);
-  padding: 1rem 2rem;
-  transition: color 0.5s, background-color 0.5s;
+  height: 100%;
 }
 
-.nav-link.accent-link,
-.header-link.accent-link {
-  background-color: var(--accent-color);
-  color: white;
-}
-
-.theme-switcher {
+.theme-switcher,
+.header-element {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-color);
 }
 
-.theme-switcher svg,
-#open-sidebar-button svg {
-  height: 1.25rem;
-  width: 1.25rem;
+.theme-switcher {
+  margin-right: 1rem;
+}
+
+.header-element:hover {
+  background-color: var(--hover-color);
+  transition: background-color 0.3s;
+}
+
+.header-element.icon:hover {
+  background-color: var(--primary-color);
+}
+
+.header-button {
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.header-button:hover {
+  color: var(--text-color);
+}
+
+.theme-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.theme-button span {
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.theme-button svg {
+  color: var(--text-color);
+}
+
+.login-button,
+.login-button-mobile {
+  background-color: var(--accent-color);
+  transition: none;
+}
+.login-button:hover {
+  background-color: var(--accent-hover-color);
 }
 
 #open-sidebar-button,
 #close-sidebar-button {
   display: none;
   border: none;
-  padding: 1rem 1rem;
+  padding: 0;
   cursor: pointer;
-}
-
-#open-sidebar-button:hover,
-#close-sidebar-button:hover {
-  background: var(--hover-color);
 }
 
 .mobile-only {
@@ -119,13 +148,23 @@ nav .split-li {
     align-items: center;
     background: var(--primary-color);
     color: var(--text-color);
-    transition: background-color 0.5s, color 0.5s;
+  }
+  #open-sidebar-button {
+    margin-right: 1rem;
+    margin-left: 0.5rem;
+  }
+  #close-sidebar-button {
+    margin-left: 1rem;
+  }
+  .header-right-content,
+  .theme-switcher {
+    margin-right: unset;
   }
   nav {
     position: fixed;
     top: 0;
     right: -100%;
-    height: 100vh;
+    height: 100dvh;
     width: 100%;
     z-index: 10;
     transition: right 300ms ease-out;
@@ -139,21 +178,20 @@ nav .split-li {
     flex-direction: column;
   }
   nav li {
+    height: 4rem;
     border-bottom: 1px solid var(--hover-color);
   }
   nav li:first-child {
     border: none;
   }
   .nav-link {
+    justify-content: flex-start;
     width: 100%;
-    padding-left: 2.5rem;
+    height: 100%;
   }
   .nav-link.active-link {
     border-bottom: none;
     border-left: 3px solid var(--accent-color);
-  }
-  nav .split-li {
-    margin-right: unset;
   }
 
   .footer-content {
@@ -163,11 +201,12 @@ nav .split-li {
 }
 
 @media screen and (max-width: 500px) {
-  .header-link.accent-link {
+  .login-button {
     display: none;
   }
   .mobile-only {
     display: flex;
+    border-bottom: none;
   }
   .main,
   .footer-wrapper {

@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import useLocalStorage from "use-local-storage";
 
 import { paths } from "@/config/paths";
-import { Tooltip } from "@mantine/core";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { Button, ActionIcon, Tooltip } from "@mantine/core";
+import { FaMoon, FaSun, FaChevronDown } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { FaX } from "react-icons/fa6";
 import "./header-layout.css";
@@ -13,11 +13,6 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
 
   const [theme, setTheme] = useLocalStorage("theme", "dark");
-
-  const navigation = [
-    { name: "Tools", to: paths.app.tools.root.getHref() },
-    { name: "Resources", to: paths.app.resources.getHref() },
-  ];
 
   const openSidebar = () => {
     navbarRef.current?.classList.add("show");
@@ -49,7 +44,15 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
             }}
             to={paths.app.home.getHref()}
           >
-            Home
+            <div className="header-element">
+              <Button
+                classNames={{ root: "header-button" }}
+                size={"xs"}
+                variant="transparent"
+              >
+                Home
+              </Button>
+            </div>
           </NavLink>
         </div>
         <nav id="navbar" ref={navbarRef}>
@@ -59,23 +62,47 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
                 <FaX />
               </button>
             </li>
-            {navigation.map((item) => (
-              <li
-                className={item.name === "Resources" ? "split-li" : ""}
-                key={item.name}
+            <li key={"Tools"}>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active-link" : "nav-link"
+                }
+                to={paths.app.tools.root.getHref()}
+                key={"Tools"}
+                onClick={closeSidebar}
               >
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "nav-link active-link" : "nav-link"
-                  }
-                  to={item.to}
-                  key={item.name}
-                  onClick={closeSidebar}
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
+                <div className="header-element">
+                  <Button
+                    classNames={{ root: "header-button" }}
+                    size={"xs"}
+                    variant="transparent"
+                    rightSection={<FaChevronDown />}
+                  >
+                    Tools
+                  </Button>
+                </div>
+              </NavLink>
+            </li>
+            <li key={"Resources"}>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active-link" : "nav-link"
+                }
+                to={paths.app.resources.getHref()}
+                key={"Resources"}
+                onClick={closeSidebar}
+              >
+                <div className="header-element">
+                  <Button
+                    classNames={{ root: "header-button" }}
+                    size={"xs"}
+                    variant="transparent"
+                  >
+                    Resources
+                  </Button>
+                </div>
+              </NavLink>
+            </li>
             <li className="mobile-only">
               <NavLink
                 key="Login"
@@ -83,34 +110,53 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
                 to={paths.auth.login.getHref()}
                 onClick={closeSidebar}
               >
-                Login
+                <Button
+                  classNames={{ root: "login-button-mobile" }}
+                  variant="filled"
+                  size="md"
+                  fullWidth
+                >
+                  Sign In
+                </Button>
               </NavLink>
             </li>
           </ul>
         </nav>
         <div className="header-right-content">
-          <Tooltip
-            color="grey"
-            label={theme === "light" ? "Dark Mode" : "Light Mode"}
-            offset={-10}
-            arrowSize={5}
-            withArrow
-          >
-            <button className="theme-switcher" onClick={switchTheme}>
-              {theme === "light" ? <FaMoon /> : <FaSun />}
-            </button>
-          </Tooltip>
+          <div className="theme-switcher">
+            <Tooltip
+              color="grey"
+              label={theme === "light" ? "Dark Mode" : "Light Mode"}
+              arrowSize={5}
+              withArrow
+            >
+              <ActionIcon
+                classNames={{ root: "theme-button" }}
+                onClick={switchTheme}
+                variant="transparent"
+                size="lg"
+              >
+                {theme === "light" ? <FaMoon size={20} /> : <FaSun size={20} />}
+              </ActionIcon>
+            </Tooltip>
+          </div>
           <NavLink
             key="Login"
-            className="header-link accent-link"
+            className="header-link"
             to={paths.auth.login.getHref()}
           >
-            Login
+            <div className="header-element">
+              <Button classNames={{ root: "login-button" }} variant="filled">
+                Sign In
+              </Button>
+            </div>
           </NavLink>
         </div>
-        <button id="open-sidebar-button" onClick={openSidebar}>
-          <FiMenu />
-        </button>
+        <div className="header-element icon">
+          <button id="open-sidebar-button" onClick={openSidebar}>
+            <FiMenu size={24} />
+          </button>
+        </div>
       </header>
       <main className="main">{children}</main>
       <footer className="footer-wrapper">
