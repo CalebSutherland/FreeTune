@@ -81,6 +81,30 @@ nav li {
   color: var(--text-color);
 }
 
+.tools-menu {
+  color: var(--text-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.tools-menu-item,
+.tools-menu-item:hover {
+  color: var(--text-color);
+}
+
+.tools-menu-item:hover {
+  background-color: var(--hover-color);
+}
+
+.active-menu-item {
+  background-color: var(--nav-color);
+  /* text-decoration: underline 2px solid var(--accent-color);
+  text-underline-offset: 4px; */
+}
+.active-menu-item:hover {
+  background-color: var(--nav-hover-color);
+}
+
 .theme-button {
   display: flex;
   justify-content: center;

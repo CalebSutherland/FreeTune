@@ -16,12 +16,16 @@
   --primary-color: black;
   --hover-color: rgb(40, 40, 40);
   --text-color: white;
+  --nav-color: rgb(27, 30, 59);
+  --nav-hover-color: rgb(36, 41, 82);
 }
 
 .light-theme {
   --primary-color: white;
   --hover-color: rgb(230, 230, 230);
   --text-color: black;
+  --nav-color: aliceblue;
+  --nav-hover-color: rgb(223, 236, 247);
 }
 
 * {

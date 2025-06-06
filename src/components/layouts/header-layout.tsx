@@ -1,25 +1,45 @@
 import { useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import useLocalStorage from "use-local-storage";
 
 import { paths } from "@/config/paths";
-import { Button, ActionIcon, Tooltip } from "@mantine/core";
+import { Button, Menu, ActionIcon, Tooltip } from "@mantine/core";
 import { FaMoon, FaSun, FaChevronDown } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
-import { FaX } from "react-icons/fa6";
+import { FaX, FaGuitar, FaBook } from "react-icons/fa6";
+import { PiMetronome } from "react-icons/pi";
+import { MdTune } from "react-icons/md";
 import "./header-layout.css";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
-
   const [theme, setTheme] = useLocalStorage("theme", "dark");
 
-  const openSidebar = () => {
-    navbarRef.current?.classList.add("show");
-  };
-  const closeSidebar = () => {
-    navbarRef.current?.classList.remove("show");
-  };
+  const location = useLocation();
+  const isToolsActive = location.pathname.startsWith("/tools");
+
+  const tools_navigation = [
+    {
+      name: "Instrument Tuner",
+      to: paths.app.tools.tuner.getHref(),
+      icon: <FaGuitar />,
+    },
+    {
+      name: "Metronome",
+      to: paths.app.tools.metronome.getHref(),
+      icon: <PiMetronome />,
+    },
+    {
+      name: "Chord Library",
+      to: paths.app.tools.chord_library.getHref(),
+      icon: <FaBook />,
+    },
+    {
+      name: "Traditional Tuner",
+      to: paths.app.tools.tuner.getHref(),
+      icon: <MdTune />,
+    },
+  ];
 
   useEffect(() => {
     // clean just in case theme gets saved with quotes (which they were)
@@ -27,6 +47,13 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
     document.documentElement.classList.remove("dark-theme", "light-theme");
     document.documentElement.classList.add(`${cleanTheme}-theme`);
   }, [theme]);
+
+  const openSidebar = () => {
+    navbarRef.current?.classList.add("show");
+  };
+  const closeSidebar = () => {
+    navbarRef.current?.classList.remove("show");
+  };
 
   const switchTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -63,25 +90,51 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
               </button>
             </li>
             <li key={"Tools"}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active-link" : "nav-link"
-                }
-                to={paths.app.tools.root.getHref()}
-                key={"Tools"}
-                onClick={closeSidebar}
-              >
+              <div className={`nav-link ${isToolsActive ? "active-link" : ""}`}>
                 <div className="header-element">
-                  <Button
-                    classNames={{ root: "header-button" }}
-                    size={"xs"}
-                    variant="transparent"
-                    rightSection={<FaChevronDown />}
+                  <Menu
+                    trigger="click-hover"
+                    openDelay={100}
+                    closeDelay={400}
+                    shadow="xs"
+                    width={200}
+                    position="bottom-start"
+                    offset={18}
+                    classNames={{
+                      dropdown: "tools-menu",
+                      item: "tools-menu-item",
+                    }}
                   >
-                    Tools
-                  </Button>
+                    <Menu.Target>
+                      <Button
+                        classNames={{ root: "header-button" }}
+                        size={"xs"}
+                        variant="transparent"
+                        rightSection={<FaChevronDown size={12} />}
+                      >
+                        Tools
+                      </Button>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      {tools_navigation.map((item) => (
+                        <Menu.Item
+                          component={NavLink}
+                          key={item.name}
+                          to={item.to}
+                          leftSection={item.icon}
+                          className={`${
+                            location.pathname === item.to
+                              ? "active-menu-item"
+                              : ""
+                          }`}
+                        >
+                          {item.name}
+                        </Menu.Item>
+                      ))}
+                    </Menu.Dropdown>
+                  </Menu>
                 </div>
-              </NavLink>
+              </div>
             </li>
             <li key={"Resources"}>
               <NavLink
@@ -158,7 +211,9 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
           </button>
         </div>
       </header>
+
       <main className="main">{children}</main>
+
       <footer className="footer-wrapper">
         <h2>Footer</h2>
         <div className="footer-content">
