@@ -35,7 +35,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
       icon: <FaBook />,
     },
     {
-      name: "Traditional Tuner",
+      name: "Classic Tuner",
       to: paths.app.tools.tuner.getHref(),
       icon: <MdTune />,
     },
@@ -122,6 +122,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
                           key={item.name}
                           to={item.to}
                           leftSection={item.icon}
+                          onClick={closeSidebar}
                           className={`${
                             location.pathname === item.to
                               ? "active-menu-item"

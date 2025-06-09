@@ -10,22 +10,24 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --accent-color: rgb(22, 96, 192);
-  --accent-hover-color: rgb(22, 86, 170);
+  --accent-color: #1660c0;
+  --accent-hover-color: #004ea0;
 
   --primary-color: black;
   --hover-color: rgb(40, 40, 40);
   --text-color: white;
-  --nav-color: rgb(27, 30, 59);
-  --nav-hover-color: rgb(36, 41, 82);
+  --light-text-color: rgb(151, 151, 151);
+  --tools-active-color: rgb(27, 30, 59);
+  --tools-active-hover-color: rgb(36, 41, 82);
 }
 
 .light-theme {
   --primary-color: white;
   --hover-color: rgb(230, 230, 230);
   --text-color: black;
-  --nav-color: aliceblue;
-  --nav-hover-color: rgb(223, 236, 247);
+  --light-text-color: rgb(130, 130, 130);
+  --tools-active-color: aliceblue;
+  --tools-active-hover-color: rgb(223, 236, 247);
 }
 
 * {

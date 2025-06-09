@@ -1,0 +1,73 @@
+.tuner-app-wrapper {
+  outline: 3px dotted yellow;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.tuner-view {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.tuning-menu-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--hover-color);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 10;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.tuning-menu-view.visible {
+  transform: translateX(0);
+}
+
+.tuner-app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tuner-app-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.tunings-button {
+  color: var(--text-color);
+}
+
+.tunings-button-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.tuning-name {
+  font-size: 0.75rem;
+  color: var(--light-text-color);
+}
+
+.auto-switch {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.auto-switch p {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
