@@ -23,7 +23,7 @@
 
 .light-theme {
   --primary-color: white;
-  --hover-color: rgb(230, 230, 230);
+  --hover-color: rgb(240, 240, 240);
   --text-color: black;
   --light-text-color: rgb(130, 130, 130);
   --tools-active-color: aliceblue;

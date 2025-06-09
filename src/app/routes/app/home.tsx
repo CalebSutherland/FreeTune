@@ -1,3 +1,4 @@
+import InstrumentTuner from "@/features/instrument-tuner/components/tuner";
 import "./home.css";
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
           <p>Tuning could never be easier</p>
         </div>
         <div className="main-content">
-          <p>Tuner App</p>
+          <InstrumentTuner />
         </div>
       </div>
       <div className="tools-wrapper">

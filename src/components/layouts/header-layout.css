@@ -126,7 +126,8 @@ nav li {
   background-color: var(--accent-color);
   transition: none;
 }
-.login-button:hover {
+.login-button:hover,
+.login-button-mobile:hover {
   background-color: var(--accent-hover-color);
 }
 

@@ -15,3 +15,8 @@ export type Instrument = {
   standard: Tuning;
   categories: Category[];
 };
+
+export type InstrumentFamily = {
+  name: string;
+  instruments: Instrument[];
+};
