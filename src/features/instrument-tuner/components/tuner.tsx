@@ -48,6 +48,7 @@ export default function InstrumentTuner() {
             />
           </div>
         </div>
+
         <div className="tuner-app-content">
           <p>Tuner app</p>
           <p>{tuning.notes.join("-")}</p>

@@ -62,6 +62,10 @@
   padding: 0 1rem;
 }
 
+.instrument-list h3 {
+  padding: 2rem 0 1rem;
+}
+
 .instrument-list.visible {
   transform: translateX(0);
 }
@@ -87,66 +91,4 @@
 
 .tuning-card-wrapper.active {
   border-bottom: 2px solid green;
-}
-
-.tuning-card {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  padding: 0;
-  text-align: left;
-  cursor: pointer;
-}
-
-.tuning-card-label {
-  flex: 1;
-  padding: 0.2rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  margin-right: auto;
-}
-
-.card-name {
-  font-size: 0.9rem;
-}
-.card-tuning {
-  font-size: 0.85rem;
-}
-
-.tuning-card-notes-wrapper {
-  display: flex;
-}
-
-.tuning-note-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-inline: 0.1rem;
-  border: 1.75px solid var(--text-color);
-  border-radius: 0.2rem;
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
-.tuning-note {
-  font-size: 0.65rem;
-  font-weight: 600;
-}
-
-.note-sub {
-  vertical-align: bottom;
-}
-
-.note-sub.small {
-  font-size: 0.48rem;
-}
-
-.active-icon-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 4rem;
 }
