@@ -76,6 +76,7 @@
 .tuning-menu-wrapper {
   background: var(--primary-color);
   color: var(--text-color);
+  padding: 0 1rem;
 }
 
 .tuning-menu-header {

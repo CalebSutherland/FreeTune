@@ -226,5 +226,133 @@
         ]
       }
     ]
+  },
+  {
+    "name": "Ukulele",
+    "instruments": [
+      {
+        "name": "Ukulele",
+        "img": "/images/ukulele.png",
+        "string_count": 4,
+        "standard": {
+          "name": "Standard",
+          "notes": ["G4", "C4", "E4", "A4"]
+        },
+        "categories": [
+          {
+            "name": "Ukulele",
+            "tunings": [
+              {
+                "name": "Soprano in D",
+                "notes": ["A4", "D4", "F#4", "B4"]
+              },
+              {
+                "name": "Low G",
+                "notes": ["G3", "C4", "E4", "A4"]
+              },
+              {
+                "name": "Low A",
+                "notes": ["A3", "D4", "F#4", "B4"]
+              },
+              {
+                "name": "Slack key",
+                "notes": ["G4", "C4", "E4", "G4"]
+              },
+              {
+                "name": "B tuning (-1)",
+                "notes": ["F#4", "B3", "D#4", "G#4"]
+              },
+              {
+                "name": "C# tuning (+1)",
+                "notes": ["G#4", "C#4", "F4", "A#4"]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Violin Family",
+    "instruments": [
+      {
+        "name": "Violin",
+        "img": "/images/violin.png",
+        "string_count": 4,
+        "standard": {
+          "name": "Standard",
+          "notes": ["G3", "D4", "A4", "E5"]
+        },
+        "categories": []
+      },
+      {
+        "name": "Viola",
+        "img": "/images/viola.png",
+        "string_count": 4,
+        "standard": {
+          "name": "Standard",
+          "notes": ["C3", "G3", "D4", "A4"]
+        },
+        "categories": []
+      },
+      {
+        "name": "Cello",
+        "img": "/images/cello.png",
+        "string_count": 4,
+        "standard": {
+          "name": "Standard",
+          "notes": ["C2", "G2", "D3", "A3"]
+        },
+        "categories": []
+      },
+      {
+        "name": "Fiddle",
+        "img": "/images/fiddle.png",
+        "string_count": 4,
+        "standard": {
+          "name": "Standard",
+          "notes": ["G3", "D4", "A4", "E5"]
+        },
+        "categories": [
+          {
+            "name": "Fiddle",
+            "tunings": [
+              {
+                "name": "Cajun",
+                "notes": ["F3", "C4", "G4", "D5"]
+              },
+              {
+                "name": "Open G",
+                "notes": ["G3", "D4", "G4", "B4"]
+              },
+              {
+                "name": "Sawmill",
+                "notes": ["G3", "D4", "G4", "D5"]
+              },
+              {
+                "name": "Gee-dad",
+                "notes": ["G3", "D4", "A4", "D5"]
+              },
+              {
+                "name": "Open D",
+                "notes": ["D3", "D4", "A4", "D5"]
+              },
+              {
+                "name": "High bass",
+                "notes": ["A3", "D4", "A4", "E5"]
+              },
+              {
+                "name": "Cross tuning",
+                "notes": ["A3", "E4", "A4", "E5"]
+              },
+              {
+                "name": "Calico",
+                "notes": ["A3", "E4", "A4", "C#5"]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

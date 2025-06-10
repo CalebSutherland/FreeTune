@@ -16,6 +16,7 @@
   --primary-color: black;
   --hover-color: rgb(40, 40, 40);
   --text-color: white;
+  --border-color: rgb(79, 79, 79);
   --light-text-color: rgb(151, 151, 151);
   --tools-active-color: rgb(27, 30, 59);
   --tools-active-hover-color: rgb(36, 41, 82);
@@ -25,6 +26,7 @@
   --primary-color: white;
   --hover-color: rgb(240, 240, 240);
   --text-color: black;
+  --border-color: rgb(177, 177, 177);
   --light-text-color: rgb(130, 130, 130);
   --tools-active-color: aliceblue;
   --tools-active-hover-color: rgb(223, 236, 247);

@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { InstrumentFamily, Tuning } from "../types/types";
 import { Button, Accordion, AccordionItem } from "@mantine/core";
 import { MdChevronRight } from "react-icons/md";
-import { FaChevronLeft } from "react-icons/fa6";
+import { FaChevronLeft, FaRegCircleCheck } from "react-icons/fa6";
 import "./tuning-menu.css";
 
 interface TuningMenuProps {
@@ -92,7 +92,12 @@ export default function TuningMenu({
                   }}
                   className="tuning-card"
                 >
+                  <div className="tuning-card-label">
+                    <p className="card-name">{instrument.name}</p>
+                    <p className="card-tuning">{instrument.standard.name}</p>
+                  </div>
                   <span className="tuning-card-notes-wrapper">
+                    {/* note icons */}
                     {instrument.standard.notes.map((note, note_i) => {
                       const base = note.charAt(0);
                       const sub = note.slice(1);
@@ -112,9 +117,11 @@ export default function TuningMenu({
                       );
                     })}
                   </span>
-                  <span className="tuning-card-label">
-                    {`${instrument.name}: ${instrument.standard.name}`}
-                  </span>
+                  <div className="active-icon-wrapper">
+                    {currentTuning === instrument.standard && (
+                      <FaRegCircleCheck color="green" size={26} />
+                    )}
+                  </div>
                 </button>
               </div>
 
@@ -125,6 +132,7 @@ export default function TuningMenu({
                     classNames={{
                       control: "accordion",
                       content: "accordion-content",
+                      item: "accordion-item",
                     }}
                   >
                     <AccordionItem key={category.name} value={category.name}>
@@ -148,7 +156,12 @@ export default function TuningMenu({
                                   setShowMenu(false);
                                 }}
                               >
+                                <div className="tuning-card-label">
+                                  <p className="card-name">{instrument.name}</p>
+                                  <p className="card-tuning">{tuning.name}</p>
+                                </div>
                                 <span className="tuning-card-notes-wrapper">
+                                  {/* note icons */}
                                   {tuning.notes.map((note, note_i) => {
                                     const base = note.charAt(0);
                                     const sub = note.slice(1);
@@ -171,9 +184,11 @@ export default function TuningMenu({
                                     );
                                   })}
                                 </span>
-                                <span className="tuning-card-label">
-                                  {`${instrument.name}: ${tuning.name}`}
-                                </span>
+                                <div className="active-icon-wrapper">
+                                  {currentTuning === tuning && (
+                                    <FaRegCircleCheck color="green" size={26} />
+                                  )}
+                                </div>
                               </button>
                             </div>
                           </div>

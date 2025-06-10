@@ -1,15 +1,5 @@
 .instrument-button-wrapper {
-  position: relative;
-}
-
-.instrument-button-wrapper::after {
-  content: "";
-  position: absolute;
-  left: 2.5%;
-  bottom: 0;
-  height: 1px;
-  width: 95%;
-  border-bottom: 1px solid var(--hover-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .instrument-button {
@@ -17,7 +7,7 @@
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
-  padding: 0 1rem;
+  padding: 0;
   text-align: left;
   cursor: pointer;
 }
@@ -36,6 +26,7 @@
 .accordion {
   background: var(--primary-color);
   color: var(--text-color);
+  padding: 0;
 }
 
 .accordion:hover {
@@ -45,6 +36,10 @@
 
 .accordion-content {
   padding: 0;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--border-color);
 }
 
 .instrument-list {
@@ -61,6 +56,10 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+}
+
+.instrument-list-content {
+  padding: 0 1rem;
 }
 
 .instrument-list.visible {
@@ -82,23 +81,11 @@
   transform: translateX(-50%);
 }
 
-.tuning-card-wrapper,
+.tuning-card-wrapper {
+  border-bottom: 1px solid var(--border-color);
+}
+
 .tuning-card-wrapper.active {
-  position: relative;
-}
-
-.tuning-card-wrapper::after,
-.tuning-card-wrapper.active::after {
-  content: "";
-  position: absolute;
-  left: 2.5%;
-  bottom: 0;
-  height: 1px;
-  width: 95%;
-  border-bottom: 1px solid var(--hover-color);
-}
-
-.tuning-card-wrapper.active::after {
   border-bottom: 2px solid green;
 }
 
@@ -106,15 +93,27 @@
   width: 100%;
   display: flex;
   align-items: center;
-  flex-direction: row-reverse;
-  padding: 0 1rem;
+  flex-direction: row;
+  padding: 0;
   text-align: left;
   cursor: pointer;
 }
 
 .tuning-card-label {
   flex: 1;
-  padding: 0.75rem 0;
+  padding: 0.2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: auto;
+}
+
+.card-name {
+  font-size: 0.9rem;
+}
+.card-tuning {
+  font-size: 0.85rem;
 }
 
 .tuning-card-notes-wrapper {
@@ -143,4 +142,11 @@
 
 .note-sub.small {
   font-size: 0.48rem;
+}
+
+.active-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
 }
