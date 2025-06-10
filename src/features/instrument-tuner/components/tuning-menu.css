@@ -1,4 +1,14 @@
 .instrument-button-wrapper {
+  position: relative;
+}
+
+.instrument-button-wrapper::after {
+  content: "";
+  position: absolute;
+  left: 2.5%;
+  bottom: 0;
+  height: 1px;
+  width: 95%;
   border-bottom: 1px solid var(--hover-color);
 }
 
@@ -23,21 +33,18 @@
   justify-content: flex-start;
 }
 
-.instrument-button-icon {
-}
-
-.accordian {
+.accordion {
   background: var(--primary-color);
   color: var(--text-color);
 }
 
-.accordian:hover {
+.accordion:hover {
   background: var(--hover-color);
   transition: background-color 0.3s;
 }
 
-.accordian-content {
-  /* padding: 0; */
+.accordion-content {
+  padding: 0;
 }
 
 .instrument-list {
@@ -73,4 +80,67 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.tuning-card-wrapper,
+.tuning-card-wrapper.active {
+  position: relative;
+}
+
+.tuning-card-wrapper::after,
+.tuning-card-wrapper.active::after {
+  content: "";
+  position: absolute;
+  left: 2.5%;
+  bottom: 0;
+  height: 1px;
+  width: 95%;
+  border-bottom: 1px solid var(--hover-color);
+}
+
+.tuning-card-wrapper.active::after {
+  border-bottom: 2px solid green;
+}
+
+.tuning-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  padding: 0 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tuning-card-label {
+  flex: 1;
+  padding: 0.75rem 0;
+}
+
+.tuning-card-notes-wrapper {
+  display: flex;
+}
+
+.tuning-note-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-inline: 0.1rem;
+  border: 1.75px solid var(--text-color);
+  border-radius: 0.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.tuning-note {
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.note-sub {
+  vertical-align: bottom;
+}
+
+.note-sub.small {
+  font-size: 0.48rem;
 }

@@ -8,6 +8,7 @@ import "./tuning-menu.css";
 
 interface TuningMenuProps {
   instruments: InstrumentFamily[];
+  currentTuning: Tuning;
   setInstrumentFamilyIndex: React.Dispatch<React.SetStateAction<number>>;
   setInstrumentIndex: React.Dispatch<React.SetStateAction<number>>;
   setTuning: React.Dispatch<React.SetStateAction<Tuning>>;
@@ -16,6 +17,7 @@ interface TuningMenuProps {
 
 export default function TuningMenu({
   instruments,
+  currentTuning,
   setInstrumentFamilyIndex,
   setInstrumentIndex,
   setTuning,
@@ -68,11 +70,18 @@ export default function TuningMenu({
             {`${instruments[displayIndex].name} Tuning`}
           </h3>
         </div>
+
+        {/* selected instrument family */}
         <div className="instrument-list-content">
           {instruments[displayIndex].instruments.map((instrument, i) => (
             <div key={instrument.name}>
               <h3>{instrument.name}</h3>
-              <div className="instrument-button-wrapper">
+              {/* standard tuning */}
+              <div
+                className={`tuning-card-wrapper ${
+                  currentTuning === instrument.standard ? "active" : ""
+                }`}
+              >
                 <button
                   onClick={() => {
                     setInstrumentFamilyIndex(displayIndex);
@@ -81,28 +90,56 @@ export default function TuningMenu({
                     setShowSecondMenu(false);
                     setShowMenu(false);
                   }}
-                  className="instrument-button"
+                  className="tuning-card"
                 >
-                  <span className="instrument-button-icon"></span>
-                  <span className="instrument-button-label">
-                    {`${
-                      instrument.standard.name
-                    }: ${instrument.standard.notes.join("-")}`}
+                  <span className="tuning-card-notes-wrapper">
+                    {instrument.standard.notes.map((note, note_i) => {
+                      const base = note.charAt(0);
+                      const sub = note.slice(1);
+                      return (
+                        <span key={note_i} className="tuning-note-wrapper">
+                          <p className="tuning-note">
+                            {base}
+                            <sub
+                              className={`note-sub ${
+                                note.length > 2 ? "small" : ""
+                              }`}
+                            >
+                              {sub}
+                            </sub>
+                          </p>
+                        </span>
+                      );
+                    })}
+                  </span>
+                  <span className="tuning-card-label">
+                    {`${instrument.name}: ${instrument.standard.name}`}
                   </span>
                 </button>
               </div>
 
+              {/* instrument categories */}
               {instrument.categories.map((category) => (
                 <div key={category.name}>
-                  <Accordion>
+                  <Accordion
+                    classNames={{
+                      control: "accordion",
+                      content: "accordion-content",
+                    }}
+                  >
                     <AccordionItem key={category.name} value={category.name}>
                       <Accordion.Control>{category.name}</Accordion.Control>
                       <Accordion.Panel>
+                        {/* category tunings */}
                         {category.tunings.map((tuning) => (
                           <div key={tuning.name}>
-                            <div className="instrument-button-wrapper">
+                            <div
+                              className={`tuning-card-wrapper ${
+                                currentTuning === tuning ? "active" : ""
+                              }`}
+                            >
                               <button
-                                className="instrument-button"
+                                className="tuning-card"
                                 onClick={() => {
                                   setInstrumentFamilyIndex(displayIndex);
                                   setInstrumentIndex(i);
@@ -111,9 +148,31 @@ export default function TuningMenu({
                                   setShowMenu(false);
                                 }}
                               >
-                                <span className="instrument-button-icon"></span>
-                                <span className="instrument-button-label">
-                                  {`${tuning.name}: ${tuning.notes.join("-")}`}
+                                <span className="tuning-card-notes-wrapper">
+                                  {tuning.notes.map((note, note_i) => {
+                                    const base = note.charAt(0);
+                                    const sub = note.slice(1);
+                                    return (
+                                      <span
+                                        key={note_i}
+                                        className="tuning-note-wrapper"
+                                      >
+                                        <p className="tuning-note">
+                                          {base}
+                                          <sub
+                                            className={`note-sub ${
+                                              note.length > 2 ? "small" : ""
+                                            }`}
+                                          >
+                                            {sub}
+                                          </sub>
+                                        </p>
+                                      </span>
+                                    );
+                                  })}
+                                </span>
+                                <span className="tuning-card-label">
+                                  {`${instrument.name}: ${tuning.name}`}
                                 </span>
                               </button>
                             </div>

@@ -71,6 +71,7 @@ export default function InstrumentTuner() {
         </div>
         <TuningMenu
           instruments={instruments}
+          currentTuning={tuning}
           setInstrumentFamilyIndex={setInstrumentFamilyIndex}
           setInstrumentIndex={setInstrumentIndex}
           setTuning={setTuning}
