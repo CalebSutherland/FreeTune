@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  padding: 0;
+  padding: 0.2rem 0;
   text-align: left;
   cursor: pointer;
 }
@@ -27,30 +27,35 @@
 
 .tuning-card-notes-wrapper {
   display: flex;
+  flex-wrap: wrap;
+  max-width: calc((1.1rem + 0.2rem) * 6); /* spacing for 6 notes */
 }
 
 .tuning-note-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-inline: 0.1rem;
-  border: 1.75px solid var(--text-color);
+  margin: 0.1rem;
+  background-color: var(--accent-color);
+  color: white;
   border-radius: 0.2rem;
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
-.tuning-note {
-  font-size: 0.65rem;
+  width: 1.1rem;
+  height: 1.1rem;
   font-weight: 600;
 }
 
-.note-sub {
-  vertical-align: bottom;
+.tuning-note-text-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 
-.note-sub.small {
-  font-size: 0.48rem;
+.tuning-note {
+  font-size: 0.55rem;
+}
+
+.note-sub {
+  font-size: 0.4rem;
 }
 
 .active-icon-wrapper {

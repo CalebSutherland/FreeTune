@@ -39,12 +39,10 @@ export default function TuningCard({
           const sub = note.slice(1);
           return (
             <span key={note_i} className="tuning-note-wrapper">
-              <p className="tuning-note">
-                {base}
-                <sub className={`note-sub ${note.length > 2 ? "small" : ""}`}>
-                  {sub}
-                </sub>
-              </p>
+              <div className="tuning-note-text-wrapper">
+                <p className="tuning-note">{base}</p>
+                <span className="note-sub">{sub}</span>
+              </div>
             </span>
           );
         })}

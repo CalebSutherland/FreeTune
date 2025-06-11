@@ -19,8 +19,6 @@ export default function InstrumentTuner() {
   const [tuning, setTuning] = useState(current_instrument.standard);
   const [showMenu, setShowMenu] = useState(false);
 
-  console.log(instruments);
-
   return (
     <div className="tuner-app-wrapper">
       {/* Tuner View */}
