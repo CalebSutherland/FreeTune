@@ -79,6 +79,10 @@
   min-height: 3rem;
 }
 
+.instrument-list-header h3 {
+  padding: 0;
+}
+
 .instrument-list-title {
   position: absolute;
   left: 50%;

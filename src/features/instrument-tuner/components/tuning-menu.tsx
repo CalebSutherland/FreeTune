@@ -5,7 +5,7 @@ import { Button, Accordion, AccordionItem } from "@mantine/core";
 import { MdChevronRight } from "react-icons/md";
 import { FaChevronLeft } from "react-icons/fa6";
 import "./tuning-menu.css";
-import TuningCard from "./tuning-card";
+import TuningCard from "./ui/tuning-card";
 
 interface TuningMenuProps {
   instruments: InstrumentFamily[];

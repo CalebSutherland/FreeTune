@@ -72,13 +72,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
             to={paths.app.home.getHref()}
           >
             <div className="header-element">
-              <Button
-                classNames={{ root: "header-button" }}
-                size={"xs"}
-                variant="transparent"
-              >
-                Home
-              </Button>
+              <p>Home</p>
             </div>
           </NavLink>
         </div>
@@ -98,22 +92,18 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
                     closeDelay={400}
                     shadow="xs"
                     width={200}
-                    position="bottom-start"
-                    offset={18}
+                    position="bottom"
+                    offset={10}
                     classNames={{
                       dropdown: "tools-menu",
                       item: "tools-menu-item",
                     }}
                   >
                     <Menu.Target>
-                      <Button
-                        classNames={{ root: "header-button" }}
-                        size={"xs"}
-                        variant="transparent"
-                        rightSection={<FaChevronDown size={12} />}
-                      >
-                        Tools
-                      </Button>
+                      <div className="tools-header-element">
+                        <p>Tools</p>
+                        <FaChevronDown size={12} />
+                      </div>
                     </Menu.Target>
                     <Menu.Dropdown>
                       {tools_navigation.map((item) => (
@@ -147,13 +137,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
                 onClick={closeSidebar}
               >
                 <div className="header-element">
-                  <Button
-                    classNames={{ root: "header-button" }}
-                    size={"xs"}
-                    variant="transparent"
-                  >
-                    Resources
-                  </Button>
+                  <p>Resources</p>
                 </div>
               </NavLink>
             </li>
@@ -199,11 +183,9 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
             className="header-link"
             to={paths.auth.login.getHref()}
           >
-            <div className="header-element">
-              <Button classNames={{ root: "login-button" }} variant="filled">
-                Sign In
-              </Button>
-            </div>
+            <Button classNames={{ root: "login-button" }} variant="filled">
+              Sign In
+            </Button>
           </NavLink>
         </div>
         <div className="header-element icon">

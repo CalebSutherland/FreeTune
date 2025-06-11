@@ -1,4 +1,4 @@
-import type { Tuning } from "../types/types";
+import type { Tuning } from "../../types/types";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import "./tuning-card.css";
 

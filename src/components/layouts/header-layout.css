@@ -60,23 +60,36 @@ nav li {
   margin-right: 1rem;
 }
 
+.header-element {
+  padding: 0 0.85rem;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .header-element:hover {
   background-color: var(--hover-color);
   transition: background-color 0.3s;
 }
+.theme-switcher:hover {
+  background-color: var(--hover-color);
+}
 
+.header-element.icon {
+  padding: 0;
+}
 .header-element.icon:hover {
-  background-color: var(--primary-color);
+  background-color: transparent;
 }
 
-.header-button {
-  color: var(--text-color);
-  font-size: 1rem;
-  font-weight: 600;
+.tools-header-element {
+  display: flex;
+  align-items: center;
 }
 
-.header-button:hover {
-  color: var(--text-color);
+.tools-header-element p {
+  margin-right: 0.8rem;
 }
 
 .tools-menu {
