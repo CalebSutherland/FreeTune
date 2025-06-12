@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import data from "../../data/tuning-data.json";
+import { useTuner } from "@/hooks/useTuner";
 import type { InstrumentFamily } from "../../types/types";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
@@ -19,6 +20,33 @@ export default function InstrumentTuner() {
 
   const [tuning, setTuning] = useState(current_instrument.standard);
   const [showMenu, setShowMenu] = useState(false);
+
+  const { pitch, clarity, isListening, start, stop } = useTuner();
+
+  const getNoteName = (frequency: number | null) => {
+    if (!frequency) return "No note detected";
+
+    const noteStrings = [
+      "C",
+      "C♯",
+      "D",
+      "D♯",
+      "E",
+      "F",
+      "F♯",
+      "G",
+      "G♯",
+      "A",
+      "A♯",
+      "B",
+    ];
+    const noteNumber = 12 * (Math.log(frequency / 440) / Math.log(2));
+    const roundedNote = Math.round(noteNumber) + 69;
+    const noteIndex = roundedNote % 12;
+    const octave = Math.floor(roundedNote / 12) - 1;
+
+    return `${noteStrings[noteIndex]}${octave}`;
+  };
 
   return (
     <div className="tuner-app-wrapper">
@@ -50,7 +78,16 @@ export default function InstrumentTuner() {
 
         <div className="tuner-app-content">
           <div className="visual-wrapper">
-            <p>visual</p>
+            <div>
+              <button onClick={isListening ? stop : start}>
+                {isListening ? "Stop Tuner" : "Start Tuner"}
+              </button>
+              <div>
+                <h2>Note: {getNoteName(pitch)}</h2>
+                <h3>Frequency: {pitch ? pitch.toFixed(2) + " Hz" : "N/A"}</h3>
+                <h3>Clarity: {clarity.toFixed(2)}</h3>
+              </div>
+            </div>
           </div>
           <div className="notes-display-wrapper">
             <NotesDisplay instrument={current_instrument} tuning={tuning} />
