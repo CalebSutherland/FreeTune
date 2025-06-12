@@ -5,7 +5,7 @@
       {
         "name": "Guitar 6-string",
         "img": "/images/guitar6.png",
-        "string_count": 6,
+        "left_string_count": 3,
         "standard": {
           "name": "Standard",
           "notes": ["E2", "A2", "D3", "G3", "B3", "E4"]
@@ -31,8 +31,8 @@
                 "notes": ["D2", "A2", "D3", "D3", "A3", "D4"]
               },
               {
-                "name": "Drop C#",
-                "notes": ["C#2", "G#2", "C#3", "F#3", "A#3", "D#4"]
+                "name": "Drop C♯",
+                "notes": ["C♯2", "G♯2", "C♯3", "F♯3", "A♯3", "D♯4"]
               },
               {
                 "name": "Drop C",
@@ -40,11 +40,11 @@
               },
               {
                 "name": "Drop B",
-                "notes": ["B1", "F#2", "B2", "E3", "G#3", "C#4"]
+                "notes": ["B1", "F♯2", "B2", "E3", "G♯3", "C♯4"]
               },
               {
                 "name": "Drop A",
-                "notes": ["A1", "E2", "A2", "D3", "F#3", "B3"]
+                "notes": ["A1", "E2", "A2", "D3", "F♯3", "B3"]
               }
             ]
           },
@@ -57,7 +57,7 @@
               },
               {
                 "name": "Open E",
-                "notes": ["E2", "B2", "E3", "G#3", "B3", "E4"]
+                "notes": ["E2", "B2", "E3", "G♯3", "B3", "E4"]
               },
               {
                 "name": "Open F",
@@ -69,11 +69,11 @@
               },
               {
                 "name": "Open A",
-                "notes": ["E2", "A2", "C#3", "E3", "A3", "E4"]
+                "notes": ["E2", "A2", "C♯3", "E3", "A3", "E4"]
               },
               {
                 "name": "Open A 2",
-                "notes": ["E2", "A2", "E3", "A3", "C#4", "E4"]
+                "notes": ["E2", "A2", "E3", "A3", "C♯4", "E4"]
               },
               {
                 "name": "Open Am",
@@ -85,7 +85,7 @@
               },
               {
                 "name": "Open D",
-                "notes": ["D2", "A2", "D3", "F#3", "A3", "D4"]
+                "notes": ["D2", "A2", "D3", "F♯3", "A3", "D4"]
               },
               {
                 "name": "Open Dm",
@@ -98,7 +98,7 @@
             "tunings": [
               {
                 "name": "-1",
-                "notes": ["D#2", "G#2", "C#3", "F#3", "A#3", "D#4"]
+                "notes": ["D♯2", "G♯2", "C♯3", "F♯3", "A♯3", "D♯4"]
               },
               {
                 "name": "-2",
@@ -106,11 +106,11 @@
               },
               {
                 "name": "+1",
-                "notes": ["F2", "A#2", "D#3", "G#3", "C4", "F4"]
+                "notes": ["F2", "A♯2", "D♯3", "G♯3", "C4", "F4"]
               },
               {
                 "name": "+2",
-                "notes": ["F#2", "B2", "E3", "A3", "C#4", "F#4"]
+                "notes": ["F♯2", "B2", "E3", "A3", "C♯4", "F♯4"]
               },
               {
                 "name": "G modal",
@@ -131,7 +131,7 @@
       {
         "name": "Guitar 7-string",
         "img": "/images/guitar7.png",
-        "string_count": 7,
+        "left_string_count": 3,
         "standard": {
           "name": "Standard",
           "notes": ["B1", "E2", "A2", "D3", "G3", "B3", "E4"]
@@ -164,7 +164,7 @@
       {
         "name": "Bass 4-string",
         "img": "/images/bass4.png",
-        "string_count": 4,
+        "left_string_count": 2,
         "standard": {
           "name": "Standard",
           "notes": ["E1", "A1", "D2", "G2"]
@@ -179,7 +179,7 @@
               },
               {
                 "name": "E flat",
-                "notes": ["D#1", "G#1", "C#2", "F#2"]
+                "notes": ["D♯1", "G♯1", "C♯2", "F♯2"]
               },
               {
                 "name": "Drop C",
@@ -200,7 +200,7 @@
       {
         "name": "Bass 5-string",
         "img": "/images/bass5.png",
-        "string_count": 5,
+        "left_string_count": 3,
         "standard": {
           "name": "Standard",
           "notes": ["B0", "E1", "A1", "D2", "G2"]
@@ -211,7 +211,7 @@
             "tunings": [
               {
                 "name": "Low B flat",
-                "notes": ["A#0", "D#1", "G#1", "C#2", "F#2"]
+                "notes": ["A♯0", "D♯1", "G♯1", "C♯2", "F♯2"]
               },
               {
                 "name": "Low A",
@@ -233,7 +233,7 @@
       {
         "name": "Ukulele",
         "img": "/images/ukulele.png",
-        "string_count": 4,
+        "left_string_count": 2,
         "standard": {
           "name": "Standard",
           "notes": ["G4", "C4", "E4", "A4"]
@@ -244,7 +244,7 @@
             "tunings": [
               {
                 "name": "Soprano in D",
-                "notes": ["A4", "D4", "F#4", "B4"]
+                "notes": ["A4", "D4", "F♯4", "B4"]
               },
               {
                 "name": "Low G",
@@ -252,7 +252,7 @@
               },
               {
                 "name": "Low A",
-                "notes": ["A3", "D4", "F#4", "B4"]
+                "notes": ["A3", "D4", "F♯4", "B4"]
               },
               {
                 "name": "Slack key",
@@ -260,11 +260,11 @@
               },
               {
                 "name": "B tuning (-1)",
-                "notes": ["F#4", "B3", "D#4", "G#4"]
+                "notes": ["F♯4", "B3", "D♯4", "G♯4"]
               },
               {
-                "name": "C# tuning (+1)",
-                "notes": ["G#4", "C#4", "F4", "A#4"]
+                "name": "C♯ tuning (+1)",
+                "notes": ["G♯4", "C♯4", "F4", "A♯4"]
               }
             ]
           }
@@ -278,7 +278,7 @@
       {
         "name": "Violin",
         "img": "/images/violin.png",
-        "string_count": 4,
+        "left_string_count": 2,
         "standard": {
           "name": "Standard",
           "notes": ["G3", "D4", "A4", "E5"]
@@ -288,7 +288,7 @@
       {
         "name": "Viola",
         "img": "/images/viola.png",
-        "string_count": 4,
+        "left_string_count": 2,
         "standard": {
           "name": "Standard",
           "notes": ["C3", "G3", "D4", "A4"]
@@ -298,7 +298,7 @@
       {
         "name": "Cello",
         "img": "/images/cello.png",
-        "string_count": 4,
+        "left_string_count": 2,
         "standard": {
           "name": "Standard",
           "notes": ["C2", "G2", "D3", "A3"]
@@ -308,7 +308,7 @@
       {
         "name": "Fiddle",
         "img": "/images/fiddle.png",
-        "string_count": 4,
+        "left_string_count": 2,
         "standard": {
           "name": "Standard",
           "notes": ["G3", "D4", "A4", "E5"]
@@ -347,7 +347,7 @@
               },
               {
                 "name": "Calico",
-                "notes": ["A3", "E4", "A4", "C#5"]
+                "notes": ["A3", "E4", "A4", "C♯5"]
               }
             ]
           }

@@ -1,4 +1,4 @@
-import InstrumentTuner from "@/features/instrument-tuner/components/tuner";
+import InstrumentTuner from "@/features/instrument-tuner/components/tuner/tuner";
 import "./home.css";
 
 export default function Home() {

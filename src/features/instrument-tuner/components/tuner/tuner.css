@@ -21,8 +21,8 @@
 .tuner-app-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
   min-height: 400px;
 }
 
@@ -92,4 +92,10 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.visual-wrapper {
+  width: 100%;
+  min-height: 300px;
+  background-color: grey;
 }

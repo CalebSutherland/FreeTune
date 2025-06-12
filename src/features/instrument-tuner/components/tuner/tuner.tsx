@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-import data from "../data/tuning-data.json";
-import type { InstrumentFamily } from "../types/types";
+import data from "../../data/tuning-data.json";
+import type { InstrumentFamily } from "../../types/types";
 import TuningMenu from "./tuning-menu";
+import NotesDisplay from "./notes-display";
 import { Button, Switch } from "@mantine/core";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./tuner.css";
@@ -48,8 +49,12 @@ export default function InstrumentTuner() {
         </div>
 
         <div className="tuner-app-content">
-          <p>Tuner app</p>
-          <p>{tuning.notes.join("-")}</p>
+          <div className="visual-wrapper">
+            <p>visual</p>
+          </div>
+          <div className="notes-display-wrapper">
+            <NotesDisplay instrument={current_instrument} tuning={tuning} />
+          </div>
         </div>
       </div>
 

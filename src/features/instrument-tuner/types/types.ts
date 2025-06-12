@@ -11,7 +11,7 @@ export type Category = {
 export type Instrument = {
   name: string;
   img: string;
-  string_count: number;
+  left_string_count: number;
   standard: Tuning;
   categories: Category[];
 };
