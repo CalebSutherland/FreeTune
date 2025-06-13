@@ -9,12 +9,17 @@ export function useTuner() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const sourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
-  const rafIdRef = useRef<number | null>(null);
+  const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
 
   const bufferSize = 2048;
   const pitchDetectorRef = useRef<InstanceType<typeof PitchDetector> | null>(
     null
   );
+
+  const minVolumeDecibels = -40;
+  const minClarityPercent = 95;
+  const minPitch = 30;
+  const maxPitch = 10000;
 
   const start = async () => {
     if (isListening) return;
@@ -33,15 +38,18 @@ export function useTuner() {
     source.connect(analyser);
 
     const detector = PitchDetector.forFloat32Array(bufferSize);
+    detector.minVolumeDecibels = minVolumeDecibels;
     pitchDetectorRef.current = detector;
 
     setIsListening(true);
-    detectPitch();
+    intervalIdRef.current = setInterval(() => {
+      detectPitch();
+    }, 50);
   };
 
   const stop = () => {
-    if (rafIdRef.current) {
-      cancelAnimationFrame(rafIdRef.current);
+    if (intervalIdRef.current) {
+      clearInterval(intervalIdRef.current);
     }
 
     if (audioContextRef.current && audioContextRef.current.state !== "closed") {
@@ -69,17 +77,24 @@ export function useTuner() {
       audioContextRef.current.sampleRate
     );
 
-    if (detectedClarity > 0.9) {
-      // Adjust this threshold as needed
+    const clarityPercent = detectedClarity * 100;
+
+    if (
+      clarityPercent >= minClarityPercent &&
+      detectedPitch >= minPitch &&
+      detectedPitch <= maxPitch
+    ) {
       setPitch(detectedPitch);
       setClarity(detectedClarity);
+    } else {
+      // No valid pitch detected in current frame
+      setPitch(null);
+      setClarity(detectedClarity);
     }
-
-    rafIdRef.current = requestAnimationFrame(detectPitch);
   };
 
   useEffect(() => {
-    return () => stop(); // Clean up on unmount
+    return () => stop();
   }, []);
 
   return { pitch, clarity, isListening, start, stop };

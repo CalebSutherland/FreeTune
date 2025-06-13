@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import data from "../../data/tuning-data.json";
 import { useTuner } from "@/hooks/useTuner";
@@ -24,14 +24,41 @@ export default function InstrumentTuner() {
 
   const [showMenu, setShowMenu] = useState(false);
 
+  const [displayPitch, setDisplayPitch] = useState<number | null>(null);
+  const disappearanceTimeout = useRef<NodeJS.Timeout | null>(null);
+
   const { pitch, clarity, isListening, start, stop } = useTuner();
 
   useEffect(() => {
-    if (autoMode && pitch) {
-      const closestNote = getClosestNote(pitch, tuning.notes);
-      setTargetNote(closestNote);
+    if (pitch && clarity > 0.95) {
+      // If a valid pitch is detected, show it immediately and clear any timeout
+      if (disappearanceTimeout.current) {
+        clearTimeout(disappearanceTimeout.current);
+        disappearanceTimeout.current = null;
+      }
+      setDisplayPitch(pitch);
+    } else {
+      // If no valid pitch is detected, start the 500ms timer
+      if (!disappearanceTimeout.current) {
+        disappearanceTimeout.current = setTimeout(() => {
+          setDisplayPitch(null);
+          if (autoMode) {
+            setTargetNote(null);
+          }
+          disappearanceTimeout.current = null;
+        }, 500);
+      }
     }
-  }, [pitch, autoMode, tuning.notes]);
+  }, [pitch, clarity]);
+
+  useEffect(() => {
+    if (autoMode && pitch && clarity > 0.95) {
+      const closestNote = getClosestNote(pitch, tuning.notes);
+      if (closestNote !== targetNote) {
+        setTargetNote(closestNote);
+      }
+    }
+  }, [pitch, clarity, autoMode, tuning.notes, targetNote]);
 
   return (
     <div className="tuner-app-wrapper">
@@ -75,9 +102,12 @@ export default function InstrumentTuner() {
                 {isListening ? "Stop Tuner" : "Start Tuner"}
               </button>
               <div>
-                <h2>Note: {getNoteName(pitch)}</h2>
+                <h2>Note: {getNoteName(displayPitch)}</h2>
                 <h3>Target Note: {targetNote ?? "None"}</h3>
-                <h3>Frequency: {pitch ? pitch.toFixed(2) + " Hz" : "N/A"}</h3>
+                <h3>
+                  Frequency:{" "}
+                  {displayPitch ? displayPitch.toFixed(2) + " Hz" : "N/A"}
+                </h3>
                 <h3>Clarity: {clarity.toFixed(2)}</h3>
               </div>
             </div>
