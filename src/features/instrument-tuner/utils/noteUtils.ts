@@ -23,7 +23,8 @@ export const getNoteName = (frequency: number | null) => {
   return `${noteStrings[noteIndex]}${octave}`;
 };
 
-export const getFrequencyFromNote = (noteName: string) => {
+export const getFrequencyFromNote = (noteName: string | null) => {
+  if (!noteName) return null;
   const noteStrings = [
     "C",
     "C♯",
@@ -38,7 +39,7 @@ export const getFrequencyFromNote = (noteName: string) => {
     "A♯",
     "B",
   ];
-  const regex = /^([A-G]#?)(-?\d+)$/;
+  const regex = /^([A-G]♯?)(-?\d+)$/;
   const match = noteName.match(regex);
 
   if (!match) return null;

@@ -10,6 +10,8 @@ import TuningCard from "../ui/tuning-card";
 interface TuningMenuProps {
   instruments: InstrumentFamily[];
   currentTuning: Tuning;
+  autoMode: boolean;
+  setTarget: React.Dispatch<React.SetStateAction<string | null>>;
   setInstrumentFamilyIndex: React.Dispatch<React.SetStateAction<number>>;
   setInstrumentIndex: React.Dispatch<React.SetStateAction<number>>;
   setTuning: React.Dispatch<React.SetStateAction<Tuning>>;
@@ -19,6 +21,8 @@ interface TuningMenuProps {
 export default function TuningMenu({
   instruments,
   currentTuning,
+  autoMode,
+  setTarget,
   setInstrumentFamilyIndex,
   setInstrumentIndex,
   setTuning,
@@ -32,6 +36,9 @@ export default function TuningMenu({
     instrument: number,
     tuning: Tuning
   ) {
+    if (!autoMode) {
+      setTarget(tuning.notes[0]); // Set target to the first note of the tuning
+    }
     setInstrumentFamilyIndex(display);
     setInstrumentIndex(instrument);
     setTuning(tuning);

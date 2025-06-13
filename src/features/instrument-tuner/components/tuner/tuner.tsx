@@ -6,6 +6,7 @@ import type { InstrumentFamily } from "../../types/types";
 import { getNoteName, getClosestNote } from "../../utils/noteUtils";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
+import TunerStats from "./tuner-stats";
 import { Button, Switch } from "@mantine/core";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./tuner.css";
@@ -33,14 +34,12 @@ export default function InstrumentTuner() {
 
   useEffect(() => {
     if (pitch && clarity > 0.95) {
-      // If a valid pitch is detected, show it immediately and clear any timeout
       if (disappearanceTimeout.current) {
         clearTimeout(disappearanceTimeout.current);
         disappearanceTimeout.current = null;
       }
       setDisplayPitch(pitch);
     } else {
-      // If no valid pitch is detected, start the 500ms timer
       if (!disappearanceTimeout.current) {
         disappearanceTimeout.current = setTimeout(() => {
           setDisplayPitch(null);
@@ -89,6 +88,9 @@ export default function InstrumentTuner() {
                 if (!isAuto && tuning.notes.length > 0) {
                   setTargetNote(tuning.notes[0]);
                 }
+                if (isAuto) {
+                  setTargetNote(null);
+                }
               }}
               color="teal"
               withThumbIndicator={false}
@@ -103,15 +105,6 @@ export default function InstrumentTuner() {
               <button onClick={isListening ? stop : start}>
                 {isListening ? "Stop Tuner" : "Start Tuner"}
               </button>
-              <div>
-                <h2>Note: {getNoteName(displayPitch)}</h2>
-                <h3>Target Note: {targetNote ?? "None"}</h3>
-                <h3>
-                  Frequency:{" "}
-                  {displayPitch ? displayPitch.toFixed(2) + " Hz" : "N/A"}
-                </h3>
-                <h3>Clarity: {clarity.toFixed(2)}</h3>
-              </div>
             </div>
           </div>
 
@@ -123,6 +116,14 @@ export default function InstrumentTuner() {
               setTarget={setTargetNote}
               autoMode={autoMode}
               setAutoMode={setAutoMode}
+            />
+          </div>
+          <div className="tuner-stats-wrapper">
+            <TunerStats
+              pitch={displayPitch}
+              clarity={clarity}
+              isListening={isListening}
+              target={targetNote}
             />
           </div>
         </div>
@@ -150,6 +151,8 @@ export default function InstrumentTuner() {
           setInstrumentIndex={setInstrumentIndex}
           setTuning={setTuning}
           setShowMenu={setShowMenu}
+          autoMode={autoMode}
+          setTarget={setTargetNote}
         />
       </div>
     </div>

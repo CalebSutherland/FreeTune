@@ -96,6 +96,11 @@
 
 .visual-wrapper {
   width: 100%;
-  min-height: 300px;
+  min-height: 200px;
   background-color: grey;
+}
+
+.tuner-stats-wrapper {
+  width: 100%;
+  display: flex;
 }

@@ -1,0 +1,17 @@
+.stats-accordion-control {
+  background: var(--primary-color);
+  color: var(--text-color);
+  width: auto;
+}
+
+.stats-accordion-control:hover {
+  background: var(--primary-color);
+}
+
+.stats-accordion-item {
+  border: none;
+}
+
+.stats-accordion-label {
+  padding-right: 0.5rem;
+}
