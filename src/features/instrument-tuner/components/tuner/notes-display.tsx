@@ -1,5 +1,4 @@
 import type { Instrument, Tuning } from "../../types/types";
-import { getFrequencyFromNote } from "../../utils/noteUtils";
 import NoteButton from "../ui/note-button";
 import guitarImage from "../../assets/guitar6.png";
 import "./notes-display.css";
