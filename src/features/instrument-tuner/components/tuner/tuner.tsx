@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import data from "../../data/tuning-data.json";
 import { useTuner } from "@/hooks/useTuner";
 import type { InstrumentFamily } from "../../types/types";
-import { getNoteName, getClosestNote } from "../../utils/noteUtils";
+import { getClosestNote } from "../../utils/noteUtils";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
