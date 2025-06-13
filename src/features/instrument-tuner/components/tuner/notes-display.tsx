@@ -1,27 +1,44 @@
 import type { Instrument, Tuning } from "../../types/types";
+import { getFrequencyFromNote } from "../../utils/noteUtils";
 import NoteButton from "../ui/note-button";
 import guitarImage from "../../assets/guitar6.png";
 import "./notes-display.css";
+import type React from "react";
 
 interface NotesDisplayProps {
   instrument: Instrument;
   tuning: Tuning;
+  target: string | null;
+  setTarget: React.Dispatch<React.SetStateAction<string | null>>;
+  autoMode: boolean;
+  setAutoMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function NotesDisplay({
   instrument,
   tuning,
+  target,
+  setTarget,
+  autoMode,
+  setAutoMode,
 }: NotesDisplayProps) {
   const leftNotes = tuning.notes
     .slice(0, instrument.left_string_count)
     .reverse();
   const rightNotes = tuning.notes.slice(instrument.left_string_count);
+
   return (
     <div className="notes-display">
       <div className="notes-column">
         {leftNotes.map((note) => (
           <div key={note}>
-            <NoteButton note={note} />
+            <NoteButton
+              note={note}
+              target={target}
+              setTarget={setTarget}
+              autoMode={autoMode}
+              setAutoMode={setAutoMode}
+            />
           </div>
         ))}
       </div>
@@ -31,7 +48,13 @@ export default function NotesDisplay({
       <div className="notes-column">
         {rightNotes.map((note) => (
           <div key={note}>
-            <NoteButton note={note} />
+            <NoteButton
+              note={note}
+              target={target}
+              setTarget={setTarget}
+              autoMode={autoMode}
+              setAutoMode={setAutoMode}
+            />
           </div>
         ))}
       </div>

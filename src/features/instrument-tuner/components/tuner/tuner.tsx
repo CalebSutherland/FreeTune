@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import data from "../../data/tuning-data.json";
 import { useTuner } from "@/hooks/useTuner";
 import type { InstrumentFamily } from "../../types/types";
+import { getNoteName, getClosestNote } from "../../utils/noteUtils";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import { Button, Switch } from "@mantine/core";
@@ -14,39 +15,23 @@ const instruments = data as InstrumentFamily[];
 export default function InstrumentTuner() {
   const [instrumentFamilyIndex, setInstrumentFamilyIndex] = useState(0);
   const [instrumentIndex, setInstrumentIndex] = useState(0);
-
   const current_instrument =
     instruments[instrumentFamilyIndex].instruments[instrumentIndex];
 
   const [tuning, setTuning] = useState(current_instrument.standard);
+  const [targetNote, setTargetNote] = useState<string | null>(null);
+  const [autoMode, setAutoMode] = useState(true);
+
   const [showMenu, setShowMenu] = useState(false);
 
   const { pitch, clarity, isListening, start, stop } = useTuner();
 
-  const getNoteName = (frequency: number | null) => {
-    if (!frequency) return "No note detected";
-
-    const noteStrings = [
-      "C",
-      "C♯",
-      "D",
-      "D♯",
-      "E",
-      "F",
-      "F♯",
-      "G",
-      "G♯",
-      "A",
-      "A♯",
-      "B",
-    ];
-    const noteNumber = 12 * (Math.log(frequency / 440) / Math.log(2));
-    const roundedNote = Math.round(noteNumber) + 69;
-    const noteIndex = roundedNote % 12;
-    const octave = Math.floor(roundedNote / 12) - 1;
-
-    return `${noteStrings[noteIndex]}${octave}`;
-  };
+  useEffect(() => {
+    if (autoMode && pitch) {
+      const closestNote = getClosestNote(pitch, tuning.notes);
+      setTargetNote(closestNote);
+    }
+  }, [pitch, autoMode, tuning.notes]);
 
   return (
     <div className="tuner-app-wrapper">
@@ -68,7 +53,14 @@ export default function InstrumentTuner() {
           <div className="auto-switch">
             <p>AUTO</p>
             <Switch
-              defaultChecked
+              checked={autoMode}
+              onChange={(event) => {
+                const isAuto = event.currentTarget.checked;
+                setAutoMode(isAuto);
+                if (!isAuto && tuning.notes.length > 0) {
+                  setTargetNote(tuning.notes[0]);
+                }
+              }}
               color="teal"
               withThumbIndicator={false}
               size="md"
@@ -84,13 +76,22 @@ export default function InstrumentTuner() {
               </button>
               <div>
                 <h2>Note: {getNoteName(pitch)}</h2>
+                <h3>Target Note: {targetNote ?? "None"}</h3>
                 <h3>Frequency: {pitch ? pitch.toFixed(2) + " Hz" : "N/A"}</h3>
                 <h3>Clarity: {clarity.toFixed(2)}</h3>
               </div>
             </div>
           </div>
+
           <div className="notes-display-wrapper">
-            <NotesDisplay instrument={current_instrument} tuning={tuning} />
+            <NotesDisplay
+              instrument={current_instrument}
+              tuning={tuning}
+              target={targetNote}
+              setTarget={setTargetNote}
+              autoMode={autoMode}
+              setAutoMode={setAutoMode}
+            />
           </div>
         </div>
       </div>

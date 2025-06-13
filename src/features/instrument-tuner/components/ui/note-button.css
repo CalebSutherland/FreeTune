@@ -8,6 +8,10 @@
   font-size: 0.8rem;
 }
 
+.note-button.active {
+  border: 2px solid var(--text-color);
+}
+
 .note-button:hover {
   background: var(--accent-hover-color);
 }
