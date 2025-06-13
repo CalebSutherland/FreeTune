@@ -25,7 +25,9 @@ export default function InstrumentTuner() {
   const [showMenu, setShowMenu] = useState(false);
 
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
-  const disappearanceTimeout = useRef<NodeJS.Timeout | null>(null);
+  const disappearanceTimeout = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
 
   const { pitch, clarity, isListening, start, stop } = useTuner();
 
