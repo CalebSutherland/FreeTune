@@ -9,6 +9,7 @@ import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
 import { Button, Switch } from "@mantine/core";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaGear } from "react-icons/fa6";
 import "./tuner.css";
 
 const instruments = data as InstrumentFamily[];
@@ -63,7 +64,6 @@ export default function InstrumentTuner() {
 
   return (
     <div className="tuner-app-wrapper">
-      {/* Tuner View */}
       <div className="tuner-view">
         <div className="tuner-app-header">
           <Button
@@ -100,14 +100,7 @@ export default function InstrumentTuner() {
         </div>
 
         <div className="tuner-app-content">
-          <div className="visual-wrapper">
-            <div>
-              <button onClick={isListening ? stop : start}>
-                {isListening ? "Stop Tuner" : "Start Tuner"}
-              </button>
-              Visual
-            </div>
-          </div>
+          <div className="visual-wrapper">Visual</div>
 
           <div className="notes-display-wrapper">
             <NotesDisplay
@@ -119,6 +112,9 @@ export default function InstrumentTuner() {
               setAutoMode={setAutoMode}
             />
           </div>
+        </div>
+
+        <div className="tuner-app-footer">
           <div className="tuner-stats-wrapper">
             <TunerStats
               pitch={displayPitch}
@@ -126,6 +122,20 @@ export default function InstrumentTuner() {
               isListening={isListening}
               target={targetNote}
             />
+          </div>
+          <div className="start-tuner-wrapper">
+            <Button
+              variant="filled"
+              color={isListening ? "red" : "teal"}
+              onClick={isListening ? stop : start}
+            >
+              {isListening ? "Stop Tuner" : "Start Tuner"}
+            </Button>
+          </div>
+          <div className="settings-wrapper">
+            <button className="settings-button">
+              <FaGear size={20} />
+            </button>
           </div>
         </div>
       </div>

@@ -1,17 +1,19 @@
 .note-button {
-  background: var(--accent-color);
-  color: white;
+  background: var(--note-btn);
+  color: var(--text-color);
   border-radius: 100%;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   padding: 0;
-  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-.note-button.active {
-  border: 2px solid var(--text-color);
+.note-button.active,
+.note-button.active:hover {
+  background: var(--note-btn-active);
+  color: var(--text-color-invert);
 }
 
 .note-button:hover {
-  background: var(--accent-hover-color);
+  background: var(--note-btn-hover);
 }

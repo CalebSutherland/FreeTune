@@ -25,7 +25,7 @@ export default function NoteButton({
         }
       }}
     >
-      {note}
+      {note.slice(0, note.length - 1)}
     </button>
   );
 }
