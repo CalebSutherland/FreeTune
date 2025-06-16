@@ -105,6 +105,7 @@ export default function InstrumentTuner() {
               <button onClick={isListening ? stop : start}>
                 {isListening ? "Stop Tuner" : "Start Tuner"}
               </button>
+              Visual
             </div>
           </div>
 

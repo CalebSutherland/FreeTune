@@ -15,7 +15,7 @@
         localStorage.getItem("theme")?.replace(/['"]+/g, "") || "dark";
       document.documentElement.classList.remove("dark-theme", "light-theme");
       document.documentElement.classList.add(`${savedTheme}-theme`);
-      const bgColor = savedTheme === "light" ? "white" : "black";
+      const bgColor = savedTheme === "light" ? "#e9eef3" : "#202225";
       const textColor = savedTheme === "light" ? "black" : "white";
       const tempStyle = document.createElement("style");
       tempStyle.id = "temp-theme-style";

@@ -13,23 +13,27 @@
   --accent-color: #1660c0;
   --accent-hover-color: #004ea0;
 
-  --primary-color: black;
+  --primary-color: #202225;
   --hover-color: rgb(40, 40, 40);
+  --secondary-color: #2f3136;
+  --secondary-hover-color: #202225;
+  --secondary-border-color: rgb(99, 99, 99);
   --text-color: white;
   --border-color: rgb(79, 79, 79);
-  --light-text-color: rgb(151, 151, 151);
-  --tools-active-color: rgb(27, 30, 59);
-  --tools-active-hover-color: rgb(36, 41, 82);
+  --light-text-color: rgb(170, 170, 170);
+  --tools-active-color: #37393f;
 }
 
 .light-theme {
-  --primary-color: white;
+  --primary-color: #e9eef3;
   --hover-color: rgb(240, 240, 240);
+  --secondary-color: white;
+  --secondary-hover-color: #e9eef3;
+  --secondary-border-color: lightgrey;
   --text-color: black;
   --border-color: rgb(177, 177, 177);
   --light-text-color: rgb(130, 130, 130);
-  --tools-active-color: aliceblue;
-  --tools-active-hover-color: rgb(223, 236, 247);
+  --tools-active-color: #e9f4ff;
 }
 
 * {
@@ -69,12 +73,12 @@ h1 {
 }
 
 button {
-  background: var(--primary-color);
+  background: var(--secondary-color);
   color: var(--text-color);
   padding: 1rem 2rem;
   border: none;
 }
 
 button:hover {
-  background: var(--hover-color);
+  background: var(--secondary-hover-color);
 }

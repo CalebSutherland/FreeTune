@@ -38,7 +38,7 @@ export default function TunerStats({
       }}
     >
       <Accordion.Item value="tuner-stats">
-        <Accordion.Control>Tuner Stats</Accordion.Control>
+        <Accordion.Control>Advanced Stats</Accordion.Control>
         <Accordion.Panel>
           <p>Target Note: {target ?? "None"}</p>
           <p>

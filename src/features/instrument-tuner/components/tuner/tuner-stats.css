@@ -1,11 +1,11 @@
 .stats-accordion-control {
-  background: var(--primary-color);
+  background: var(--secondary-color);
   color: var(--text-color);
   width: auto;
 }
 
 .stats-accordion-control:hover {
-  background: var(--primary-color);
+  background: var(--secondary-color);
 }
 
 .stats-accordion-item {

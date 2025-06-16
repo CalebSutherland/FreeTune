@@ -10,11 +10,9 @@
 
 .side-content {
   flex: 1 1 0;
-  outline: 2px dotted purple;
 }
 
 .main-content {
-  outline: 2px dotted blue;
   flex: 1.5 1 0;
 }
 
@@ -22,7 +20,6 @@
   display: flex;
   flex-direction: column;
   min-height: 200px;
-  outline: 2px dotted red;
 }
 
 .tools-wrapper h2 {

@@ -1,9 +1,10 @@
 .tuner-app-wrapper {
-  outline: 3px dotted yellow;
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
+  background: var(--secondary-color);
+  border-radius: 1rem;
 }
 
 .tuner-view {
@@ -59,7 +60,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   z-index: 10;
@@ -74,7 +75,7 @@
 }
 
 .tuning-menu-wrapper {
-  background: var(--primary-color);
+  background: var(--secondary-color);
   color: var(--text-color);
   padding: 0 1rem;
 }
@@ -84,7 +85,7 @@
   top: 0;
   display: flex;
   align-items: center;
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   min-height: 3rem;
 }
 
@@ -96,8 +97,6 @@
 
 .visual-wrapper {
   width: 100%;
-  min-height: 200px;
-  background-color: grey;
 }
 
 .tuner-stats-wrapper {
