@@ -3,7 +3,12 @@ import { useState, useEffect, useRef } from "react";
 import data from "../../data/tuning-data.json";
 import { useTuner } from "@/hooks/useTuner";
 import type { InstrumentFamily } from "../../types/types";
-import { getClosestNote } from "../../utils/noteUtils";
+import {
+  getClosestNote,
+  getFrequencyFromNote,
+  calculateCentsDifference,
+  calculateFrequencyDifference,
+} from "../../utils/noteUtils";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
@@ -33,12 +38,20 @@ export default function InstrumentTuner() {
 
   const { pitch, clarity, isListening, start, stop } = useTuner();
 
-  const [visual, setVisual] = useState("1");
+  const [visual, setVisual] = useState("graph");
   const visuals = [
-    { name: "1", icon: <FaGear size={20} /> },
+    { name: "graph", icon: <MdOutlineShowChart size={20} /> },
     { name: "2", icon: <FaGear size={20} /> },
-    { name: "3", icon: <MdOutlineShowChart size={20} /> },
+    { name: "3", icon: <FaGear size={20} /> },
   ];
+
+  const targetFreq = getFrequencyFromNote(targetNote);
+  const freqDifference = targetFreq
+    ? calculateFrequencyDifference(pitch, targetFreq)
+    : null;
+  const centsDifference = targetFreq
+    ? calculateCentsDifference(pitch, targetFreq)
+    : null;
 
   // Delay showing that there is no sound detected to avoid flickering
   useEffect(() => {
@@ -127,7 +140,11 @@ export default function InstrumentTuner() {
 
         <div className="tuner-app-content">
           <div className="visual-wrapper">
-            <Visual visual={visual} />
+            <Visual
+              visual={visual}
+              freqDifference={freqDifference}
+              centsDifference={centsDifference}
+            />
           </div>
 
           <div className="notes-display-wrapper">
@@ -149,6 +166,8 @@ export default function InstrumentTuner() {
               clarity={clarity}
               isListening={isListening}
               target={targetNote}
+              freqDifference={freqDifference}
+              centsDifference={centsDifference}
             />
           </div>
           <div className="start-tuner-wrapper">

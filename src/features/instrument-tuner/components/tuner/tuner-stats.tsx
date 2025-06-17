@@ -7,6 +7,8 @@ interface TunerStatsProps {
   clarity: number;
   isListening: boolean;
   target: string | null;
+  freqDifference: number | null;
+  centsDifference: number | null;
 }
 
 export default function TunerStats({
@@ -14,21 +16,9 @@ export default function TunerStats({
   clarity,
   isListening,
   target,
+  freqDifference,
+  centsDifference,
 }: TunerStatsProps) {
-  let freqDifference: string | null = null;
-  let centsDifference: string | null = null;
-
-  if (pitch && target) {
-    const targetFreq = getFrequencyFromNote(target);
-    if (targetFreq !== null && targetFreq !== undefined) {
-      freqDifference =
-        (pitch - targetFreq > 0 ? "+" : " ") + (pitch - targetFreq).toFixed(2);
-
-      const centsDiff = 1200 * Math.log2(pitch / targetFreq);
-      centsDifference = (centsDiff > 0 ? "+" : "") + centsDiff.toFixed(0);
-    }
-  }
-
   return (
     <Accordion
       classNames={{
@@ -49,9 +39,9 @@ export default function TunerStats({
           <p>Frequency: {pitch ? pitch.toFixed(2) + " Hz" : "N/A"}</p>
           <p>
             Frequency Difference:{" "}
-            {freqDifference ? freqDifference + " Hz" : "N/A"}
+            {freqDifference ? freqDifference.toFixed(2) + " Hz" : "N/A"}
           </p>
-          <p>Cents Difference: {centsDifference ?? "N/A"}</p>
+          <p>Cents Difference: {centsDifference?.toFixed(0) ?? "N/A"}</p>
           <p>Clarity: {clarity.toFixed(2)}</p>
           <p>Listening: {isListening ? "Listening" : "Not Listening"}</p>
         </Accordion.Panel>

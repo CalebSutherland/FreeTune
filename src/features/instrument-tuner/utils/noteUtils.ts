@@ -73,3 +73,23 @@ export const getClosestNote = (pitch: number, tuningNotes: string[]) => {
 
   return closestNote;
 };
+
+export function calculateFrequencyDifference(
+  pitch: number | null,
+  targetFreq: number | null
+) {
+  if (pitch === null || targetFreq === null) {
+    return null;
+  }
+  return pitch - targetFreq;
+}
+
+export function calculateCentsDifference(
+  pitch: number | null,
+  targetFreq: number | null
+) {
+  if (pitch === null || targetFreq === null) {
+    return null;
+  }
+  return 1200 * Math.log2(pitch / targetFreq);
+}
