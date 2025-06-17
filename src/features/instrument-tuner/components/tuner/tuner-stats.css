@@ -2,6 +2,7 @@
   background: var(--secondary-color);
   color: var(--text-color);
   width: auto;
+  font-size: 0.8rem;
 }
 
 .stats-accordion-control:hover {
@@ -10,6 +11,7 @@
 
 .stats-accordion-item {
   border: none;
+  font-size: 0.8rem;
 }
 
 .stats-accordion-label {

@@ -16,6 +16,7 @@
   --primary-color: #202225;
   --hover-color: #13181c;
   --secondary-color: #2f3136;
+  --secondary-color-invert: white;
   --secondary-hover-color: #202225;
   --secondary-border-color: rgb(99, 99, 99);
   --text-color: white;
@@ -32,6 +33,7 @@
   --primary-color: #e9eef3;
   --hover-color: #bdcfe2;
   --secondary-color: white;
+  --secondary-color-invert: #2f3136;
   --secondary-hover-color: #e9eef3;
   --secondary-border-color: lightgrey;
   --text-color: black;

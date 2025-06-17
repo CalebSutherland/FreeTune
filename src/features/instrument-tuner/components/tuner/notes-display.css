@@ -12,12 +12,9 @@
   gap: 0.5rem;
 }
 
-.img-wrapper {
-}
-
 .instrument-img {
   width: 100%;
   height: auto;
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 250px;
+  max-height: 250px;
 }

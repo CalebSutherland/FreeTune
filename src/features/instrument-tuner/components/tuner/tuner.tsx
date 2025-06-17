@@ -7,25 +7,25 @@ import { getClosestNote } from "../../utils/noteUtils";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
-import { Button, Switch } from "@mantine/core";
+import Visual from "./visual";
+import { Button, Switch, ActionIcon } from "@mantine/core";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
+import { MdOutlineShowChart } from "react-icons/md";
 import "./tuner.css";
 
 const instruments = data as InstrumentFamily[];
 
 export default function InstrumentTuner() {
+  const [showMenu, setShowMenu] = useState(false);
   const [instrumentFamilyIndex, setInstrumentFamilyIndex] = useState(0);
   const [instrumentIndex, setInstrumentIndex] = useState(0);
   const current_instrument =
     instruments[instrumentFamilyIndex].instruments[instrumentIndex];
-
   const [tuning, setTuning] = useState(current_instrument.standard);
+
   const [targetNote, setTargetNote] = useState<string | null>(null);
   const [autoMode, setAutoMode] = useState(true);
-
-  const [showMenu, setShowMenu] = useState(false);
-
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
   const disappearanceTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null
@@ -33,6 +33,14 @@ export default function InstrumentTuner() {
 
   const { pitch, clarity, isListening, start, stop } = useTuner();
 
+  const [visual, setVisual] = useState("1");
+  const visuals = [
+    { name: "1", icon: <FaGear size={20} /> },
+    { name: "2", icon: <FaGear size={20} /> },
+    { name: "3", icon: <MdOutlineShowChart size={20} /> },
+  ];
+
+  // Delay showing that there is no sound detected to avoid flickering
   useEffect(() => {
     if (pitch && clarity > 0.95) {
       if (disappearanceTimeout.current) {
@@ -53,6 +61,7 @@ export default function InstrumentTuner() {
     }
   }, [pitch, clarity]);
 
+  // Update target note based on pitch and tuning if auto mode is on
   useEffect(() => {
     if (autoMode && pitch && clarity > 0.95) {
       const closestNote = getClosestNote(pitch, tuning.notes);
@@ -78,6 +87,23 @@ export default function InstrumentTuner() {
             <p>{current_instrument.name}</p>
             <p className="tuning-name">{tuning.name}</p>
           </Button>
+          <div className="visual-buttons">
+            <ActionIcon.Group>
+              {visuals.map((vis) => (
+                <ActionIcon
+                  key={vis.name}
+                  className={`visual-icon ${
+                    visual === vis.name ? "active" : ""
+                  }`}
+                  variant="outline"
+                  size="md"
+                  onClick={() => setVisual(vis.name)}
+                >
+                  {vis.icon}
+                </ActionIcon>
+              ))}
+            </ActionIcon.Group>
+          </div>
           <div className="auto-switch">
             <p>AUTO</p>
             <Switch
@@ -100,7 +126,9 @@ export default function InstrumentTuner() {
         </div>
 
         <div className="tuner-app-content">
-          <div className="visual-wrapper">Visual</div>
+          <div className="visual-wrapper">
+            <Visual visual={visual} />
+          </div>
 
           <div className="notes-display-wrapper">
             <NotesDisplay
@@ -126,6 +154,7 @@ export default function InstrumentTuner() {
           <div className="start-tuner-wrapper">
             <Button
               variant="filled"
+              size="sm"
               color={isListening ? "red" : "teal"}
               onClick={isListening ? stop : start}
             >
