@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { getColorFromFreqDiff } from "../../utils/noteUtils";
+import { getColorFromFreqDiff } from "../../utils/visualUtils";
 import "./graph.css";
 
 interface GraphProps {

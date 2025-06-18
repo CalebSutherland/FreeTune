@@ -1,30 +1,21 @@
 import React, { useRef } from "react";
-import { getColorFromFreqDiff } from "../../utils/noteUtils";
+import {
+  getColorFromFreqDiff,
+  calculateNeedleRotation,
+} from "../../utils/visualUtils";
 import "./dial.css";
 
 interface DialProps {
   freqDifference: number | null;
-  centsDifference: number | null; // For future use
+  centsDifference: number | null;
 }
 
 export default function Dial({ freqDifference }: DialProps) {
   const dialRef = useRef<HTMLDivElement>(null);
-  const maxHz = 10; // Fixed max Hz difference for display
+  const maxHz = 10;
 
-  // Calculate needle rotation (-90 to +90 degrees) based on frequency difference
-  const calculateNeedleRotation = () => {
-    if (freqDifference === null) return 0;
-    // Clamp the frequency difference to the max range
-    const clampedHz = Math.max(Math.min(freqDifference, maxHz), -maxHz);
-    // Convert to degrees (-90 to +90)
-    return (clampedHz / maxHz) * 90;
-  };
-
-  const needleRotation = calculateNeedleRotation();
-  const currentColor = getColorFromFreqDiff(
-    freqDifference,
-    "var(--text-color)"
-  );
+  const needleRotation = calculateNeedleRotation(freqDifference, maxHz);
+  const currentColor = getColorFromFreqDiff(freqDifference, "#ff0000");
 
   // Generate tick marks on the arc
   const generateTicks = (): React.JSX.Element[] => {
@@ -52,17 +43,28 @@ export default function Dial({ freqDifference }: DialProps) {
         {/* Arc with tick marks */}
         <div className="dial-arc">{generateTicks()}</div>
 
+        {/* Sharp and Flat icons */}
+        <div className="sharp-icon">♯</div>
+        <div className="flat-icon">♭</div>
+
         {/* Needle */}
-        <div
+        <svg
           className="needle"
-          style={{
-            transform: `rotate(${needleRotation}deg)`,
-            borderTopColor: currentColor,
-          }}
-        />
+          style={{ transform: `rotate(${needleRotation}deg)` }}
+          width="20"
+          height="125"
+          viewBox="0 0 20 125"
+        >
+          <polygon points="10,0 15,125 5,125" fill={currentColor} />
+        </svg>
 
         {/* Center dot */}
-        <div className="center-dot" />
+        <div
+          className="center-dot"
+          style={{
+            background: currentColor,
+          }}
+        />
       </div>
 
       {/* Hz display */}

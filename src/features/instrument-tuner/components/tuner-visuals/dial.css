@@ -26,7 +26,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  border: 3px solid var(--note-btn);
+  border: 3px solid var(--text-color);
   border-bottom: none;
   border-radius: 200px 200px 0 0;
 }
@@ -35,7 +35,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  width: 3px;
+  width: 2px;
   height: 17px;
   transform-origin: 50% 130px;
   background-color: var(--text-color);
@@ -43,20 +43,16 @@
 }
 
 .center-arc-tick {
+  width: 3px;
   height: 24px; /* Slightly longer for center tick */
 }
 
 .needle {
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   left: 50%;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 125px solid #ff0000;
   transform-origin: bottom center;
-  margin-left: -4px;
+  margin-left: -10px; /* Half of SVG width */
   transition: transform 0.2s ease-out;
   z-index: 3;
 }
@@ -71,6 +67,21 @@
   border-radius: 50%;
   margin-left: -8px;
   z-index: 4;
+}
+
+.sharp-icon,
+.flat-icon {
+  position: absolute;
+  bottom: -5px;
+  right: 5px;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+  z-index: 2;
+}
+
+.flat-icon {
+  left: 5px;
 }
 
 .digital-readout {
