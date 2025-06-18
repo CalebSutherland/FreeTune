@@ -23,14 +23,13 @@ const instruments = data as InstrumentFamily[];
 
 export default function InstrumentTuner() {
   const [showMenu, setShowMenu] = useState(false);
+  const [autoMode, setAutoMode] = useState(true);
   const [instrumentFamilyIndex, setInstrumentFamilyIndex] = useState(0);
   const [instrumentIndex, setInstrumentIndex] = useState(0);
   const current_instrument =
     instruments[instrumentFamilyIndex].instruments[instrumentIndex];
   const [tuning, setTuning] = useState(current_instrument.standard);
-
   const [targetNote, setTargetNote] = useState<string | null>(null);
-  const [autoMode, setAutoMode] = useState(true);
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
   const disappearanceTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null
@@ -47,11 +46,18 @@ export default function InstrumentTuner() {
 
   const targetFreq = getFrequencyFromNote(targetNote);
   const freqDifference = targetFreq
-    ? calculateFrequencyDifference(pitch, targetFreq)
+    ? calculateFrequencyDifference(displayPitch, targetFreq)
     : null;
   const centsDifference = targetFreq
-    ? calculateCentsDifference(pitch, targetFreq)
+    ? calculateCentsDifference(displayPitch, targetFreq)
     : null;
+
+  useEffect(() => {
+    if (disappearanceTimeout.current) {
+      clearTimeout(disappearanceTimeout.current);
+      disappearanceTimeout.current = null;
+    }
+  }, [autoMode]);
 
   // Delay showing that there is no sound detected to avoid flickering
   useEffect(() => {
@@ -72,7 +78,7 @@ export default function InstrumentTuner() {
         }, 500);
       }
     }
-  }, [pitch, clarity]);
+  }, [pitch, clarity, autoMode]);
 
   // Update target note based on pitch and tuning if auto mode is on
   useEffect(() => {
@@ -100,6 +106,7 @@ export default function InstrumentTuner() {
             <p>{current_instrument.name}</p>
             <p className="tuning-name">{tuning.name}</p>
           </Button>
+
           <div className="visual-buttons">
             <ActionIcon.Group>
               {visuals.map((vis) => (
@@ -117,6 +124,7 @@ export default function InstrumentTuner() {
               ))}
             </ActionIcon.Group>
           </div>
+
           <div className="auto-switch">
             <p>AUTO</p>
             <Switch
@@ -170,6 +178,7 @@ export default function InstrumentTuner() {
               centsDifference={centsDifference}
             />
           </div>
+
           <div className="start-tuner-wrapper">
             <Button
               variant="filled"
@@ -180,6 +189,7 @@ export default function InstrumentTuner() {
               {isListening ? "Stop Tuner" : "Start Tuner"}
             </Button>
           </div>
+
           <div className="settings-wrapper">
             <button className="settings-button">
               <FaGear size={20} />
