@@ -94,8 +94,11 @@ export function calculateCentsDifference(
   return 1200 * Math.log2(pitch / targetFreq);
 }
 
-export function getColorFromFreqDiff(freqDiff: number | null): string {
-  if (freqDiff === null) return "var(--text-color)";
+export function getColorFromFreqDiff(
+  freqDiff: number | null,
+  fallback: string
+): string {
+  if (freqDiff === null) return fallback;
 
   const absDiff = Math.abs(freqDiff);
 

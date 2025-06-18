@@ -26,6 +26,7 @@ export default function Graph({ freqDifference }: GraphProps) {
   const maxShiftRef = useRef(maxShift);
   const scrollSpeed = 0.5;
   const gridSize = 20;
+  const gridHeight = 250;
 
   // Keep refs updated
   useEffect(() => {
@@ -98,7 +99,7 @@ export default function Graph({ freqDifference }: GraphProps) {
         point.y += scrollSpeed;
         point.element.style.top = `${point.y}px`;
 
-        if (point.y >= 200) {
+        if (point.y >= gridHeight) {
           // Remove element from DOM
           if (point.element.parentNode) {
             point.element.parentNode.removeChild(point.element);
@@ -117,7 +118,7 @@ export default function Graph({ freqDifference }: GraphProps) {
           Math.min(freqDifferenceRef.current * 10, maxShiftRef.current),
           -maxShiftRef.current
         );
-        const color = getColorFromFreqDiff(freqDifferenceRef.current);
+        const color = getColorFromFreqDiff(freqDifferenceRef.current, "pink");
         const element = createTrailPointElement(shift, 75, color);
 
         trailPointsRef.current.push({
@@ -152,12 +153,17 @@ export default function Graph({ freqDifference }: GraphProps) {
       ? Math.max(Math.min(freqDifference * 10, maxShift), -maxShift)
       : 0;
 
-  const currentColor = getColorFromFreqDiff(freqDifference);
+  const currentColor = getColorFromFreqDiff(
+    freqDifference,
+    "var(--graph-circle-color)"
+  );
 
   return (
     <div className="graph-container" ref={containerRef}>
       <div ref={gridRef} className="scrolling-grid" />
 
+      <p className="flat-symbol">♭</p>
+      <p className="sharp-symbol">♯</p>
       <div
         className="moving-circle"
         style={{

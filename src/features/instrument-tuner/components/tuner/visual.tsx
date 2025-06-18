@@ -1,5 +1,5 @@
 import Graph from "../tuner-visuals/graph";
-
+import Dial from "../tuner-visuals/dial";
 interface VisualProps {
   visual: string;
   freqDifference: number | null;
@@ -18,8 +18,8 @@ export default function Visual({
         centsDifference={centsDifference}
       />
     );
-  // if (visual === "bar")
-  //   return (
-  //     <Dial freqDifference={freqDifference} centsDifference={centsDifference} />
-  //   );
+  if (visual === "dial")
+    return (
+      <Dial freqDifference={freqDifference} centsDifference={centsDifference} />
+    );
 }

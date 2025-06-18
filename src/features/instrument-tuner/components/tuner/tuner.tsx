@@ -17,6 +17,7 @@ import { Button, Switch, ActionIcon } from "@mantine/core";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { MdOutlineShowChart } from "react-icons/md";
+import { PiGauge } from "react-icons/pi";
 import "./tuner.css";
 
 const instruments = data as InstrumentFamily[];
@@ -40,7 +41,7 @@ export default function InstrumentTuner() {
   const [visual, setVisual] = useState("graph");
   const visuals = [
     { name: "graph", icon: <MdOutlineShowChart size={20} /> },
-    { name: "2", icon: <FaGear size={20} /> },
+    { name: "dial", icon: <PiGauge size={20} /> },
     { name: "3", icon: <FaGear size={20} /> },
   ];
 

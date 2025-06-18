@@ -1,0 +1,90 @@
+.dial-container {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 210px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--secondary-color);
+  box-sizing: border-box;
+  padding-top: 20px;
+}
+
+.dial-background {
+  position: relative;
+  width: 260px;
+  height: 130px;
+  overflow: hidden;
+}
+
+.dial-arc {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: 3px solid var(--note-btn);
+  border-bottom: none;
+  border-radius: 200px 200px 0 0;
+}
+
+.arc-tick {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 17px;
+  transform-origin: 50% 130px;
+  background-color: var(--text-color);
+  margin-left: -1.5px;
+}
+
+.center-arc-tick {
+  height: 24px; /* Slightly longer for center tick */
+}
+
+.needle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 125px solid #ff0000;
+  transform-origin: bottom center;
+  margin-left: -4px;
+  transition: transform 0.2s ease-out;
+  z-index: 3;
+}
+
+.center-dot {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  margin-left: -8px;
+  z-index: 4;
+}
+
+.digital-readout {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.hz-display {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.target-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
