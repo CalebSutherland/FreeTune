@@ -37,19 +37,91 @@
   z-index: 0;
 }
 
+/* Trail points that create the path */
+.trail-point {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+/* Alternative: Square trail points */
+/*
+.trail-point {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: var(--secondary-color);
+  z-index: 1;
+  opacity: 0.7;
+}
+*/
+
+/* Alternative: Fading trail effect */
+/*
+.trail-point {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  z-index: 1;
+  animation: fade-trail 2s ease-out forwards;
+}
+
+@keyframes fade-trail {
+  0% { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0.1; transform: scale(0.5); }
+}
+*/
+
 .moving-circle {
   position: relative;
   z-index: 2;
   margin-top: 30px;
   width: 40px;
   height: 40px;
-  background-color: var(--secondary-color);
-  border: 2px solid var(--text-color);
+  border: 2px solid;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--text-color);
+  background-color: var(--secondary-color);
   font-weight: bold;
-  transition: transform 0.1s linear; /* smooth movement */
+  transition: transform 0.1s linear, background-color 0.2s ease,
+    border-color 0.2s ease;
 }
+
+/* Alternative: Solid line version */
+/*
+.drawing-line {
+  position: absolute;
+  top: 30px;
+  width: 2px;
+  height: 400%;
+  background: var(--secondary-color);
+  opacity: 0.6;
+  z-index: 1;
+}
+*/
+
+/* Alternative: Glowing trail effect */
+/*
+.drawing-line {
+  position: absolute;
+  top: 30px;
+  width: 2px;
+  height: 400%;
+  background: linear-gradient(
+    to bottom,
+    var(--secondary-color),
+    transparent 50%
+  );
+  box-shadow: 0 0 6px var(--secondary-color);
+  opacity: 0.8;
+  z-index: 1;
+}
+*/
