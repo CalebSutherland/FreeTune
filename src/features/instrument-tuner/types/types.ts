@@ -10,6 +10,7 @@ export type Category = {
 
 export type Instrument = {
   name: string;
+  soundfontName: string;
   img: string;
   left_string_count: number;
   standard: Tuning;

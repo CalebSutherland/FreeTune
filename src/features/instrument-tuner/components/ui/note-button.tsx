@@ -10,6 +10,8 @@ interface NoteButtonProps {
   autoMode: boolean;
   setAutoMode: React.Dispatch<React.SetStateAction<boolean>>;
   tuning: Tuning;
+  playNote: (note: string, instrumentName: string) => void;
+  soundfontName: string;
 }
 
 export default function NoteButton({
@@ -20,6 +22,8 @@ export default function NoteButton({
   autoMode,
   setAutoMode,
   tuning,
+  playNote,
+  soundfontName: soundfrontName,
 }: NoteButtonProps) {
   const [inTune, setInTune] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -67,6 +71,7 @@ export default function NoteButton({
         if (autoMode) {
           setAutoMode(false);
         }
+        playNote(note, soundfrontName);
       }}
     >
       {note.slice(0, note.length - 1)}

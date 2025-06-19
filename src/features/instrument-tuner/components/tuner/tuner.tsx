@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 
 import data from "../../data/tuning-data.json";
 import { useTuner } from "@/hooks/useTuner";
+import { useNotePlayer } from "../../hooks/useNotePlayer";
 import type { InstrumentFamily } from "../../types/types";
 import {
   getClosestNote,
@@ -30,6 +31,7 @@ export default function InstrumentTuner() {
   const [instrumentIndex, setInstrumentIndex] = useState(0);
   const current_instrument =
     instruments[instrumentFamilyIndex].instruments[instrumentIndex];
+  const soundfontName = current_instrument.soundfontName;
   const [tuning, setTuning] = useState(current_instrument.standard);
   const [targetNote, setTargetNote] = useState<string | null>(null);
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
@@ -38,6 +40,7 @@ export default function InstrumentTuner() {
   );
 
   const { pitch, clarity, isListening, start, stop } = useTuner();
+  const { playNote } = useNotePlayer();
 
   const [visual, setVisual] = useState("graph");
   const visuals = [
@@ -166,6 +169,8 @@ export default function InstrumentTuner() {
               autoMode={autoMode}
               setAutoMode={setAutoMode}
               freqDifference={freqDifference}
+              playNote={playNote}
+              soundfontName={soundfontName}
             />
           </div>
         </div>

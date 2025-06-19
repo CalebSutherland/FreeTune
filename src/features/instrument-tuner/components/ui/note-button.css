@@ -6,6 +6,7 @@
   height: 40px;
   padding: 0;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .note-button.active,

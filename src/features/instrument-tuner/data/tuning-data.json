@@ -4,6 +4,7 @@
     "instruments": [
       {
         "name": "Guitar 6-string",
+        "soundfontName": "acoustic_guitar_nylon",
         "img": "/images/guitar6.png",
         "left_string_count": 3,
         "standard": {
@@ -130,6 +131,7 @@
       },
       {
         "name": "Guitar 7-string",
+        "soundfontName": "acoustic_guitar_nylon",
         "img": "/images/guitar7.png",
         "left_string_count": 3,
         "standard": {
@@ -163,6 +165,7 @@
     "instruments": [
       {
         "name": "Bass 4-string",
+        "soundfontName": "electric_bass_pick",
         "img": "/images/bass4.png",
         "left_string_count": 2,
         "standard": {
@@ -199,6 +202,7 @@
       },
       {
         "name": "Bass 5-string",
+        "soundfontName": "electric_bass_pick",
         "img": "/images/bass5.png",
         "left_string_count": 3,
         "standard": {
@@ -232,6 +236,7 @@
     "instruments": [
       {
         "name": "Ukulele",
+        "soundfontName": "acoustic_guitar_nylon",
         "img": "/images/ukulele.png",
         "left_string_count": 2,
         "standard": {
@@ -277,6 +282,7 @@
     "instruments": [
       {
         "name": "Violin",
+        "soundfontName": "violin",
         "img": "/images/violin.png",
         "left_string_count": 2,
         "standard": {
@@ -287,6 +293,7 @@
       },
       {
         "name": "Viola",
+        "soundfontName": "viola",
         "img": "/images/viola.png",
         "left_string_count": 2,
         "standard": {
@@ -297,6 +304,7 @@
       },
       {
         "name": "Cello",
+        "soundfontName": "cello",
         "img": "/images/cello.png",
         "left_string_count": 2,
         "standard": {
@@ -307,6 +315,7 @@
       },
       {
         "name": "Fiddle",
+        "soundfontName": "fiddle",
         "img": "/images/fiddle.png",
         "left_string_count": 2,
         "standard": {
