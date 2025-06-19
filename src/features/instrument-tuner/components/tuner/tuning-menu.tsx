@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { InstrumentFamily, Tuning } from "../../types/types";
 import TuningCard from "../ui/tuning-card";
 import BackButton from "../ui/back-button";
-import { Accordion, AccordionItem } from "@mantine/core";
+import { Accordion, AccordionItem, LoadingOverlay } from "@mantine/core";
 import { MdChevronRight } from "react-icons/md";
 import "./tuning-menu.css";
 
@@ -16,6 +16,8 @@ interface TuningMenuProps {
   setInstrumentIndex: React.Dispatch<React.SetStateAction<number>>;
   setTuning: React.Dispatch<React.SetStateAction<Tuning>>;
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  loadInstrument: (instrumentName: string) => Promise<void>;
+  soundfontName: string;
 }
 
 export default function TuningMenu({
@@ -27,14 +29,17 @@ export default function TuningMenu({
   setInstrumentIndex,
   setTuning,
   setShowMenu,
+  loadInstrument,
 }: TuningMenuProps) {
   const [showSecondMenu, setShowSecondMenu] = useState(false);
   const [displayIndex, setDisplayIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  function changeInstrument(
+  async function changeInstrument(
     display: number,
     instrument: number,
-    tuning: Tuning
+    tuning: Tuning,
+    newSoundFontName: string
   ) {
     if (!autoMode) {
       setTarget(tuning.notes[0]); // Set target to the first note of the tuning
@@ -42,12 +47,32 @@ export default function TuningMenu({
     setInstrumentFamilyIndex(display);
     setInstrumentIndex(instrument);
     setTuning(tuning);
-    setShowSecondMenu(false);
-    setShowMenu(false);
+
+    try {
+      setLoading(true);
+      await loadInstrument(newSoundFontName);
+    } catch (e) {
+      console.error("Error loading instrument soundfont:", e);
+    } finally {
+      setLoading(false);
+      setShowSecondMenu(false);
+      setShowMenu(false);
+    }
   }
 
   return (
     <div className="tuning-menu-wrapper">
+      <LoadingOverlay
+        visible={loading}
+        zIndex={50}
+        overlayProps={{
+          radius: "lg",
+          blur: 3,
+          color: "#000",
+          backgroundOpacity: 0,
+        }}
+        loaderProps={{ color: "var(--accent-color)", size: "lg" }}
+      />
       {/* First Menu*/}
       <div className="all-instruments-menu">
         <h3>All Instruments</h3>
@@ -96,6 +121,7 @@ export default function TuningMenu({
                 <TuningCard
                   instrumentName={instrument.name}
                   tuning={instrument.standard}
+                  soundfontName={instrument.soundfontName}
                   currentTuning={currentTuning}
                   displayIndex={displayIndex}
                   instrumentIndex={i}
@@ -127,6 +153,7 @@ export default function TuningMenu({
                               <TuningCard
                                 instrumentName={instrument.name}
                                 tuning={tuning}
+                                soundfontName={instrument.soundfontName}
                                 currentTuning={currentTuning}
                                 displayIndex={displayIndex}
                                 instrumentIndex={i}

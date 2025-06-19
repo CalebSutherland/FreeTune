@@ -12,8 +12,7 @@ interface NotesDisplayProps {
   freqDifference: number | null;
   autoMode: boolean;
   setAutoMode: React.Dispatch<React.SetStateAction<boolean>>;
-  playNote: (note: string, instrumentName: string) => void;
-  soundfontName: string;
+  playNote: (note: string) => void;
 }
 
 export default function NotesDisplay({
@@ -25,7 +24,6 @@ export default function NotesDisplay({
   autoMode,
   setAutoMode,
   playNote,
-  soundfontName,
 }: NotesDisplayProps) {
   const leftNotes = tuning.notes
     .slice(0, instrument.left_string_count)
@@ -46,7 +44,6 @@ export default function NotesDisplay({
               freqDifference={freqDifference}
               tuning={tuning}
               playNote={playNote}
-              soundfontName={soundfontName}
             />
           </div>
         ))}
@@ -66,7 +63,6 @@ export default function NotesDisplay({
               freqDifference={freqDifference}
               tuning={tuning}
               playNote={playNote}
-              soundfontName={soundfontName}
             />
           </div>
         ))}

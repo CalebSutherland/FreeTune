@@ -5,19 +5,22 @@ import "./tuning-card.css";
 interface TuningCardProps {
   instrumentName: string;
   tuning: Tuning;
+  soundfontName: string;
   currentTuning: Tuning;
   displayIndex: number;
   instrumentIndex: number;
   changeInstrument: (
     displayIndex: number,
     tuningIndex: number,
-    tuning: Tuning
+    tuning: Tuning,
+    newSoundfontName: string
   ) => void;
 }
 
 export default function TuningCard({
   instrumentName,
   tuning,
+  soundfontName,
   currentTuning,
   displayIndex,
   instrumentIndex,
@@ -25,7 +28,9 @@ export default function TuningCard({
 }: TuningCardProps) {
   return (
     <button
-      onClick={() => changeInstrument(displayIndex, instrumentIndex, tuning)}
+      onClick={() =>
+        changeInstrument(displayIndex, instrumentIndex, tuning, soundfontName)
+      }
       className="tuning-card"
     >
       <div className="tuning-card-label">

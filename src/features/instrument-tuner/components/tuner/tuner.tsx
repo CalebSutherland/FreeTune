@@ -40,7 +40,7 @@ export default function InstrumentTuner() {
   );
 
   const { pitch, clarity, isListening, start, stop } = useTuner();
-  const { playNote } = useNotePlayer();
+  const { playNote, loadInstrument } = useNotePlayer();
 
   const [visual, setVisual] = useState("graph");
   const visuals = [
@@ -170,7 +170,6 @@ export default function InstrumentTuner() {
               setAutoMode={setAutoMode}
               freqDifference={freqDifference}
               playNote={playNote}
-              soundfontName={soundfontName}
             />
           </div>
         </div>
@@ -221,6 +220,8 @@ export default function InstrumentTuner() {
           setShowMenu={setShowMenu}
           autoMode={autoMode}
           setTarget={setTargetNote}
+          loadInstrument={loadInstrument}
+          soundfontName={soundfontName}
         />
       </div>
     </div>
