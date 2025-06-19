@@ -13,8 +13,9 @@ import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
 import Visual from "./visual";
+import BackButton from "../ui/back-button";
 import { Button, Switch, ActionIcon } from "@mantine/core";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { MdOutlineShowChart } from "react-icons/md";
 import { PiGauge } from "react-icons/pi";
@@ -164,6 +165,7 @@ export default function InstrumentTuner() {
               setTarget={setTargetNote}
               autoMode={autoMode}
               setAutoMode={setAutoMode}
+              freqDifference={freqDifference}
             />
           </div>
         </div>
@@ -202,16 +204,7 @@ export default function InstrumentTuner() {
       {/* Menu View */}
       <div className={`tuning-menu-view ${showMenu ? "visible" : ""}`}>
         <div className="tuning-menu-header">
-          <Button
-            variant="transparent"
-            leftSection={<FaChevronLeft />}
-            classNames={{
-              inner: "tunings-button",
-            }}
-            onClick={() => setShowMenu(false)}
-          >
-            Back
-          </Button>
+          <BackButton setShowMenu={setShowMenu} />
           <h3 className="tuning-menu-title">Select Tuning</h3>
         </div>
         <TuningMenu

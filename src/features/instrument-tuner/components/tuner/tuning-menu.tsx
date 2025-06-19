@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 import type { InstrumentFamily, Tuning } from "../../types/types";
-import { Button, Accordion, AccordionItem } from "@mantine/core";
-import { MdChevronRight } from "react-icons/md";
-import { FaChevronLeft } from "react-icons/fa6";
-import "./tuning-menu.css";
 import TuningCard from "../ui/tuning-card";
+import BackButton from "../ui/back-button";
+import { Accordion, AccordionItem } from "@mantine/core";
+import { MdChevronRight } from "react-icons/md";
+import "./tuning-menu.css";
 
 interface TuningMenuProps {
   instruments: InstrumentFamily[];
@@ -76,16 +76,7 @@ export default function TuningMenu({
       {/* Second Menu */}
       <div className={`instrument-list ${showSecondMenu ? "visible" : ""}`}>
         <div className="instrument-list-header">
-          <Button
-            variant="transparent"
-            leftSection={<FaChevronLeft />}
-            classNames={{
-              inner: "tunings-button",
-            }}
-            onClick={() => setShowSecondMenu(false)}
-          >
-            Back
-          </Button>
+          <BackButton setShowMenu={setShowSecondMenu} />
           <h3 className="instrument-list-title">
             {`${instruments[displayIndex].name} Tuning`}
           </h3>

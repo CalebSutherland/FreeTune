@@ -9,6 +9,7 @@ interface NotesDisplayProps {
   tuning: Tuning;
   target: string | null;
   setTarget: React.Dispatch<React.SetStateAction<string | null>>;
+  freqDifference: number | null;
   autoMode: boolean;
   setAutoMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -18,6 +19,7 @@ export default function NotesDisplay({
   tuning,
   target,
   setTarget,
+  freqDifference,
   autoMode,
   setAutoMode,
 }: NotesDisplayProps) {
@@ -37,6 +39,8 @@ export default function NotesDisplay({
               setTarget={setTarget}
               autoMode={autoMode}
               setAutoMode={setAutoMode}
+              freqDifference={freqDifference}
+              tuning={tuning}
             />
           </div>
         ))}
@@ -53,6 +57,8 @@ export default function NotesDisplay({
               setTarget={setTarget}
               autoMode={autoMode}
               setAutoMode={setAutoMode}
+              freqDifference={freqDifference}
+              tuning={tuning}
             />
           </div>
         ))}

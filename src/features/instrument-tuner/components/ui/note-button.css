@@ -17,3 +17,7 @@
 .note-button:hover {
   background: var(--note-btn-hover);
 }
+
+.note-button.in-tune {
+  border: 3px solid #12b886; /* Green border */
+}

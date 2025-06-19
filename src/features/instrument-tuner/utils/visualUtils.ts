@@ -7,18 +7,18 @@ export function getColorFromFreqDiff(
   const absDiff = Math.abs(freqDiff);
 
   // In tune range (green)
-  if (absDiff <= 2) return "#00ff00";
+  if (absDiff <= 1.5) return "#00ff00";
 
-  // Transition from green to yellow (2-5 Hz)
-  if (absDiff <= 5) {
-    const ratio = (absDiff - 2) / 3; // 0 to 1 as diff goes from 2 to 5
+  // Transition from green to yellow (1.5-3 Hz)
+  if (absDiff <= 3) {
+    const ratio = (absDiff - 1.5) / 1;
     const red = Math.round(255 * ratio);
     return `rgb(${red}, 255, 0)`;
   }
 
-  // Transition from yellow to red (5-10 Hz)
+  // Transition from yellow to red (3-10 Hz)
   if (absDiff <= 10) {
-    const ratio = (absDiff - 5) / 5; // 0 to 1 as diff goes from 5 to 10
+    const ratio = (absDiff - 3) / 7;
     const green = Math.round(255 * (1 - ratio));
     return `rgb(255, ${green}, 0)`;
   }
