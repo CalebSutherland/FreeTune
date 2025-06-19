@@ -125,16 +125,6 @@ nav li {
   color: var(--text-color);
 }
 
-.login-button,
-.login-button-mobile {
-  background-color: var(--accent-color);
-  transition: none;
-}
-.login-button:hover,
-.login-button-mobile:hover {
-  background-color: var(--accent-hover-color);
-}
-
 #open-sidebar-button,
 #close-sidebar-button {
   display: none;
@@ -187,7 +177,6 @@ nav li {
   }
   #close-sidebar-button {
     margin-left: 1rem;
-    background-color: var(--primary-color);
   }
   .header-right-content,
   .theme-switcher {
@@ -201,7 +190,7 @@ nav li {
     width: 100%;
     z-index: 100;
     transition: right 300ms ease-out;
-    background: var(--primary-color);
+    background: var(--secondary-color);
   }
   nav.show {
     right: 0;

@@ -183,7 +183,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
             className="header-link"
             to={paths.auth.login.getHref()}
           >
-            <Button classNames={{ root: "login-button" }} variant="filled">
+            <Button color="var(--accent-color)" variant="filled">
               Sign In
             </Button>
           </NavLink>

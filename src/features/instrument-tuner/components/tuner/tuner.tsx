@@ -15,7 +15,7 @@ import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
 import Visual from "./visual";
 import BackButton from "../ui/back-button";
-import { Button, Switch, ActionIcon } from "@mantine/core";
+import { Button, Switch, ActionIcon, Overlay, Loader } from "@mantine/core";
 import { FaChevronRight } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { MdOutlineShowChart } from "react-icons/md";
@@ -27,27 +27,24 @@ const instruments = data as InstrumentFamily[];
 export default function InstrumentTuner() {
   const [showMenu, setShowMenu] = useState(false);
   const [autoMode, setAutoMode] = useState(true);
+  const [showOverlay, setShowOverlay] = useState(true);
+  const [loadingTuner, setLoadingTuner] = useState(false);
+
   const [instrumentFamilyIndex, setInstrumentFamilyIndex] = useState(0);
   const [instrumentIndex, setInstrumentIndex] = useState(0);
   const current_instrument =
     instruments[instrumentFamilyIndex].instruments[instrumentIndex];
   const soundfontName = current_instrument.soundfontName;
   const [tuning, setTuning] = useState(current_instrument.standard);
+
   const [targetNote, setTargetNote] = useState<string | null>(null);
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
   const disappearanceTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
 
-  const { pitch, clarity, isListening, start, stop } = useTuner();
+  const { pitch, clarity, isListening, start } = useTuner();
   const { playNote, loadInstrument } = useNotePlayer();
-
-  const [visual, setVisual] = useState("graph");
-  const visuals = [
-    { name: "graph", icon: <MdOutlineShowChart size={20} /> },
-    { name: "dial", icon: <PiGauge size={20} /> },
-    { name: "3", icon: <FaGear size={20} /> },
-  ];
 
   const targetFreq = getFrequencyFromNote(targetNote);
   const freqDifference = targetFreq
@@ -56,6 +53,26 @@ export default function InstrumentTuner() {
   const centsDifference = targetFreq
     ? calculateCentsDifference(displayPitch, targetFreq)
     : null;
+
+  const [visual, setVisual] = useState("graph");
+  const visuals = [
+    { name: "graph", icon: <MdOutlineShowChart size={20} /> },
+    { name: "dial", icon: <PiGauge size={20} /> },
+    { name: "3", icon: <FaGear size={20} /> },
+  ];
+
+  async function startTuner() {
+    try {
+      setLoadingTuner(true);
+      await loadInstrument(soundfontName);
+      start();
+      setShowOverlay(false);
+    } catch (e) {
+      console.error("Error starting tuner:", e);
+    } finally {
+      setLoadingTuner(false);
+    }
+  }
 
   useEffect(() => {
     if (disappearanceTimeout.current) {
@@ -97,6 +114,29 @@ export default function InstrumentTuner() {
 
   return (
     <div className="tuner-app-wrapper">
+      {showOverlay && (
+        <Overlay
+          blur={3}
+          color="#000"
+          backgroundOpacity={0}
+          zIndex={50}
+          center={true}
+          children={
+            !loadingTuner ? (
+              <Button
+                variant="filled"
+                size="md"
+                color="var(--accent-color)"
+                onClick={startTuner}
+              >
+                Start Tuning
+              </Button>
+            ) : (
+              <Loader color="var(--accent-color)" size="lg" />
+            )
+          }
+        />
+      )}
       <div className="tuner-view">
         <div className="tuner-app-header">
           <Button
@@ -185,18 +225,6 @@ export default function InstrumentTuner() {
               centsDifference={centsDifference}
             />
           </div>
-
-          <div className="start-tuner-wrapper">
-            <Button
-              variant="filled"
-              size="sm"
-              color={isListening ? "red" : "teal"}
-              onClick={isListening ? stop : start}
-            >
-              {isListening ? "Stop Tuner" : "Start Tuner"}
-            </Button>
-          </div>
-
           <div className="settings-wrapper">
             <button className="settings-button">
               <FaGear size={20} />
