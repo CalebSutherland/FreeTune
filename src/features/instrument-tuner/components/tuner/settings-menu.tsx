@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Button, NumberInput } from "@mantine/core";
+
 import type { TunerSettings } from "../../types/types";
-import { validators } from "../../utils/utils";
+import { validators } from "../../utils/settings-utils";
+import { Button, NumberInput } from "@mantine/core";
+import "./settings-menu.css";
 
 type SettingsMenuProps = {
   settings: TunerSettings;
@@ -27,76 +29,96 @@ export default function SettingsMenu({ settings, onSave }: SettingsMenuProps) {
     const numericValue = typeof value === "number" ? value : 0;
 
     const validator = validators[field];
-    const error = validator ? validator(numericValue) : null;
+    const fieldError = validator ? validator(numericValue) : null;
 
-    setErrors((prev) => ({ ...prev, [field]: error }));
-    setLocalSettings((prev) => ({ ...prev, [field]: numericValue }));
+    const newSettings = { ...localSettings, [field]: numericValue };
+
+    const minPitchError = validators["minPitch"](newSettings.minPitch);
+    const maxPitchError = validators["maxPitch"](newSettings.maxPitch);
+
+    let minPitchCrossError = null;
+    let maxPitchCrossError = null;
+
+    if (newSettings.minPitch > newSettings.maxPitch) {
+      minPitchCrossError = "Min pitch must be less than or equal to max pitch.";
+      maxPitchCrossError =
+        "Max pitch must be greater than or equal to min pitch.";
+    }
+
+    setErrors((prev) => ({
+      ...prev,
+      [field]: fieldError,
+      minPitch: minPitchError || minPitchCrossError,
+      maxPitch: maxPitchError || maxPitchCrossError,
+    }));
+
+    setLocalSettings(newSettings);
   };
 
   return (
-    <div>
-      <NumberInput
-        label="Buffer Size"
-        value={localSettings.bufferSize}
-        min={32}
-        max={32768}
-        stepHoldDelay={500}
-        stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
-        error={errors.bufferSize}
-        onChange={(value) => handleChange("bufferSize", value ?? 0)}
-      />
+    <div className="settings-menu-wrapper">
+      <div className="settings-input-wrapper">
+        <NumberInput
+          label="Min Volume (dB)"
+          value={localSettings.minVolumeDecibels}
+          min={-1000}
+          max={0}
+          clampBehavior="none"
+          onChange={(value) => handleChange("minVolumeDecibels", value ?? 0)}
+          error={errors.minVolumeDecibels}
+        />
 
-      <NumberInput
-        label="Min Volume (dB)"
-        value={localSettings.minVolumeDecibels}
-        min={-1000}
-        max={0}
-        stepHoldDelay={500}
-        stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
-        onChange={(value) => handleChange("minVolumeDecibels", value ?? 0)}
-        error={errors.minVolumeDecibels}
-      />
+        <NumberInput
+          label="Clarity Threshold (%)"
+          value={localSettings.minClarityPercent}
+          min={1}
+          max={100}
+          suffix="%"
+          clampBehavior="none"
+          onChange={(value) => handleChange("minClarityPercent", value ?? 0)}
+          error={errors.minClarityPercent}
+        />
+        <NumberInput
+          label="Min Pitch (Hz)"
+          value={localSettings.minPitch}
+          min={1}
+          max={10000}
+          clampBehavior="none"
+          onChange={(value) => handleChange("minPitch", value ?? 0)}
+          error={errors.minPitch}
+        />
+        <NumberInput
+          label="Max Pitch (Hz)"
+          value={localSettings.maxPitch}
+          min={0}
+          max={99999}
+          clampBehavior="none"
+          onChange={(value) => handleChange("maxPitch", value ?? 0)}
+          error={errors.maxPitch}
+        />
 
-      <NumberInput
-        label="Clarity Threshold (%)"
-        value={localSettings.minClarityPercent}
-        min={1}
-        max={100}
-        stepHoldDelay={500}
-        stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
-        onChange={(value) => handleChange("minClarityPercent", value ?? 0)}
-        error={errors.minClarityPercent}
-      />
-      <NumberInput
-        label="Min Pitch (Hz)"
-        value={localSettings.minPitch}
-        min={1}
-        max={10000}
-        stepHoldDelay={500}
-        stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
-        onChange={(value) => handleChange("minPitch", value ?? 0)}
-        error={errors.minPitch}
-      />
-      <NumberInput
-        label="Max Pitch (Hz)"
-        value={localSettings.maxPitch}
-        min={0}
-        max={99999}
-        stepHoldDelay={500}
-        stepHoldInterval={(t) => Math.max(1000 / t ** 2, 25)}
-        onChange={(value) => handleChange("maxPitch", value ?? 0)}
-        error={errors.maxPitch}
-      />
-
-      <Button
-        color="var(--accent-color)"
-        disabled={hasErrors}
-        type="button"
-        mt="md"
-        onClick={() => onSave(localSettings)}
-      >
-        Apply
-      </Button>
+        <NumberInput
+          label="Buffer Size"
+          value={localSettings.bufferSize}
+          min={32}
+          max={32768}
+          clampBehavior="none"
+          error={errors.bufferSize}
+          onChange={(value) => handleChange("bufferSize", value ?? 0)}
+        />
+      </div>
+      <div className="settings-buttons-wrapper">
+        <Button variant="outline" color="var(--accent-color)">
+          Reset to default
+        </Button>
+        <Button
+          color="var(--accent-color)"
+          disabled={hasErrors}
+          onClick={() => onSave(localSettings)}
+        >
+          Apply
+        </Button>
+      </div>
     </div>
   );
 }
