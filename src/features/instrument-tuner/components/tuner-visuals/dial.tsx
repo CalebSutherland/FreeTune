@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import {
   getColorFromFreqDiff,
   calculateNeedleRotation,
-} from "../../utils/visualUtils";
+} from "../../utils/visual-utils";
 import "./dial.css";
 
 interface DialProps {

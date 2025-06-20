@@ -1,4 +1,4 @@
-import { getNoteName, getFrequencyFromNote } from "../../utils/noteUtils";
+import { getNoteName, getFrequencyFromNote } from "../../utils/note-utils";
 import { Accordion } from "@mantine/core";
 import "./tuner-stats.css";
 

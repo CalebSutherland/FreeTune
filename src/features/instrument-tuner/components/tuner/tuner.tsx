@@ -1,15 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 
 import data from "../../data/tuning-data.json";
-import { useTuner } from "@/hooks/useTuner";
+import { useTuner } from "@/hooks/use-tuner";
 import { useNotePlayer } from "../../hooks/useNotePlayer";
-import type { InstrumentFamily } from "../../types/types";
+import type { InstrumentFamily, TunerSettings } from "../../types/types";
 import {
   getClosestNote,
   getFrequencyFromNote,
   calculateCentsDifference,
   calculateFrequencyDifference,
-} from "../../utils/noteUtils";
+} from "../../utils/note-utils";
+
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
@@ -21,11 +22,22 @@ import { FaGear } from "react-icons/fa6";
 import { MdOutlineShowChart } from "react-icons/md";
 import { PiGauge } from "react-icons/pi";
 import "./tuner.css";
+import SettingsMenu from "./settings-menu";
 
 const instruments = data as InstrumentFamily[];
 
+const defaultSettings: TunerSettings = {
+  bufferSize: 2048,
+  minVolumeDecibels: -40,
+  minClarityPercent: 95,
+  minPitch: 30,
+  maxPitch: 10000,
+};
+
 export default function InstrumentTuner() {
   const [showMenu, setShowMenu] = useState(false);
+  const [settings, setSettings] = useState<TunerSettings>(defaultSettings);
+  const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [autoMode, setAutoMode] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
   const [loadingTuner, setLoadingTuner] = useState(false);
@@ -43,7 +55,7 @@ export default function InstrumentTuner() {
     null
   );
 
-  const { pitch, clarity, isListening, start } = useTuner();
+  const { pitch, clarity, isListening, start } = useTuner(settings);
   const { playNote, loadInstrument } = useNotePlayer();
 
   const targetFreq = getFrequencyFromNote(targetNote);
@@ -73,6 +85,11 @@ export default function InstrumentTuner() {
       setLoadingTuner(false);
     }
   }
+
+  const handleSettingsChange = (newSettings: TunerSettings) => {
+    setSettings(newSettings);
+    setShowSettingsMenu(false);
+  };
 
   useEffect(() => {
     if (disappearanceTimeout.current) {
@@ -226,7 +243,10 @@ export default function InstrumentTuner() {
             />
           </div>
           <div className="settings-wrapper">
-            <button className="settings-button">
+            <button
+              className="settings-button"
+              onClick={() => setShowSettingsMenu(true)}
+            >
               <FaGear size={20} />
             </button>
           </div>
@@ -251,6 +271,17 @@ export default function InstrumentTuner() {
           loadInstrument={loadInstrument}
           soundfontName={soundfontName}
         />
+      </div>
+
+      {/* Settings Menu */}
+      <div
+        className={`settings-menu-view ${showSettingsMenu ? "visible" : ""}`}
+      >
+        <div className="tuning-menu-header">
+          <BackButton setShowMenu={setShowSettingsMenu} />
+          <h3 className="tuning-menu-title">Settings</h3>
+        </div>
+        <SettingsMenu settings={settings} onSave={handleSettingsChange} />
       </div>
     </div>
   );
