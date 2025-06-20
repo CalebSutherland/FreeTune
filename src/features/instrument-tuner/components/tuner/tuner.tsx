@@ -20,7 +20,7 @@ import Visual from "./visual";
 import SettingsMenu from "./settings-menu";
 import BackButton from "../ui/back-button";
 import { Button, Switch, ActionIcon, Overlay, Loader } from "@mantine/core";
-import { FaChevronRight } from "react-icons/fa";
+import { FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { MdOutlineShowChart } from "react-icons/md";
 import { PiGauge } from "react-icons/pi";
@@ -31,6 +31,7 @@ export default function InstrumentTuner() {
   const [showMenu, setShowMenu] = useState(false);
   const [settings, setSettings] = useState<TunerSettings>(defaultSettings);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+  const [showStats, setShowStats] = useState(false);
   const [autoMode, setAutoMode] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
   const [loadingTuner, setLoadingTuner] = useState(false);
@@ -124,7 +125,7 @@ export default function InstrumentTuner() {
 
   return (
     <div className="tuner-app-wrapper">
-      {showOverlay && (
+      {!showOverlay && (
         <Overlay
           blur={3}
           color="#000"
@@ -225,7 +226,31 @@ export default function InstrumentTuner() {
         </div>
 
         <div className="tuner-app-footer">
-          <div className="tuner-stats-wrapper">
+          <div className="footer-controls">
+            <Button
+              variant="transparent"
+              color="var(--text-color)"
+              rightSection={
+                <FaChevronDown
+                  size={11}
+                  className={showStats ? "chevron rotated" : "chevron"}
+                />
+              }
+              onClick={() => setShowStats(!showStats)}
+            >
+              Stats
+            </Button>
+            <ActionIcon
+              variant="transparent"
+              color="var(--text-color)"
+              mr={16}
+              onClick={() => setShowSettingsMenu(true)}
+            >
+              <FaGear size={20} />
+            </ActionIcon>
+          </div>
+
+          <div className={`stats-dropdown ${showStats ? "visible" : ""}`}>
             <TunerStats
               pitch={displayPitch}
               clarity={clarity}
@@ -234,14 +259,6 @@ export default function InstrumentTuner() {
               freqDifference={freqDifference}
               centsDifference={centsDifference}
             />
-          </div>
-          <div className="settings-wrapper">
-            <button
-              className="settings-button"
-              onClick={() => setShowSettingsMenu(true)}
-            >
-              <FaGear size={20} />
-            </button>
           </div>
         </div>
       </div>

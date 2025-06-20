@@ -1,6 +1,4 @@
 import { getNoteName, getFrequencyFromNote } from "../../utils/note-utils";
-import { Accordion } from "@mantine/core";
-import "./tuner-stats.css";
 
 interface TunerStatsProps {
   pitch: number | null;
@@ -20,32 +18,33 @@ export default function TunerStats({
   centsDifference,
 }: TunerStatsProps) {
   return (
-    <Accordion
-      classNames={{
-        control: "stats-accordion-control",
-        item: "stats-accordion-item",
-        label: "stats-accordion-label",
-      }}
-    >
-      <Accordion.Item value="tuner-stats">
-        <Accordion.Control>Advanced Stats</Accordion.Control>
-        <Accordion.Panel>
-          <p>Target Note: {target ?? "None"}</p>
-          <p>
-            Target Frequency:{" "}
-            {getFrequencyFromNote(target)?.toFixed(2) ?? "None"}
-          </p>
-          <p>Note: {getNoteName(pitch)}</p>
-          <p>Frequency: {pitch ? pitch.toFixed(2) + " Hz" : "N/A"}</p>
-          <p>
-            Frequency Difference:{" "}
-            {freqDifference ? freqDifference.toFixed(2) + " Hz" : "N/A"}
-          </p>
-          <p>Cents Difference: {centsDifference?.toFixed(0) ?? "N/A"}</p>
-          <p>Clarity: {clarity.toFixed(2)}</p>
-          <p>Listening: {isListening ? "Listening" : "Not Listening"}</p>
-        </Accordion.Panel>
-      </Accordion.Item>
-    </Accordion>
+    <div className="stats-content">
+      <p>
+        <span>Frequency:</span> {pitch ? pitch.toFixed(2) + " Hz" : "N/A"}
+      </p>
+      <p>
+        <span>Target Frequency:</span>{" "}
+        {getFrequencyFromNote(target)?.toFixed(2) ?? "None"}
+      </p>
+      <p>
+        <span>Note:</span> {getNoteName(pitch)}
+      </p>
+      <p>
+        <span>Target Note:</span> {target ?? "None"}
+      </p>
+      <p>
+        <span>Frequency Difference:</span>{" "}
+        {freqDifference ? freqDifference.toFixed(2) + " Hz" : "N/A"}
+      </p>
+      <p>
+        <span>Cents Difference:</span> {centsDifference?.toFixed(0) ?? "N/A"}
+      </p>
+      <p>
+        <span>Clarity:</span> {clarity.toFixed(2)}
+      </p>
+      <p>
+        <span>Status:</span> {isListening ? "Listening" : "Not Listening"}
+      </p>
+    </div>
   );
 }

@@ -132,25 +132,64 @@
 
 .tuner-app-footer {
   display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.footer-controls {
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  min-height: 3rem;
 }
 
-.tuner-stats-wrapper {
-  width: auto;
+.stats-dropdown {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+  width: 100%;
 }
 
-.settings-wrapper {
-  display: flex;
-  justify-content: flex-end;
+.stats-dropdown.visible {
+  max-height: 500px;
+  transition: max-height 0.3s ease-in;
 }
 
-.settings-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem 0.75rem;
-  margin-top: 0.4rem;
-  border-radius: 1rem;
-  cursor: pointer;
+.stats-content {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-evenly;
+  gap: 0.5rem 2rem;
+  padding: 0 1rem 1rem;
+}
+
+.stats-content p {
+  margin: 0;
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.stats-content p span {
+  font-weight: bold;
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+}
+
+.chevron.rotated {
+  transform: rotate(-180deg);
+}
+
+@media screen and (max-width: 400px) {
+  .stats-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stats-dropdown.visible {
+    display: flex;
+    justify-content: center;
+  }
 }
