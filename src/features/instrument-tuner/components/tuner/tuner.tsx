@@ -13,6 +13,7 @@ import {
   calculateFrequencyDifference,
 } from "../../utils/note-utils";
 
+import { useMediaQuery } from "@mantine/hooks";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
@@ -66,6 +67,8 @@ export default function InstrumentTuner() {
     { name: "dial", icon: <PiGauge size={20} /> },
     { name: "3", icon: <FaGear size={20} /> },
   ];
+
+  const isSmallScreen = useMediaQuery("(max-width: 450px)");
 
   async function startTuner() {
     try {
@@ -163,23 +166,25 @@ export default function InstrumentTuner() {
             <p className="tuning-name">{tuning.name}</p>
           </Button>
 
-          <div className="visual-buttons">
-            <ActionIcon.Group>
-              {visuals.map((vis) => (
-                <ActionIcon
-                  key={vis.name}
-                  className={`visual-icon ${
-                    visual === vis.name ? "active" : ""
-                  }`}
-                  variant="outline"
-                  size="md"
-                  onClick={() => setVisual(vis.name)}
-                >
-                  {vis.icon}
-                </ActionIcon>
-              ))}
-            </ActionIcon.Group>
-          </div>
+          {!isSmallScreen && (
+            <div className="visual-buttons">
+              <ActionIcon.Group>
+                {visuals.map((vis) => (
+                  <ActionIcon
+                    key={vis.name}
+                    className={`visual-icon ${
+                      visual === vis.name ? "active" : ""
+                    }`}
+                    variant="outline"
+                    size="md"
+                    onClick={() => setVisual(vis.name)}
+                  >
+                    {vis.icon}
+                  </ActionIcon>
+                ))}
+              </ActionIcon.Group>
+            </div>
+          )}
 
           <div className="auto-switch">
             <p>AUTO</p>
@@ -240,6 +245,27 @@ export default function InstrumentTuner() {
             >
               Stats
             </Button>
+
+            {isSmallScreen && (
+              <div className="visual-buttons">
+                <ActionIcon.Group>
+                  {visuals.map((vis) => (
+                    <ActionIcon
+                      key={vis.name}
+                      className={`visual-icon ${
+                        visual === vis.name ? "active" : ""
+                      }`}
+                      variant="outline"
+                      size="md"
+                      onClick={() => setVisual(vis.name)}
+                    >
+                      {vis.icon}
+                    </ActionIcon>
+                  ))}
+                </ActionIcon.Group>
+              </div>
+            )}
+
             <ActionIcon
               variant="transparent"
               color="var(--text-color)"
