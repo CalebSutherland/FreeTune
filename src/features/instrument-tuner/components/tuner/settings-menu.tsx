@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import type { TunerSettings } from "../../types/types";
+import type { TunerSettings } from "@/types/tuner-types";
+import { defaultSettings } from "@/utils/tuner-defaults";
 import { validators } from "../../utils/settings-utils";
 import { Button, NumberInput } from "@mantine/core";
 import "./settings-menu.css";
@@ -53,6 +54,17 @@ export default function SettingsMenu({ settings, onSave }: SettingsMenuProps) {
     }));
 
     setLocalSettings(newSettings);
+  };
+
+  const handleReset = () => {
+    setLocalSettings(defaultSettings);
+    setErrors({
+      bufferSize: null,
+      minVolumeDecibels: null,
+      minClarityPercent: null,
+      minPitch: null,
+      maxPitch: null,
+    });
   };
 
   return (
@@ -108,7 +120,11 @@ export default function SettingsMenu({ settings, onSave }: SettingsMenuProps) {
         />
       </div>
       <div className="settings-buttons-wrapper">
-        <Button variant="outline" color="var(--accent-color)">
+        <Button
+          variant="outline"
+          color="var(--accent-color)"
+          onClick={handleReset}
+        >
           Reset to default
         </Button>
         <Button

@@ -1,14 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { PitchDetector } from "pitchy";
-import type { TunerSettings } from "@/features/instrument-tuner/types/types";
 
-const defaultSettings: TunerSettings = {
-  bufferSize: 2048,
-  minVolumeDecibels: -40,
-  minClarityPercent: 95,
-  minPitch: 30,
-  maxPitch: 10000,
-};
+import { PitchDetector } from "pitchy";
+import type { TunerSettings } from "@/types/tuner-types";
+import { defaultSettings } from "@/utils/tuner-defaults";
 
 export function useTuner(settings: TunerSettings = defaultSettings) {
   const [pitch, setPitch] = useState<number | null>(null);

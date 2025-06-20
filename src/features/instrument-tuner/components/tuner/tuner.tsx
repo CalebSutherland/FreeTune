@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 
-import data from "../../data/tuning-data.json";
 import { useTuner } from "@/hooks/use-tuner";
-import { useNotePlayer } from "../../hooks/useNotePlayer";
-import type { InstrumentFamily, TunerSettings } from "../../types/types";
+import { useNotePlayer } from "@/hooks/useNotePlayer";
+import type { TunerSettings } from "@/types/tuner-types";
+import { defaultSettings } from "@/utils/tuner-defaults";
+import data from "../../data/tuning-data.json";
+import type { InstrumentFamily } from "../../types/types";
 import {
   getClosestNote,
   getFrequencyFromNote,
@@ -15,6 +17,7 @@ import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
 import Visual from "./visual";
+import SettingsMenu from "./settings-menu";
 import BackButton from "../ui/back-button";
 import { Button, Switch, ActionIcon, Overlay, Loader } from "@mantine/core";
 import { FaChevronRight } from "react-icons/fa";
@@ -22,18 +25,8 @@ import { FaGear } from "react-icons/fa6";
 import { MdOutlineShowChart } from "react-icons/md";
 import { PiGauge } from "react-icons/pi";
 import "./tuner.css";
-import SettingsMenu from "./settings-menu";
 
 const instruments = data as InstrumentFamily[];
-
-const defaultSettings: TunerSettings = {
-  bufferSize: 2048,
-  minVolumeDecibels: -40,
-  minClarityPercent: 95,
-  minPitch: 30,
-  maxPitch: 10000,
-};
-
 export default function InstrumentTuner() {
   const [showMenu, setShowMenu] = useState(false);
   const [settings, setSettings] = useState<TunerSettings>(defaultSettings);
