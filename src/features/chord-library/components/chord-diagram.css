@@ -1,0 +1,97 @@
+.chord-diagram-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.chord-diagram {
+  display: grid;
+  grid-template-columns: auto 240px; /* Left column for fret numbers, right for fretboard */
+  grid-template-rows: 30px 300px; /* Top row for string indicators, bottom for fretboard */
+  gap: 0.5rem;
+}
+
+/* Empty top-left cell */
+.grid-empty {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+/* String indicators wrapper: relative position, overlays the fretboard */
+.string-indicators-wrapper {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  position: relative;
+  width: 240px;
+  height: 30px;
+}
+
+/* Each indicator: absolutely positioned over string lines */
+.string-indicator {
+  position: absolute;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fret numbers vertical flexbox */
+.fret-numbers {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 300px;
+}
+
+.fret-number {
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Fretboard */
+.fretboard {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  position: relative;
+  width: 240px;
+  height: 300px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.fret-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: black;
+}
+
+.string-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: black;
+}
+
+.finger {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
