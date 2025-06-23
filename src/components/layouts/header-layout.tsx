@@ -25,14 +25,14 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
       icon: <FaGuitar />,
     },
     {
-      name: "Metronome",
-      to: paths.app.tools.metronome.getHref(),
-      icon: <PiMetronome />,
-    },
-    {
       name: "Chord Library",
       to: paths.app.tools.chord_library.getHref(),
       icon: <FaBook />,
+    },
+    {
+      name: "Metronome",
+      to: paths.app.tools.metronome.getHref(),
+      icon: <PiMetronome />,
     },
     {
       name: "Classic Tuner",

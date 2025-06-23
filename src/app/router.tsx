@@ -44,23 +44,25 @@ const router = createBrowserRouter([
           {
             index: true,
             lazy: () =>
-              import("./routes/app/tools/tuner").then((module) => ({
+              import("./routes/app/tools/tuner-page").then((module) => ({
                 Component: module.default,
               })),
           },
           {
             path: paths.app.tools.metronome.path,
             lazy: () =>
-              import("./routes/app/tools/metronome").then((module) => ({
+              import("./routes/app/tools/metronome-page").then((module) => ({
                 Component: module.default,
               })),
           },
           {
             path: paths.app.tools.chord_library.path,
             lazy: () =>
-              import("./routes/app/tools/chord-library").then((module) => ({
-                Component: module.default,
-              })),
+              import("./routes/app/tools/chord-library-page").then(
+                (module) => ({
+                  Component: module.default,
+                })
+              ),
           },
         ],
       },

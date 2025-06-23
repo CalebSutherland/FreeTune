@@ -1,4 +1,4 @@
-export default function Metronome() {
+export default function MetronomePage() {
   return (
     <>
       <title>Metronome | FreeTune</title>
