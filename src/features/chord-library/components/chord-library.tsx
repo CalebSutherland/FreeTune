@@ -2,24 +2,17 @@ import data from "../data/chord-data.json";
 import type { Note } from "../types/types";
 import ChordDiagram from "./chord-diagram";
 
+import db from "@tombatossals/chords-db/lib/guitar.json";
+
 const notes = data as Note[];
 
 export default function ChordLibrary() {
-  return (
-    <div>
-      {notes.map((note) => (
-        <div key={note.note}>
-          <h2>{note.note}</h2>
-          {note.keys.map((key) => (
-            <div key={`${note.note} ${key.name}`}>
-              <h3>{key.name}</h3>
-              {key.chords.map((chord, index) => (
-                <ChordDiagram key={index} chord={chord} />
-              ))}
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
+  const cMajor = db.chords.C.find((chord) => chord.suffix === "major");
+  if (!cMajor) return <div>No chord found</div>;
+  const position = cMajor.positions[0];
+  const C = db.chords.C;
+
+  console.log(cMajor?.positions);
+  console.log(position);
+  return <ChordDiagram chord={position} />;
 }

@@ -33,11 +33,11 @@ export default function TunerStats({
         <span>Target Note:</span> {target ?? "None"}
       </p>
       <p>
-        <span>Frequency Difference:</span>{" "}
-        {freqDifference ? freqDifference.toFixed(2) + " Hz" : "N/A"}
+        <span>Difference (freq):</span>{" "}
+        {freqDifference ? freqDifference.toFixed(2) : "N/A"}
       </p>
       <p>
-        <span>Cents Difference:</span> {centsDifference?.toFixed(0) ?? "N/A"}
+        <span>Difference (cents):</span> {centsDifference?.toFixed(0) ?? "N/A"}
       </p>
       <p>
         <span>Clarity:</span> {clarity.toFixed(2)}

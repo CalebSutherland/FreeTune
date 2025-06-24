@@ -15,7 +15,7 @@ export default function Dial({ freqDifference }: DialProps) {
   const maxHz = 10;
 
   const needleRotation = calculateNeedleRotation(freqDifference, maxHz);
-  const currentColor = getColorFromFreqDiff(freqDifference, "#ff0000");
+  const currentColor = getColorFromFreqDiff(freqDifference, "var(--note-btn)");
 
   // Generate tick marks on the arc
   const generateTicks = (): React.JSX.Element[] => {

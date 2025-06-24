@@ -16,6 +16,15 @@ export type Chord = {
   };
 };
 
+export type ChordDb = {
+  barres: number[];
+  baseFret: number;
+  capo?: boolean;
+  fingers: number[];
+  frets: number[];
+  midi: number[];
+};
+
 export type Key = {
   name: string;
   chords: Chord[];
