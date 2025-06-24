@@ -1,11 +1,12 @@
 .chord-diagram-wrapper {
   display: flex;
   justify-content: center;
+  transform: translateX(-1rem);
 }
 
 .chord-diagram {
   display: grid;
-  grid-template-columns: auto 240px; /* Left column for fret numbers, right for fretboard */
+  grid-template-columns: 2rem 240px; /* Left column for fret numbers, right for fretboard */
   grid-template-rows: 30px 300px; /* Top row for string indicators, bottom for fretboard */
   gap: 0.5rem;
 }
@@ -61,8 +62,9 @@
   position: relative;
   width: 240px;
   height: 300px;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
+  border-top: 2px solid var(--text-color);
+  border-bottom: 2px solid var(--text-color);
+  border-right: 2px solid var(--text-color);
 }
 
 .fret-line {
@@ -70,7 +72,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background-color: black;
+  background-color: var(--text-color);
 }
 
 .string-line {
@@ -78,7 +80,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background-color: black;
+  background-color: var(--text-color);
 }
 
 .finger {
@@ -87,11 +89,24 @@
   transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
-  background-color: black;
-  color: white;
+  background-color: var(--text-color);
+  color: var(--text-color-invert);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 14px;
+}
+
+.barre {
+  position: absolute;
+  height: 20px;
+  background-color: var(--text-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color-invert);
+  font-size: 14px;
+  transform: translateY(-50%);
 }

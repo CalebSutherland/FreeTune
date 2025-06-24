@@ -1,5 +1,5 @@
-import ChordDiagram from "@/features/chord-library/components/chord-diagram";
+import ChordLibrary from "@/features/chord-library/components/chord-library";
 
 export default function ChordLibraryPage() {
-  return <ChordDiagram />;
+  return <ChordLibrary />;
 }

@@ -1,44 +1,13 @@
+import type { Chord } from "../types/types";
 import "./chord-diagram.css";
 
-export type FingerPosition = {
-  string: number; // 1 (high E) to 6 (low E)
-  fret: number; // fret number to display
-  finger: number; // finger number (1-indexed)
-};
+interface ChordDiagramProps {
+  chord: Chord;
+}
 
-export type Chord = {
-  name: string;
-  positions: (number | "x")[]; // array length 6, from low E to high E
-  fingers: FingerPosition[]; // where to render finger dots
-};
-
-type ChordDiagramProps = {
-  chord?: Chord;
-};
-
-const C_MAJOR: Chord = {
-  name: "C Major",
-  positions: ["x", 3, 2, 0, 1, 0], // low E to high E
-  fingers: [
-    { string: 5, fret: 3, finger: 3 },
-    { string: 4, fret: 2, finger: 2 },
-    { string: 2, fret: 1, finger: 1 },
-  ],
-};
-
-const D_MAJOR: Chord = {
-  name: "D Major",
-  positions: ["x", "x", 0, 2, 3, 2], // low E to high E
-  fingers: [
-    { string: 3, fret: 2, finger: 1 },
-    { string: 2, fret: 3, finger: 3 },
-    { string: 1, fret: 2, finger: 2 },
-  ],
-};
-
-export default function ChordDiagram({ chord = D_MAJOR }: ChordDiagramProps) {
+export default function ChordDiagram({ chord }: ChordDiagramProps) {
   const frets = [1, 2, 3, 4];
-  const strings = [0, 1, 2, 3, 4, 5]; // index from low E to high E
+  const strings = [1, 2, 3, 4, 5, 6];
 
   return (
     <div className="chord-diagram-wrapper">
@@ -48,15 +17,15 @@ export default function ChordDiagram({ chord = D_MAJOR }: ChordDiagramProps) {
 
         {/* String indicators */}
         <div className="string-indicators-wrapper">
-          {strings.map((stringIndex) => (
+          {strings.map((_, stringIndex) => (
             <div
               key={stringIndex}
               className="string-indicator"
-              style={{ left: `${(stringIndex / 5) * 100}%` }} // same as string lines
+              style={{ left: `${(stringIndex / 5) * 100}%` }}
             >
-              {chord.positions[stringIndex] === "x"
+              {chord.stringStates[stringIndex] === "x"
                 ? "X"
-                : chord.positions[stringIndex] === 0
+                : chord.stringStates[stringIndex] === "o"
                 ? "O"
                 : ""}
             </div>
@@ -65,9 +34,9 @@ export default function ChordDiagram({ chord = D_MAJOR }: ChordDiagramProps) {
 
         {/* Fret numbers */}
         <div className="fret-numbers">
-          {frets.map((fretNumber) => (
+          {frets.map((fretNumber, index) => (
             <div key={fretNumber} className="fret-number">
-              {fretNumber}
+              {chord.baseFret ? chord.baseFret + index : 1 + index}
             </div>
           ))}
         </div>
@@ -86,15 +55,15 @@ export default function ChordDiagram({ chord = D_MAJOR }: ChordDiagramProps) {
             <div
               className="string-line"
               key={stringIndex}
-              style={{ left: `${(stringIndex / 5) * 100}%` }}
+              style={{ left: `${((stringIndex - 1) / 5) * 100}%` }}
             >
               {chord.fingers.map((finger, idx) => {
-                if (finger.string === 6 - stringIndex) {
+                if (finger.string === stringIndex) {
                   return (
                     <div
                       key={idx}
                       className="finger"
-                      style={{ top: `${(finger.fret - 0.5) * 25}%` }}
+                      style={{ top: `${(finger.position - 0.5) * 25}%` }}
                     >
                       {finger.finger}
                     </div>
@@ -104,6 +73,24 @@ export default function ChordDiagram({ chord = D_MAJOR }: ChordDiagramProps) {
               })}
             </div>
           ))}
+
+          {/* Render barre if it exists */}
+          {chord.barre && (
+            <div
+              className="barre"
+              style={{
+                top: `${(chord.barre.position - 0.5) * 25}%`,
+                left: `calc(${
+                  ((chord.barre.fromString - 1) / 5) * 100
+                }% - 0.5rem)`,
+                width: `calc(${
+                  ((chord.barre.toString - chord.barre.fromString) / 5) * 100
+                }% + 1rem)`,
+              }}
+            >
+              {chord.barre.finger}
+            </div>
+          )}
         </div>
       </div>
     </div>

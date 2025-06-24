@@ -1,0 +1,280 @@
+[
+  {
+    "note": "C",
+    "keys": [
+      {
+        "name": "major",
+        "chords": [
+          {
+            "stringStates": ["x", null, null, "o", null, "o"],
+            "fingers": [
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 2, "finger": 2 },
+              { "string": 5, "position": 1, "finger": 1 }
+            ]
+          },
+          {
+            "baseFret": 3,
+            "stringStates": ["x", null, null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 3, "finger": 2 },
+              { "string": 4, "position": 3, "finger": 3 },
+              { "string": 5, "position": 3, "finger": 4 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 2,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 8,
+            "stringStates": [null, null, null, null, null, null],
+            "fingers": [
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 3, "finger": 4 },
+              { "string": 4, "position": 2, "finger": 2 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 1,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 8,
+            "stringStates": ["x", null, null, null, null, "x"],
+            "fingers": [
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 3, "finger": 4 },
+              { "string": 4, "position": 2, "finger": 2 },
+              { "string": 5, "position": 1, "finger": 1 }
+            ]
+          },
+          {
+            "baseFret": 8,
+            "stringStates": ["x", "x", null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 3, "finger": 3 },
+              { "string": 4, "position": 2, "finger": 2 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 5,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 8,
+            "stringStates": [null, null, null, null, "x", "x"],
+            "fingers": [
+              { "string": 1, "position": 1, "finger": 1 },
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 3, "finger": 4 },
+              { "string": 4, "position": 2, "finger": 2 }
+            ]
+          },
+          {
+            "baseFret": 10,
+            "stringStates": ["x", "x", null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 1, "finger": 1 },
+              { "string": 4, "position": 3, "finger": 2 },
+              { "string": 5, "position": 4, "finger": 4 },
+              { "string": 6, "position": 3, "finger": 3 }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "minor",
+        "chords": [
+          {
+            "baseFret": 3,
+            "stringStates": ["x", null, null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 3, "finger": 3 },
+              { "string": 4, "position": 3, "finger": 4 },
+              { "string": 5, "position": 2, "finger": 2 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 2,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 8,
+            "stringStates": [null, null, null, null, null, null],
+            "fingers": [
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 3, "finger": 4 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 1,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 10,
+            "stringStates": ["x", "x", null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 1, "finger": 1 },
+              { "string": 4, "position": 3, "finger": 3 },
+              { "string": 5, "position": 4, "finger": 4 },
+              { "string": 6, "position": 2, "finger": 2 }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "note": "C#",
+    "keys": [
+      {
+        "name": "major",
+        "chords": [
+          {
+            "stringStates": ["x", null, null, null, null, null],
+            "fingers": [
+              { "string": 2, "position": 4, "finger": 4 },
+              { "string": 3, "position": 3, "finger": 3 },
+              { "string": 5, "position": 2, "finger": 2 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 4,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 4,
+            "stringStates": ["x", null, null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 3, "finger": 2 },
+              { "string": 4, "position": 3, "finger": 3 },
+              { "string": 5, "position": 3, "finger": 4 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 2,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 9,
+            "stringStates": [null, null, null, null, null, null],
+            "fingers": [
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 3, "finger": 4 },
+              { "string": 4, "position": 2, "finger": 2 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 1,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 9,
+            "stringStates": ["x", null, null, null, null, "x"],
+            "fingers": [
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 3, "finger": 4 },
+              { "string": 4, "position": 2, "finger": 2 },
+              { "string": 5, "position": 1, "finger": 1 }
+            ]
+          },
+          {
+            "baseFret": 9,
+            "stringStates": ["x", "x", null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 3, "finger": 3 },
+              { "string": 4, "position": 2, "finger": 2 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 5,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 9,
+            "stringStates": [null, null, null, null, "x", "x"],
+            "fingers": [
+              { "string": 1, "position": 1, "finger": 1 },
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 3, "finger": 4 },
+              { "string": 4, "position": 2, "finger": 2 }
+            ]
+          },
+          {
+            "baseFret": 11,
+            "stringStates": ["x", "x", null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 1, "finger": 1 },
+              { "string": 4, "position": 3, "finger": 2 },
+              { "string": 5, "position": 4, "finger": 4 },
+              { "string": 6, "position": 3, "finger": 3 }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "minor",
+        "chords": [
+          {
+            "baseFret": 4,
+            "stringStates": ["x", null, null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 3, "finger": 3 },
+              { "string": 4, "position": 3, "finger": 4 },
+              { "string": 5, "position": 2, "finger": 2 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 2,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 9,
+            "stringStates": [null, null, null, null, null, null],
+            "fingers": [
+              { "string": 2, "position": 3, "finger": 3 },
+              { "string": 3, "position": 3, "finger": 4 }
+            ],
+            "barre": {
+              "position": 1,
+              "finger": 1,
+              "fromString": 1,
+              "toString": 6
+            }
+          },
+          {
+            "baseFret": 11,
+            "stringStates": ["x", "x", null, null, null, null],
+            "fingers": [
+              { "string": 3, "position": 1, "finger": 1 },
+              { "string": 4, "position": 3, "finger": 3 },
+              { "string": 5, "position": 3, "finger": 4 },
+              { "string": 6, "position": 2, "finger": 2 }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
