@@ -1,17 +1,30 @@
-import type { ChordDb } from "../types/types";
-import { getFretNumbers, getStringStates } from "../utils/chord-utils";
+import type { Chord } from "../types/types";
+import {
+  getBarrePosition,
+  getFretNumbers,
+  getMidiForString,
+  getStringStates,
+} from "../utils/chord-utils";
+import FingerButton from "./finger-button";
 import "./chord-diagram.css";
 
 interface ChordDiagramProps {
-  chord: ChordDb;
+  chord: Chord;
+  playNote: (note: string) => void;
+  loadInstrument: (instrument: string) => void;
 }
 
-export default function ChordDiagram({ chord }: ChordDiagramProps) {
+export default function ChordDiagram({
+  chord,
+  playNote,
+  loadInstrument,
+}: ChordDiagramProps) {
   const frets = [0, 1, 2, 3];
   const strings = [0, 1, 2, 3, 4, 5];
 
   const stringStates = getStringStates(chord.frets);
   const fretNumbers = getFretNumbers(chord.baseFret);
+  const barre = getBarrePosition(chord.frets, chord.fingers, chord.barres);
 
   return (
     <div className="chord-diagram-wrapper">
@@ -51,25 +64,6 @@ export default function ChordDiagram({ chord }: ChordDiagramProps) {
             ></div>
           ))}
 
-          {chord.frets.map((fret, stringIndex) => {
-            const finger = chord.fingers[stringIndex];
-
-            if (fret <= 0 || finger === 0) return null;
-
-            const left = (stringIndex / 5) * 100;
-            const top = (fret - 0.5) * 25;
-
-            return (
-              <div
-                key={stringIndex}
-                className="finger"
-                style={{ left: `${left}%`, top: `${top}%` }}
-              >
-                {finger}
-              </div>
-            );
-          })}
-
           {strings.map((stringIndex) => (
             <div
               className="string-line"
@@ -77,6 +71,51 @@ export default function ChordDiagram({ chord }: ChordDiagramProps) {
               style={{ left: `${(stringIndex / 5) * 100}%` }}
             ></div>
           ))}
+
+          {/* Fingers */}
+          {chord.frets.map((fret, stringIndex) => {
+            const finger = chord.fingers[stringIndex];
+            const midiNote = getMidiForString(
+              chord.frets,
+              chord.midi,
+              stringIndex
+            );
+
+            if (fret <= 0 || finger === 0 || midiNote === null) return null;
+
+            const left = (stringIndex / 5) * 100;
+            const top = (fret - 0.5) * 25;
+
+            return (
+              <div
+                key={stringIndex}
+                className="finger-wrapper"
+                style={{ left: `${left}%`, top: `${top}%` }}
+              >
+                <FingerButton
+                  finger={finger}
+                  midi={midiNote}
+                  playNote={playNote}
+                  loadInstrument={loadInstrument}
+                />
+              </div>
+            );
+          })}
+
+          {barre && (
+            <div
+              className="barre"
+              style={{
+                top: `${(barre.position - 0.5) * 25}%`,
+                left: `calc(${(barre.fromString / 5) * 100}% - 0.9rem)`,
+                width: `calc(${
+                  ((barre.toString - barre.fromString) / 5) * 100
+                }% + 1.8rem)`,
+              }}
+            >
+              {barre.finger}
+            </div>
+          )}
         </div>
       </div>
     </div>

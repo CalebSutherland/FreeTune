@@ -1,18 +1,42 @@
-import data from "../data/chord-data.json";
-import type { Note } from "../types/types";
 import ChordDiagram from "./chord-diagram";
-
 import db from "@tombatossals/chords-db/lib/guitar.json";
-
-const notes = data as Note[];
+import { useNotePlayer } from "@/hooks/useNotePlayer";
 
 export default function ChordLibrary() {
-  const cMajor = db.chords.C.find((chord) => chord.suffix === "major");
-  if (!cMajor) return <div>No chord found</div>;
-  const position = cMajor.positions[0];
-  const C = db.chords.C;
+  const { playNote, loadInstrument } = useNotePlayer();
 
-  console.log(cMajor?.positions);
-  console.log(position);
-  return <ChordDiagram chord={position} />;
+  console.log(db);
+  return (
+    // <div>
+    //   <h1>All Guitar Chords</h1>
+    //   {Object.entries(db.chords).map(([key, chordList]) => (
+    //     <div key={key}>
+    //       <h2>{key}</h2>
+    //       {chordList.map((chord) => (
+    //         <div key={chord.suffix}>
+    //           <h3>{chord.suffix}</h3>
+    //           {chord.positions.map((position) => (
+    //             <ChordDiagram chord={position} />
+    //           ))}
+    //         </div>
+    //       ))}
+    //     </div>
+    //   ))}
+    // </div>
+    <div>
+      {db.chords.C.map((chord, i) => (
+        <div key={i}>
+          <h2>{chord.suffix}</h2>
+          {chord.positions.map((pos, id) => (
+            <ChordDiagram
+              key={id}
+              chord={pos}
+              playNote={playNote}
+              loadInstrument={loadInstrument}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
 }
