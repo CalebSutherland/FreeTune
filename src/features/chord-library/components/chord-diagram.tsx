@@ -12,12 +12,14 @@ interface ChordDiagramProps {
   chord: Chord;
   playNote: (note: string) => void;
   loadInstrument: (instrument: string) => void;
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
 export default function ChordDiagram({
   chord,
   playNote,
   loadInstrument,
+  size,
 }: ChordDiagramProps) {
   const frets = [0, 1, 2, 3];
   const strings = [0, 1, 2, 3, 4, 5];
@@ -26,8 +28,21 @@ export default function ChordDiagram({
   const fretNumbers = getFretNumbers(chord.baseFret);
   const barre = getBarrePosition(chord.frets, chord.fingers, chord.barres);
 
+  const scaleMap = {
+    xs: 0.6,
+    sm: 0.8,
+    md: 1,
+    lg: 1.2,
+    xl: 1.4,
+  };
+
+  const scale = scaleMap[size ?? "sm"];
+
   return (
-    <div className="chord-diagram-wrapper">
+    <div
+      className="chord-diagram-wrapper"
+      style={{ ["--scale" as any]: scale }}
+    >
       <div className="chord-diagram">
         {/* Empty corner cell */}
         <div className="grid-empty"></div>
@@ -107,10 +122,8 @@ export default function ChordDiagram({
               className="barre"
               style={{
                 top: `${(barre.position - 0.5) * 25}%`,
-                left: `calc(${(barre.fromString / 5) * 100}% - 0.9rem)`,
-                width: `calc(${
-                  ((barre.toString - barre.fromString) / 5) * 100
-                }% + 1.8rem)`,
+                left: `${(barre.fromString / 5) * 100}%`,
+                width: `${((barre.toString - barre.fromString) / 5) * 100}% `,
               }}
             >
               {barre.finger}

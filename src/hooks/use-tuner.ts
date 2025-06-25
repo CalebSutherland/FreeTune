@@ -22,7 +22,6 @@ export function useTuner(settings: TunerSettings = defaultSettings) {
   // Update settings ref when settings change
   useEffect(() => {
     settingsRef.current = settings;
-    console.log(settings);
 
     if (pitchDetectorRef.current) {
       pitchDetectorRef.current.minVolumeDecibels = settings.minVolumeDecibels;

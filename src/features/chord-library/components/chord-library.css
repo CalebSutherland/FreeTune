@@ -1,0 +1,64 @@
+.chord-lib-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.chord-lib-header {
+  display: flex;
+  background: var(--secondary-color);
+  border-bottom: 1px solid var(--secondary-border-color);
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 0.5rem 0 0.5rem 1rem;
+}
+
+.key-button {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  background: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.key-button.active {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.chord-lib-main {
+  display: flex;
+}
+
+.chord-lib-nav {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 5rem;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.suffix-button {
+  cursor: pointer;
+}
+
+.suffix-button.active {
+  background-color: var(--tools-active-color);
+}
+
+.chord-lib-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0 1rem 0 2rem;
+}
+
+.diagrams-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* @media screen and */

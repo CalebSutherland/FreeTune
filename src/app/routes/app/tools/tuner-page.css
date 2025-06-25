@@ -1,0 +1,12 @@
+.tuner-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: var(--body-margin);
+}
+
+@media screen and (max-width: 500px) {
+  .tuner-page-wrapper {
+    margin: var(--body-margin-mobile);
+  }
+}
