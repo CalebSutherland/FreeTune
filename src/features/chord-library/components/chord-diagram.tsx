@@ -36,7 +36,7 @@ export default function ChordDiagram({
     xl: 1.4,
   };
 
-  const scale = scaleMap[size ?? "sm"];
+  const scale = scaleMap[size ?? "xs"];
 
   return (
     <div
@@ -119,14 +119,18 @@ export default function ChordDiagram({
 
           {barre && (
             <div
-              className="barre"
+              className={`barre-${barre.finger}`}
               style={{
                 top: `${(barre.position - 0.5) * 25}%`,
-                left: `${(barre.fromString / 5) * 100}%`,
-                width: `${((barre.toString - barre.fromString) / 5) * 100}% `,
+                left: `calc(${(barre.fromString / 5) * 100}% - calc(1rem * ${
+                  scaleMap[size ?? "md"]
+                }))`,
+                width: `calc(${
+                  ((barre.toString - barre.fromString) / 5) * 100
+                }% + calc(2rem * ${scaleMap[size ?? "md"]}))`,
               }}
             >
-              {barre.finger}
+              <p className="barre-label">{barre.finger}</p>
             </div>
           )}
         </div>

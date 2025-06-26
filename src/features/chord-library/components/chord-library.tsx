@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import ChordDiagram from "./chord-diagram";
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import { useNotePlayer } from "@/hooks/useNotePlayer";
+import DiagramCard from "./diagram-card";
 import "./chord-library.css";
 
 type Key = keyof typeof db.chords;
@@ -110,13 +110,14 @@ export default function ChordLibrary() {
                     return (
                       chord && (
                         <div key={`${k}-${suf}`}>
-                          <h3>
-                            {k} {suf}
-                          </h3>
-                          <ChordDiagram
+                          <DiagramCard
+                            keyName={k}
+                            suffix={suf}
                             chord={chord.positions[0]}
+                            midi={chord.positions[0].midi}
                             playNote={playNote}
                             loadInstrument={loadInstrument}
+                            size={"xs"}
                           />
                         </div>
                       )
@@ -129,24 +130,29 @@ export default function ChordLibrary() {
                   return (
                     chord && (
                       <div key={`${key}-${suf}`}>
-                        <h3>
-                          {key} {suf}
-                        </h3>
-                        <ChordDiagram
+                        <DiagramCard
+                          keyName={key}
+                          suffix={suf}
                           chord={chord.positions[0]}
+                          midi={chord.positions[0].midi}
                           playNote={playNote}
                           loadInstrument={loadInstrument}
+                          size={"xs"}
                         />
                       </div>
                     )
                   );
                 })
               : selectedChord.positions.map((pos, i) => (
-                  <ChordDiagram
+                  <DiagramCard
                     key={i}
+                    keyName={key}
+                    suffix={suffix}
                     chord={pos}
+                    midi={pos.midi}
                     playNote={playNote}
                     loadInstrument={loadInstrument}
+                    size={"xs"}
                   />
                 ))}
           </div>

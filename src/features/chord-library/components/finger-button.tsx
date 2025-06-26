@@ -20,7 +20,7 @@ export default function FingerButton({
   };
 
   return (
-    <button className="finger" onClick={handleClick}>
+    <button className={`finger-${finger}`} onClick={handleClick}>
       {finger}
     </button>
   );

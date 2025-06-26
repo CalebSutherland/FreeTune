@@ -8,8 +8,8 @@
   background: var(--secondary-color);
   border-bottom: 1px solid var(--secondary-border-color);
   flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  padding: 0.5rem 0 0.5rem 1rem;
+  gap: 0.5rem 0.5rem;
+  padding: 0.5rem;
 }
 
 .key-button {

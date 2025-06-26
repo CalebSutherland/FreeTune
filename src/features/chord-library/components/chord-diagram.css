@@ -7,7 +7,7 @@
 .chord-diagram-wrapper {
   display: flex;
   justify-content: center;
-  transform: translateX(-1rem);
+  transform: translateX(calc(-1rem * var(--scale)));
 }
 
 .chord-diagram {
@@ -58,7 +58,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(1rem * var(--scale));
+  font-size: calc(1.2rem * var(--scale));
   font-weight: bold;
 }
 
@@ -99,28 +99,77 @@
   z-index: 2;
 }
 
-.finger {
+.finger-1,
+.finger-2,
+.finger-3,
+.finger-4 {
   width: calc(1.7rem * var(--scale));
   height: calc(1.7rem * var(--scale));
-  background-color: var(--accent-color);
   color: white;
   font-size: calc(1rem * var(--scale));
+  font-weight: 600;
   border-radius: 50%;
   z-index: 3;
+  cursor: pointer;
 }
 
-.finger:hover {
+.finger-1 {
+  background-color: var(--accent-color);
+}
+.finger-2 {
+  background-color: orange;
+}
+.finger-3 {
+  background-color: purple;
+}
+.finger-4 {
+  background-color: green;
+}
+
+.finger-1:hover {
   background-color: var(--accent-hover-color);
 }
+.finger-2:hover {
+  background-color: color-mix(in srgb, orange, black 10%);
+}
+.finger-3:hover {
+  background-color: color-mix(in srgb, purple, black 10%);
+}
+.finger-4:hover {
+  background-color: color-mix(in srgb, green, black 10%);
+}
 
-.barre {
+.barre-1,
+.barre-2,
+.barre-3,
+.barre-4 {
   position: absolute;
   height: calc(1.7rem * var(--scale));
-  background-color: var(--text-color);
+  border-radius: calc(1rem * var(--scale));
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
   font-size: calc(1rem * var(--scale));
   color: var(--text-color-invert);
   transform: translateY(-50%);
+  z-index: 4;
+}
+
+.barre-1 {
+  background-color: var(--accent-color);
+}
+.barre-2 {
+  background-color: orange;
+}
+.barre-3 {
+  background-color: purple;
+}
+.barre-4 {
+  background-color: green;
+}
+
+.barre-label {
+  color: white;
+  font-weight: 600;
 }
