@@ -3,24 +3,26 @@ import { useState } from "react";
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import { useNotePlayer } from "@/hooks/useNotePlayer";
 import DiagramCard from "./diagram-card";
+import { SegmentedControl } from "@mantine/core";
+import { LuRabbit, LuTurtle } from "react-icons/lu";
 import "./chord-library.css";
+import { formatKeyName } from "../utils/chord-utils";
 
 type Key = keyof typeof db.chords;
 
 export default function ChordLibrary() {
-  console.log(db);
-
   const keys = Object.keys(db.chords) as Key[];
   const [key, setKey] = useState<Key>("C");
   const chordList = db.chords[key];
-
   const suffixes = Array.from(new Set(chordList.map((chord) => chord.suffix)));
   const [suffix, setSuffix] = useState(suffixes[0]);
-
   const selectedChord = chordList.find((chord) => chord.suffix === suffix);
 
   const [showAllKeys, setShowAllKeys] = useState(true);
   const [showAllSuffixes, setShowAllSuffixes] = useState(true);
+
+  const [size, setSize] = useState<"xs" | "sm" | "md">("xs");
+  const [speed, setSpeed] = useState<"slow" | "fast">("fast");
 
   const { playNote, loadInstrument } = useNotePlayer();
 
@@ -61,7 +63,7 @@ export default function ChordLibrary() {
             key={k}
             onClick={() => handleKeyChange(k)}
           >
-            {k}
+            {formatKeyName(k)}
           </button>
         ))}
       </div>
@@ -91,12 +93,60 @@ export default function ChordLibrary() {
           </div>
         )}
         <div className="chord-lib-content">
-          <h2>
-            {showAllKeys
-              ? "All Keys"
-              : key +
-                (showAllSuffixes ? " All Chords" : ` ${selectedChord.suffix}`)}
-          </h2>
+          <div className="chord-content-header">
+            <div className="segmented-control">
+              <p>Size:</p>
+              <SegmentedControl
+                withItemsBorders={false}
+                classNames={{
+                  root: "segmented-control-root",
+                  indicator: "segmented-control-indicator",
+                  label: "segmented-control-label",
+                  control: "segmented-control-control",
+                }}
+                value={size}
+                onChange={(val) => setSize(val as "xs" | "sm" | "md")}
+                data={[
+                  { label: "sm", value: "xs" },
+                  { label: "md", value: "sm" },
+                  { label: "lg", value: "md" },
+                ]}
+              />
+            </div>
+
+            <div className="segmented-control">
+              <p>Speed:</p>
+              <SegmentedControl
+                withItemsBorders={false}
+                classNames={{
+                  root: "segmented-control-root",
+                  indicator: "segmented-control-indicator",
+                  label: "segmented-control-label",
+                  control: "segmented-control-control",
+                }}
+                value={speed}
+                onChange={(val) => setSpeed(val as "slow" | "fast")}
+                data={[
+                  {
+                    label: (
+                      <span className="segmented-icon">
+                        <LuRabbit size={20} />
+                      </span>
+                    ),
+                    value: "fast",
+                  },
+                  {
+                    label: (
+                      <span className="segmented-icon">
+                        <LuTurtle size={20} />
+                      </span>
+                    ),
+                    value: "slow",
+                  },
+                ]}
+              />
+            </div>
+          </div>
           <div className="diagrams-wrapper">
             {showAllKeys
               ? keys.flatMap((k) => {
@@ -117,7 +167,8 @@ export default function ChordLibrary() {
                             midi={chord.positions[0].midi}
                             playNote={playNote}
                             loadInstrument={loadInstrument}
-                            size={"xs"}
+                            size={size}
+                            speed={speed}
                           />
                         </div>
                       )
@@ -137,7 +188,8 @@ export default function ChordLibrary() {
                           midi={chord.positions[0].midi}
                           playNote={playNote}
                           loadInstrument={loadInstrument}
-                          size={"xs"}
+                          size={size}
+                          speed={speed}
                         />
                       </div>
                     )
@@ -152,7 +204,8 @@ export default function ChordLibrary() {
                     midi={pos.midi}
                     playNote={playNote}
                     loadInstrument={loadInstrument}
-                    size={"xs"}
+                    size={size}
+                    speed={speed}
                   />
                 ))}
           </div>

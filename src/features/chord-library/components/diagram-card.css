@@ -20,10 +20,17 @@
 }
 
 .diagram-audio-icon {
-  width: calc(2rem * var(--scale));
-  height: calc(2rem * var(--scale));
-  padding: calc(0.4rem * var(--scale));
+  min-height: 25px;
+  min-width: 25px;
+  max-height: 35px;
+  max-width: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0.25rem;
+}
+
+.diagram-audio-icon svg {
+  width: 100%;
+  height: 100%;
 }

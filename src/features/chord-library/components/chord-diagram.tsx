@@ -29,11 +29,11 @@ export default function ChordDiagram({
   const barre = getBarrePosition(chord.frets, chord.fingers, chord.barres);
 
   const scaleMap = {
-    xs: 0.6,
-    sm: 0.8,
-    md: 1,
-    lg: 1.2,
-    xl: 1.4,
+    xs: 0.4,
+    sm: 0.6,
+    md: 0.8,
+    lg: 1,
+    xl: 1.2,
   };
 
   const scale = scaleMap[size ?? "xs"];

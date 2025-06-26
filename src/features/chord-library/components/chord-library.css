@@ -52,13 +52,53 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 0 1rem 0 2rem;
+  padding: 0 1rem;
+}
+
+.chord-content-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.segmented-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.segmented-control-root {
+  background-color: var(--secondary-color);
+}
+
+.segmented-control-indicator {
+  background-color: var(--tools-active-color);
+}
+
+.segmented-control-label {
+  color: var(--text-color-lighter);
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.segmented-control-label[data-active="true"] {
+  color: var(--text-color);
+}
+
+.segmented-control-label:hover:not([data-active="true"]) {
+  color: var(--text-color);
+}
+
+.segmented-icon {
+  display: flex;
+  align-items: center;
 }
 
 .diagrams-wrapper {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 2rem;
 }
-
-/* @media screen and */

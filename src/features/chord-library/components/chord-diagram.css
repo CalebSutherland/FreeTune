@@ -2,6 +2,11 @@
   --base-width: 160px;
   --base-height: 160px;
   --scale: 1;
+
+  --finger-1: orange;
+  --finger-2: purple;
+  --finger-3: green;
+  --finger-4: var(--accent-color);
 }
 
 .chord-diagram-wrapper {
@@ -114,29 +119,29 @@
 }
 
 .finger-1 {
-  background-color: var(--accent-color);
+  background-color: var(--finger-1);
 }
 .finger-2 {
-  background-color: orange;
+  background-color: var(--finger-2);
 }
 .finger-3 {
-  background-color: purple;
+  background-color: var(--finger-3);
 }
 .finger-4 {
-  background-color: green;
+  background-color: var(--finger-4);
 }
 
 .finger-1:hover {
-  background-color: var(--accent-hover-color);
+  background-color: color-mix(in srgb, var(--finger-1), black 10%);
 }
 .finger-2:hover {
-  background-color: color-mix(in srgb, orange, black 10%);
+  background-color: color-mix(in srgb, var(--finger-2), black 10%);
 }
 .finger-3:hover {
-  background-color: color-mix(in srgb, purple, black 10%);
+  background-color: color-mix(in srgb, var(--finger-3), black 10%);
 }
 .finger-4:hover {
-  background-color: color-mix(in srgb, green, black 10%);
+  background-color: color-mix(in srgb, var(--finger-4), black 10%);
 }
 
 .barre-1,
@@ -157,16 +162,16 @@
 }
 
 .barre-1 {
-  background-color: var(--accent-color);
+  background-color: var(--finger-1);
 }
 .barre-2 {
-  background-color: orange;
+  background-color: var(--finger-2);
 }
 .barre-3 {
-  background-color: purple;
+  background-color: var(--finger-3);
 }
 .barre-4 {
-  background-color: green;
+  background-color: var(--finger-4);
 }
 
 .barre-label {

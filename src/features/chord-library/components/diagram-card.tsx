@@ -1,9 +1,9 @@
 import type { Chord } from "../types/types";
+import { formatKeyName, midiToNoteName } from "../utils/chord-utils";
 import ChordDiagram from "./chord-diagram";
 import { ActionIcon } from "@mantine/core";
 import { FaVolumeHigh } from "react-icons/fa6";
 import "./diagram-card.css";
-import { midiToNoteName } from "../utils/chord-utils";
 
 interface DiagramCardrops {
   keyName: string;
@@ -13,6 +13,7 @@ interface DiagramCardrops {
   playNote: (note: string) => void;
   loadInstrument: (instrument: string) => void;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
+  speed: "slow" | "fast";
 }
 
 export default function diagramCard({
@@ -23,23 +24,32 @@ export default function diagramCard({
   playNote,
   loadInstrument,
   size,
+  speed,
 }: DiagramCardrops) {
   const scaleMap = {
-    xs: 0.6,
-    sm: 0.8,
-    md: 1,
-    lg: 1.2,
-    xl: 1.4,
+    xs: 0.4,
+    sm: 0.6,
+    md: 0.8,
+    lg: 1,
+    xl: 1.2,
   };
 
   const scale = scaleMap[size ?? "xs"];
 
   async function playChordSequence() {
     loadInstrument("acoustic_guitar_nylon");
-    for (const note of midi) {
-      const noteName = midiToNoteName(note);
-      playNote(noteName);
-      await new Promise((resolve) => setTimeout(resolve, 50));
+    if (speed === "slow") {
+      for (const note of midi) {
+        const noteName = midiToNoteName(note);
+        playNote(noteName);
+        await new Promise((resolve) => setTimeout(resolve, 150));
+      }
+    } else {
+      for (const note of midi) {
+        const noteName = midiToNoteName(note);
+        playNote(noteName);
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      }
     }
   }
   return (
@@ -53,14 +63,15 @@ export default function diagramCard({
         />
       </div>
       <p className="diagram-label">
-        {keyName} {suffix}
+        {formatKeyName(keyName)} {suffix}
       </p>
       <ActionIcon
         color={"var(--accent-color)"}
         className="diagram-audio-icon"
+        size={50 * scaleMap[size ?? "xs"]}
         onClick={playChordSequence}
       >
-        <FaVolumeHigh size={scaleMap[size ?? "xs"] * 30} />
+        <FaVolumeHigh />
       </ActionIcon>
     </div>
   );
