@@ -1,10 +1,8 @@
-import { useChordLibrary } from "@/contexts/chord-library-context";
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import type { Key } from "@/types/chord-types";
 import DiagramCard from "./diagram/diagram-card";
 
 export default function ChordLibrary() {
-  const { size, speed, playNote, loadInstrument } = useChordLibrary();
   const keys = Object.keys(db.chords) as Key[];
 
   return (
@@ -24,10 +22,6 @@ export default function ChordLibrary() {
                   keyName={k}
                   suffix={suf}
                   chord={chord.positions[0]}
-                  playNote={playNote}
-                  loadInstrument={loadInstrument}
-                  size={size}
-                  speed={speed}
                   link={true}
                 />
               </div>

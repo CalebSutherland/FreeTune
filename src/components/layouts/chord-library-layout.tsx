@@ -49,6 +49,7 @@ export function ChordLibraryLayout({
             key="allKeys"
             className="key-button"
             to={paths.app.tools.chord_library.root.getHref()}
+            end
           >
             All
           </NavLink>
@@ -71,6 +72,7 @@ export function ChordLibraryLayout({
                 to={paths.app.tools.chord_library.chord_library_key.getHref(
                   routeKey
                 )}
+                end
               >
                 All
               </NavLink>

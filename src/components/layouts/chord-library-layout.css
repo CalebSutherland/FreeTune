@@ -46,6 +46,12 @@
 
 .suffix-button {
   cursor: pointer;
+  padding-left: 0.5rem;
+  color: var(--text-color);
+}
+.suffix-button:hover {
+  color: var(--text-color);
+  background-color: var(--primary-color);
 }
 
 .suffix-button.active {

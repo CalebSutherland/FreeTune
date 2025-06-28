@@ -1,20 +1,19 @@
-import type { Chord, Key } from "@/types/chord-types";
+import { NavLink } from "react-router-dom";
+import { paths } from "@/config/paths";
+import { useChordLibrary } from "@/contexts/chord-library-context";
+import type { Chord } from "@/types/chord-types";
 import { midiToNoteName } from "../../utils/chord-utils";
+import { scaleMap } from "../../utils/scale-map";
+import { formatKeyName } from "@/utils/chord-utils";
 import ChordDiagram from "./chord-diagram";
 import { ActionIcon } from "@mantine/core";
 import { FaVolumeHigh } from "react-icons/fa6";
 import "./diagram-card.css";
-import { scaleMap } from "../../utils/scale-map";
-import { formatKeyName } from "@/utils/chord-utils";
 
 interface DiagramCardrops {
   keyName: string;
   suffix: string;
   chord: Chord;
-  playNote: (note: string) => void;
-  loadInstrument: (instrument: string) => void;
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
-  speed: "slow" | "fast";
   link: boolean;
   version?: number;
 }
@@ -23,13 +22,10 @@ export default function diagramCard({
   keyName,
   suffix,
   chord,
-  playNote,
-  loadInstrument,
-  size,
-  speed,
   link,
   version,
 }: DiagramCardrops) {
+  const { size, speed, playNote, loadInstrument } = useChordLibrary();
   const scale = scaleMap[size ?? "xs"];
 
   async function playChordSequence() {
@@ -59,9 +55,15 @@ export default function diagramCard({
         />
       </div>
       {link ? (
-        <button className="diagram-link">
+        <NavLink
+          className="diagram-link"
+          to={paths.app.tools.chord_library.chord_library_key_suffix.getHref(
+            keyName,
+            suffix
+          )}
+        >
           {formatKeyName(keyName)} {suffix}
-        </button>
+        </NavLink>
       ) : (
         <p className="diagram-label">
           {formatKeyName(keyName)} {suffix} {`(v${version})`}
