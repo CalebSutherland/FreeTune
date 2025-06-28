@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 import { useTuner } from "@/hooks/use-tuner";
-import { useNotePlayer } from "@/hooks/useNotePlayer";
+import { useNotePlayer } from "@/hooks/use-note-player";
 import type { TunerSettings } from "@/types/tuner-types";
 import { defaultSettings } from "@/utils/tuner-defaults";
 import data from "../../data/tuning-data.json";

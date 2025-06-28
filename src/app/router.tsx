@@ -8,6 +8,7 @@ import {
   ErrorBoundary as AppRootErrorBoundary,
 } from "./routes/app/root";
 import ToolRoot from "./routes/app/tools/tool-root";
+import ChordRoot from "./routes/app/tools/chord-library/chord-root";
 
 const router = createBrowserRouter([
   {
@@ -56,13 +57,39 @@ const router = createBrowserRouter([
               })),
           },
           {
-            path: paths.app.tools.chord_library.path,
-            lazy: () =>
-              import("./routes/app/tools/chord-library-page").then(
-                (module) => ({
-                  Component: module.default,
-                })
-              ),
+            path: paths.app.tools.chord_library.root.path,
+            element: <ChordRoot />,
+            ErrorBoundary: AppRootErrorBoundary,
+            children: [
+              {
+                index: true,
+                lazy: () =>
+                  import(
+                    "./routes/app/tools/chord-library/chord-library-page"
+                  ).then((module) => ({
+                    Component: module.default,
+                  })),
+              },
+              {
+                path: paths.app.tools.chord_library.chord_library_key.path,
+                lazy: () =>
+                  import(
+                    "./routes/app/tools/chord-library/chord-key-page"
+                  ).then((module) => ({
+                    Component: module.default,
+                  })),
+              },
+              {
+                path: paths.app.tools.chord_library.chord_library_key_suffix
+                  .path,
+                lazy: () =>
+                  import(
+                    "./routes/app/tools/chord-library/chord-suffix-page"
+                  ).then((module) => ({
+                    Component: module.default,
+                  })),
+              },
+            ],
           },
         ],
       },

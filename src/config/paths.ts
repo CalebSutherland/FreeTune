@@ -31,8 +31,19 @@ export const paths = {
         getHref: () => "/tools/metronome",
       },
       chord_library: {
-        path: "chord_library",
-        getHref: () => "/tools/chord_library",
+        root: {
+          path: "chord_library",
+          getHref: () => "/tools/chord_library",
+        },
+        chord_library_key: {
+          path: ":key",
+          getHref: (key: string) => `/tools/chord_library/${key}`,
+        },
+        chord_library_key_suffix: {
+          path: ":key/:suffix",
+          getHref: (key: string, suffix: string) =>
+            `/tools/chord_library/${key}/${suffix}`,
+        },
       },
     },
     resources: {

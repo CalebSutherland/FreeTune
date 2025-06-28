@@ -26,7 +26,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
     },
     {
       name: "Chord Library",
-      to: paths.app.tools.chord_library.getHref(),
+      to: paths.app.tools.chord_library.root.getHref(),
       icon: <FaBook />,
     },
     {

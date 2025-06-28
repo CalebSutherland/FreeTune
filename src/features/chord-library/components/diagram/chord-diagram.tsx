@@ -1,10 +1,12 @@
-import type { Chord } from "../types/types";
+import type { Chord } from "@/types/chord-types";
 import {
   getBarrePosition,
   getFretNumbers,
   getMidiForString,
   getStringStates,
-} from "../utils/chord-utils";
+  midiToNoteName,
+} from "../../utils/chord-utils";
+import { scaleMap } from "../../utils/scale-map";
 import FingerButton from "./finger-button";
 import "./chord-diagram.css";
 
@@ -28,14 +30,6 @@ export default function ChordDiagram({
   const fretNumbers = getFretNumbers(chord.baseFret);
   const barre = getBarrePosition(chord.frets, chord.fingers, chord.barres);
 
-  const scaleMap = {
-    xs: 0.4,
-    sm: 0.6,
-    md: 0.8,
-    lg: 1,
-    xl: 1.2,
-  };
-
   const scale = scaleMap[size ?? "xs"];
 
   return (
@@ -49,15 +43,28 @@ export default function ChordDiagram({
 
         {/* String indicators */}
         <div className="string-indicators-wrapper">
-          {stringStates.map((stringIndicator, index) => (
-            <div
-              key={index}
-              className="string-indicator"
-              style={{ left: `${(index / 5) * 100}%` }}
-            >
-              {stringIndicator}
-            </div>
-          ))}
+          {stringStates.map((stringIndicator, index) => {
+            const midi = getMidiForString(chord.frets, chord.midi, index);
+            const note = midiToNoteName(midi ?? 0);
+            return (
+              <div
+                key={index}
+                className="string-indicator"
+                style={{ left: `${(index / 5) * 100}%` }}
+              >
+                {stringIndicator === "O" ? (
+                  <button
+                    className="open-button"
+                    onClick={() => playNote(note)}
+                  >
+                    {stringIndicator}
+                  </button>
+                ) : (
+                  <p>{stringIndicator}</p>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Fret numbers */}

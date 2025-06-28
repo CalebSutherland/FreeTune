@@ -93,7 +93,3 @@ export function getMidiForString(
 
   return frets[stringIndex] === -1 ? null : midi[playedIndex] ?? null;
 }
-
-export function formatKeyName(key: string): string {
-  return key.replace(/sharp/g, "♯").replace(/b/g, "♭");
-}

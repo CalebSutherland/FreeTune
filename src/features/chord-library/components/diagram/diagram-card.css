@@ -9,14 +9,25 @@
   background: var(--secondary-color);
   padding: calc(0.5rem * var(--scale)) calc(0.5rem * var(--scale))
     calc(1rem * var(--scale)) calc(1rem * var(--scale));
-  border-radius: calc(0.5rem * var(--scale));
+  border-radius: calc(1rem * var(--scale));
   gap: calc(0.25rem * var(--scale));
   font-size: calc(1rem * var(--scale));
 }
 
-.diagram-label {
+.diagram-label,
+.diagram-link {
   font-weight: 600;
   font-size: calc(1.4rem * var(--scale));
+}
+
+.diagram-link,
+.diagram-link:hover {
+  background: transparent;
+}
+
+.diagram-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .diagram-audio-icon {

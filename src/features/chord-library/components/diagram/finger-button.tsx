@@ -1,4 +1,4 @@
-import { midiToNoteName } from "../utils/chord-utils";
+import { midiToNoteName } from "../../utils/chord-utils";
 
 interface FingerButtonProps {
   finger: number;

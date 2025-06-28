@@ -49,6 +49,12 @@
   align-items: center;
 }
 
+.open-button,
+.open-button:hover {
+  cursor: pointer;
+  background: transparent;
+}
+
 .fret-numbers {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
