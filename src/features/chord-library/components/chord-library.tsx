@@ -1,12 +1,30 @@
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import type { Key } from "@/types/chord-types";
 import DiagramCard from "./diagram/diagram-card";
+import { useWindowScroll } from "@mantine/hooks";
+import { Affix, Button, Transition } from "@mantine/core";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function ChordLibrary() {
   const keys = Object.keys(db.chords) as Key[];
+  const [scroll, scrollTo] = useWindowScroll();
 
   return (
     <>
+      <Affix position={{ bottom: 20, right: 20 }}>
+        <Transition transition={"slide-up"} mounted={scroll.y > 0}>
+          {(transitionStyles) => (
+            <Button
+              color="var(--accent-color)"
+              leftSection={<FaArrowUp size={16} />}
+              style={transitionStyles}
+              onClick={() => scrollTo({ y: 0 })}
+            >
+              Scroll to top
+            </Button>
+          )}
+        </Transition>
+      </Affix>
       {keys.flatMap((k) => {
         const chordListForKey = db.chords[k];
         const suffixesForKey = Array.from(

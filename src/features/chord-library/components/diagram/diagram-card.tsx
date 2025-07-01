@@ -59,7 +59,7 @@ export default function diagramCard({
           className="diagram-link"
           to={paths.app.tools.chord_library.chord_library_key_suffix.getHref(
             keyName,
-            suffix
+            encodeURIComponent(suffix)
           )}
         >
           {formatKeyName(keyName)} {suffix}

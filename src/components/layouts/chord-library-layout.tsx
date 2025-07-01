@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigationType, useParams } from "react-router-dom";
 import { paths } from "@/config/paths";
 import { ChordLibraryContext } from "@/contexts/chord-library-context";
 import db from "@tombatossals/chords-db/lib/guitar.json";
@@ -21,16 +21,23 @@ export function ChordLibraryLayout({
   const [speed, setSpeed] = useState<"slow" | "fast">("fast");
 
   const keys = Object.keys(db.chords) as Key[];
-
-  const { playNote, loadInstrument } = useNotePlayer();
-
   const params = useParams();
   const routeKey = params.key as Key | undefined;
-
   const chordList = routeKey ? db.chords[routeKey] : undefined;
   const suffixes = chordList
     ? Array.from(new Set(chordList.map((chord) => chord.suffix)))
     : [];
+
+  const { playNote, loadInstrument } = useNotePlayer();
+
+  const location = useLocation();
+  const navigationType = useNavigationType();
+
+  useLayoutEffect(() => {
+    if (navigationType === "PUSH") {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   return (
     <ChordLibraryContext.Provider
