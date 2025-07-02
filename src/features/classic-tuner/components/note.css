@@ -1,0 +1,43 @@
+.note-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 0.1rem;
+  width: fit-content;
+}
+
+.note {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  font-size: 6rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.suffix {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.symbol,
+.octave {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+@media screen and (max-width: 400px) {
+  .note {
+    font-size: 5rem;
+  }
+  .symbol,
+  .octave {
+    font-size: 2.5rem;
+  }
+}

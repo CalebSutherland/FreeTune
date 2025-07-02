@@ -51,19 +51,6 @@
   transform: translateX(-50%);
 }
 
-.visual-icon {
-  color: var(--text-color);
-  border-color: var(--text-color);
-}
-.visual-icon:hover {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-}
-.visual-icon.active {
-  background-color: var(--secondary-color-invert);
-  color: var(--secondary-color);
-}
-
 .auto-switch {
   display: flex;
   align-items: center;
@@ -154,23 +141,6 @@
 .stats-dropdown.visible {
   max-height: 500px;
   transition: max-height 0.3s ease-in;
-}
-
-.stats-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem 2rem;
-  padding: 0 1rem 1rem;
-}
-
-.stats-content p {
-  margin: 0;
-  font-size: 0.8rem;
-  text-align: left;
-}
-
-.stats-content p span {
-  font-weight: bold;
 }
 
 .chevron {

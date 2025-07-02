@@ -1,4 +1,5 @@
-import { getNoteName, getFrequencyFromNote } from "../../utils/note-utils";
+import { getFrequencyFromNote, getNoteName } from "@/utils/tuner-utils";
+import "./tuner-stats.css";
 
 interface TunerStatsProps {
   pitch: number | null;

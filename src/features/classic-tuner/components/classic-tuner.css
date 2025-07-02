@@ -1,0 +1,103 @@
+.classic-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 60rem;
+  height: 100%;
+  background: var(--secondary-color);
+  border-radius: 1rem;
+}
+
+.classic-tuner {
+  width: 100%;
+  height: 100%;
+}
+
+.classic-tuner-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 3rem;
+}
+
+.visual-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.classic-tuner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--secondary-border-color);
+}
+
+.visual-wrapper {
+  width: 100%;
+}
+
+.note-display {
+  display: flex;
+  margin: 1rem 0;
+  color: var(--text-color);
+  gap: 1rem;
+}
+
+.center-note {
+  color: var(--accent-color);
+}
+
+.classic-footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.classic-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 3rem;
+}
+
+.stats-dropdown {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+  width: 100%;
+}
+
+.stats-dropdown.visible {
+  max-height: 500px;
+  transition: max-height 0.3s ease-in;
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+}
+
+.chevron.rotated {
+  transform: rotate(-180deg);
+}
+
+.settings-menu-view {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-color);
+  transition: transform 0.3s ease;
+  z-index: 10;
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-menu-view.visible {
+  transform: translateX(0);
+}

@@ -7,15 +7,15 @@ import { defaultSettings } from "@/utils/tuner-defaults";
 import data from "../../data/tuning-data.json";
 import type { InstrumentFamily } from "../../types/types";
 import {
-  getClosestNote,
-  getFrequencyFromNote,
   calculateCentsDifference,
   calculateFrequencyDifference,
-} from "../../utils/note-utils";
+  getClosestNote,
+  getFrequencyFromNote,
+} from "@/utils/tuner-utils";
 import { useMediaQuery } from "@mantine/hooks";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
-import TunerStats from "./tuner-stats";
+import TunerStats from "@/components/tuner/tuner-stats";
 import Visual from "@/components/tuner/visuals/visual";
 import SettingsMenu from "@/components/tuner/settings-menu";
 import BackButton from "@/components/ui/back-button";
@@ -63,6 +63,11 @@ export default function InstrumentTuner() {
 
   const isSmallScreen = useMediaQuery("(max-width: 450px)");
 
+  const handleSettingsChange = (newSettings: TunerSettings) => {
+    setSettings(newSettings);
+    setShowSettingsMenu(false);
+  };
+
   async function startTuner() {
     try {
       setLoadingTuner(true);
@@ -75,11 +80,6 @@ export default function InstrumentTuner() {
       setLoadingTuner(false);
     }
   }
-
-  const handleSettingsChange = (newSettings: TunerSettings) => {
-    setSettings(newSettings);
-    setShowSettingsMenu(false);
-  };
 
   useEffect(() => {
     if (disappearanceTimeout.current) {
