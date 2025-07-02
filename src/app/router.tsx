@@ -57,6 +57,15 @@ const router = createBrowserRouter([
               })),
           },
           {
+            path: paths.app.tools.classic_tuner.path,
+            lazy: () =>
+              import("./routes/app/tools/classic-tuner-page").then(
+                (module) => ({
+                  Component: module.default,
+                })
+              ),
+          },
+          {
             path: paths.app.tools.chord_library.root.path,
             element: <ChordRoot />,
             ErrorBoundary: AppRootErrorBoundary,

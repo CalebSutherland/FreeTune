@@ -59,7 +59,6 @@
   background-color: var(--primary-color);
   color: var(--text-color);
 }
-
 .visual-icon.active {
   background-color: var(--secondary-color-invert);
   color: var(--secondary-color);

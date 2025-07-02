@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useMetronome } from "../hooks/useMetronome";
 import { handleTap } from "../utils/metronome-utils";
@@ -22,9 +22,23 @@ export default function Metronome() {
     setCurrentBeat,
     noteValue,
     setNoteValue,
+    beatCount,
   } = useMetronome();
 
   const [showMenu, setShowMenu] = useState(false);
+  const [flashBeat, setFlashBeat] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    setFlashBeat(currentBeat);
+
+    const timeout = setTimeout(() => {
+      setFlashBeat(null);
+    }, 150);
+
+    return () => clearTimeout(timeout);
+  }, [beatCount, isPlaying]);
 
   const timeSigs = [
     "1/4",
@@ -99,7 +113,7 @@ export default function Metronome() {
           <div
             key={i}
             className={`beat-dot ${
-              isPlaying && currentBeat === i ? "active" : ""
+              isPlaying && flashBeat === i ? "active" : ""
             }`}
           />
         ))}

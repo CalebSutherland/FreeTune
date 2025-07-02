@@ -36,7 +36,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
     },
     {
       name: "Classic Tuner",
-      to: paths.app.tools.tuner.getHref(),
+      to: paths.app.tools.classic_tuner.getHref(),
       icon: <MdTune />,
     },
   ];

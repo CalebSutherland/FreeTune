@@ -1,0 +1,12 @@
+.visual-icon {
+  color: var(--text-color);
+  border-color: var(--text-color);
+}
+.visual-icon:hover {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+.visual-icon.active {
+  background-color: var(--secondary-color-invert);
+  color: var(--secondary-color);
+}

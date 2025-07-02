@@ -12,19 +12,17 @@ import {
   calculateCentsDifference,
   calculateFrequencyDifference,
 } from "../../utils/note-utils";
-
 import { useMediaQuery } from "@mantine/hooks";
 import TuningMenu from "./tuning-menu";
 import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
-import Visual from "./visual";
-import SettingsMenu from "./settings-menu";
-import BackButton from "../../../../components/ui/back-button";
+import Visual from "@/components/tuner/visuals/visual";
+import SettingsMenu from "@/components/tuner/settings-menu";
+import BackButton from "@/components/ui/back-button";
+import VisualSelector from "@/components/tuner/visual-selector";
 import { Button, Switch, ActionIcon, Overlay, Loader } from "@mantine/core";
 import { FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
-import { MdOutlineShowChart } from "react-icons/md";
-import { PiGauge } from "react-icons/pi";
 import "./tuner.css";
 
 const instruments = data as InstrumentFamily[];
@@ -62,11 +60,6 @@ export default function InstrumentTuner() {
     : null;
 
   const [visual, setVisual] = useState("graph");
-  const visuals = [
-    { name: "graph", icon: <MdOutlineShowChart size={20} /> },
-    { name: "dial", icon: <PiGauge size={20} /> },
-    { name: "3", icon: <FaGear size={20} /> },
-  ];
 
   const isSmallScreen = useMediaQuery("(max-width: 450px)");
 
@@ -168,21 +161,7 @@ export default function InstrumentTuner() {
 
           {!isSmallScreen && (
             <div className="visual-buttons">
-              <ActionIcon.Group>
-                {visuals.map((vis) => (
-                  <ActionIcon
-                    key={vis.name}
-                    className={`visual-icon ${
-                      visual === vis.name ? "active" : ""
-                    }`}
-                    variant="outline"
-                    size="md"
-                    onClick={() => setVisual(vis.name)}
-                  >
-                    {vis.icon}
-                  </ActionIcon>
-                ))}
-              </ActionIcon.Group>
+              <VisualSelector visual={visual} setVisual={setVisual} />
             </div>
           )}
 
@@ -248,21 +227,7 @@ export default function InstrumentTuner() {
 
             {isSmallScreen && (
               <div className="visual-buttons">
-                <ActionIcon.Group>
-                  {visuals.map((vis) => (
-                    <ActionIcon
-                      key={vis.name}
-                      className={`visual-icon ${
-                        visual === vis.name ? "active" : ""
-                      }`}
-                      variant="outline"
-                      size="md"
-                      onClick={() => setVisual(vis.name)}
-                    >
-                      {vis.icon}
-                    </ActionIcon>
-                  ))}
-                </ActionIcon.Group>
+                <VisualSelector visual={visual} setVisual={setVisual} />
               </div>
             )}
 

@@ -26,6 +26,10 @@ export const paths = {
       tuner: {
         getHref: () => "/tools",
       },
+      classic_tuner: {
+        path: "classic_tuner",
+        getHref: () => "/tools/classic_tuner",
+      },
       metronome: {
         path: "metronome",
         getHref: () => "/tools/metronome",

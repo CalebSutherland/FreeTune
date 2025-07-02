@@ -9,6 +9,7 @@ export function useMetronome(initialBpm = 120) {
   const currentBeatRef = useRef(0);
   const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
   const [noteValue, setNoteValue] = useState(4);
+  const [beatCount, setBeatCount] = useState(0);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const intervalRef = useRef<number | null>(null);
@@ -44,6 +45,7 @@ export function useMetronome(initialBpm = 120) {
 
       playClick(nextNoteTimeRef.current, isAccent);
       setCurrentBeat(beat);
+      setBeatCount((prev) => prev + 1);
 
       currentBeatRef.current = (beat + 1) % beatsPerMeasure;
 
@@ -98,5 +100,6 @@ export function useMetronome(initialBpm = 120) {
     setCurrentBeat,
     noteValue,
     setNoteValue,
+    beatCount,
   };
 }

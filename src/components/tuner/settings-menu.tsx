@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import type { TunerSettings } from "@/types/tuner-types";
 import { defaultSettings } from "@/utils/tuner-defaults";
-import { validators } from "../../utils/settings-utils";
+import { validators } from "@/utils/settings-utils";
 import { Button, NumberInput } from "@mantine/core";
 import "./settings-menu.css";
 

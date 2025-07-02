@@ -1,5 +1,6 @@
-import Graph from "../tuner-visuals/graph";
-import Dial from "../tuner-visuals/dial";
+import Graph from "./graph";
+import Dial from "./dial";
+
 interface VisualProps {
   visual: string;
   freqDifference: number | null;
