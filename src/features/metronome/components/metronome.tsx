@@ -1,0 +1,147 @@
+import { useRef, useState } from "react";
+
+import { useMetronome } from "../hooks/useMetronome";
+import { handleTap } from "../utils/metronome-utils";
+import BackButton from "@/components/ui/back-button";
+import { ActionIcon, Button, Slider } from "@mantine/core";
+import { FaMinus, FaPlus } from "react-icons/fa";
+import { MdChevronRight } from "react-icons/md";
+import "./metronome.css";
+
+export default function Metronome() {
+  const tapTimesRef = useRef<number[]>([]);
+  const {
+    bpm,
+    setBpm,
+    isPlaying,
+    start,
+    stop,
+    currentBeat,
+    beatsPerMeasure,
+    setBeatsPerMeasure,
+    setCurrentBeat,
+    noteValue,
+    setNoteValue,
+  } = useMetronome();
+
+  const [showMenu, setShowMenu] = useState(false);
+
+  const timeSigs = [
+    "1/4",
+    "2/4",
+    "3/4",
+    "4/4",
+    "5/4",
+    "7/4",
+    "5/8",
+    "6/8",
+    "7/8",
+    "9/8",
+    "12/8",
+  ];
+  return (
+    <div className="metronome-wrapper">
+      <Button
+        color="var(--text-color)"
+        variant="transparent"
+        onClick={() => {
+          stop();
+          setShowMenu(true);
+        }}
+      >
+        {`${beatsPerMeasure}/${noteValue}`}
+      </Button>
+      <div className="bpm-wrapper">
+        <div className="bpm-buttons">
+          <ActionIcon
+            className="bpm-btn"
+            color="var(--text-color)"
+            variant="transparent"
+            disabled={bpm <= 30}
+            onClick={() => {
+              setBpm((prev) => prev - 1);
+            }}
+          >
+            <FaMinus size={16} />
+          </ActionIcon>
+          <p>{bpm}</p>
+          <ActionIcon
+            className="bpm-btn"
+            color="var(--text-color)"
+            variant="transparent"
+            disabled={bpm >= 240}
+            onClick={() => {
+              setBpm((prev) => prev + 1);
+            }}
+          >
+            <FaPlus size={16} />
+          </ActionIcon>
+        </div>
+        <p>Beats per min</p>
+      </div>
+      <Slider
+        classNames={{ root: "bpm-slider", track: "bpm-slider-track" }}
+        color="var(--accent-color)"
+        min={30}
+        max={240}
+        value={bpm}
+        onChange={setBpm}
+      />
+      <Button
+        variant="transparent"
+        color="var(--text-color)"
+        onClick={() => handleTap(tapTimesRef, setBpm)}
+      >
+        Tap Tempo
+      </Button>
+      <div className="beat-dots">
+        {Array.from({ length: beatsPerMeasure }).map((_, i) => (
+          <div
+            key={i}
+            className={`beat-dot ${
+              isPlaying && currentBeat === i ? "active" : ""
+            }`}
+          />
+        ))}
+      </div>
+      <Button
+        color="var(--accent-color)"
+        onClick={() => {
+          isPlaying ? stop() : start();
+        }}
+      >
+        {isPlaying ? "Stop" : "Start"}
+      </Button>
+
+      <div className={`metronome-menu ${showMenu ? "visible" : ""}`}>
+        <div className="metronome-menu-header">
+          <BackButton setShowMenu={setShowMenu} />
+          <h3 className="metronome-menu-title">Select Time Signature</h3>
+        </div>
+        <div className="metronome-menu-wrapper">
+          {timeSigs.map((sig) => {
+            const time = sig.split("/");
+            return (
+              <div key={sig} className="ts-button-wrapper">
+                <button
+                  className="ts-button"
+                  onClick={() => {
+                    setBeatsPerMeasure(parseInt(time[0]));
+                    setNoteValue(parseInt(time[1]));
+                    setCurrentBeat(0);
+                    setShowMenu(false);
+                  }}
+                >
+                  <span className="ts-button-icon">
+                    <MdChevronRight />
+                  </span>
+                  <span className="ts-button-label">{sig}</span>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}

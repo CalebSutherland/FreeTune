@@ -1,0 +1,124 @@
+.metronome-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--secondary-color);
+  min-height: 400px;
+  width: 90%;
+}
+
+.bpm-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bpm-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.bpm-btn {
+  border: 2px solid var(--text-color);
+  border-radius: 50%;
+  &:disabled {
+    background-color: var(--secondary-color);
+    color: var(--note-btn);
+    border-color: var(--note-btn);
+  }
+}
+
+.bpm-slider {
+  min-width: 10rem;
+}
+
+.bpm-slider-track::before {
+  background: var(--note-btn);
+}
+
+.beat-dots {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.beat-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--note-btn);
+  transition: background-color 0.1s ease;
+}
+
+.beat-dot.active {
+  background-color: var(--accent-color);
+}
+
+.metronome-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+  background-color: var(--secondary-color);
+  transition: transform 0.3s ease;
+  z-index: 10;
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.metronome-menu.visible {
+  transform: translateX(0);
+}
+
+.metronome-menu-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  background-color: var(--secondary-color);
+  min-height: 3rem;
+}
+
+.metronome-menu-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.metronome-menu-wrapper {
+  padding: 0 1rem;
+}
+
+.ts-button-wrapper {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ts-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  background: var(--secondary-color);
+}
+
+.ts-button-label {
+  flex: 1;
+  padding: 0.75rem 0;
+}
+
+.ts-button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

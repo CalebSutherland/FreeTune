@@ -19,7 +19,7 @@ import NotesDisplay from "./notes-display";
 import TunerStats from "./tuner-stats";
 import Visual from "./visual";
 import SettingsMenu from "./settings-menu";
-import BackButton from "../ui/back-button";
+import BackButton from "../../../../components/ui/back-button";
 import { Button, Switch, ActionIcon, Overlay, Loader } from "@mantine/core";
 import { FaChevronRight, FaChevronDown } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";

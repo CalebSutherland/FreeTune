@@ -11,9 +11,7 @@ export default function BackButton({ setShowMenu }: BackButtonProps) {
     <Button
       variant="transparent"
       leftSection={<FaChevronLeft />}
-      classNames={{
-        inner: "tunings-button",
-      }}
+      color="var(--text-color)"
       onClick={() => setShowMenu(false)}
     >
       Back

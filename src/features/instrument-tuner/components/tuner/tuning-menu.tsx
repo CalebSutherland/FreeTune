@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import type { InstrumentFamily, Tuning } from "../../types/types";
 import TuningCard from "../ui/tuning-card";
-import BackButton from "../ui/back-button";
+import BackButton from "../../../../components/ui/back-button";
 import { Accordion, AccordionItem, LoadingOverlay } from "@mantine/core";
 import { MdChevronRight } from "react-icons/md";
 import "./tuning-menu.css";

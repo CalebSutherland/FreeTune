@@ -29,7 +29,7 @@ export default function diagramCard({
   const scale = scaleMap[size ?? "xs"];
 
   async function playChordSequence() {
-    loadInstrument("acoustic_guitar_nylon");
+    await loadInstrument("acoustic_guitar_nylon");
     if (speed === "slow") {
       for (const note of chord.midi) {
         const noteName = midiToNoteName(note);

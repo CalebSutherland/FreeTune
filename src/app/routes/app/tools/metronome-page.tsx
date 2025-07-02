@@ -1,8 +1,10 @@
+import Metronome from "@/features/metronome/components/metronome";
+import "./metronome-page.css";
+
 export default function MetronomePage() {
   return (
-    <>
-      <title>Metronome | FreeTune</title>
-      <h1>Metronome</h1>
-    </>
+    <div className="mp-wrapper">
+      <Metronome />
+    </div>
   );
 }
