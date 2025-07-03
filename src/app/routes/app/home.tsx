@@ -1,5 +1,6 @@
 import InstrumentTuner from "@/features/instrument-tuner/components/tuner/tuner";
 import "./home.css";
+import ToolsRow from "@/components/ui/tools-row";
 
 export default function Home() {
   return (
@@ -13,15 +14,7 @@ export default function Home() {
           <InstrumentTuner />
         </div>
       </div>
-      <div className="tools-wrapper">
-        <h2>Tools</h2>
-        <div className="card-row">
-          <p>tools</p>
-          <p>tools</p>
-          <p>tools</p>
-          <p>tools</p>
-        </div>
-      </div>
+      <ToolsRow />
       <div className="tools-wrapper">
         <h2>Resources</h2>
         <div className="card-row">

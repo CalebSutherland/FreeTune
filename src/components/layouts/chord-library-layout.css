@@ -112,3 +112,13 @@
   flex-wrap: wrap;
   gap: 2rem;
 }
+
+.chord-lib-lower {
+  margin: var(--body-margin);
+}
+
+@media screen and (max-width: 500px) {
+  .chord-lib-lower {
+    margin: var(--body-margin-mobile);
+  }
+}

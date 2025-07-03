@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { NavLink, useLocation, useNavigationType } from "react-router-dom";
 import useLocalStorage from "use-local-storage";
 
 import { paths } from "@/config/paths";
@@ -17,6 +17,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
 
   const location = useLocation();
   const isToolsActive = location.pathname.startsWith("/tools");
+  const navigationType = useNavigationType();
 
   const tools_navigation = [
     {
@@ -40,6 +41,12 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
       icon: <MdTune />,
     },
   ];
+
+  useLayoutEffect(() => {
+    if (navigationType === "PUSH") {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     // clean just in case theme gets saved with quotes (which they were)

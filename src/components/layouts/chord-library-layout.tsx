@@ -11,6 +11,7 @@ import { SegmentedControl } from "@mantine/core";
 import { LuRabbit, LuTurtle } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import { useNotePlayer } from "@/hooks/use-note-player";
+import ToolsRow from "../ui/tools-row";
 
 export function ChordLibraryLayout({
   children,
@@ -153,6 +154,10 @@ export function ChordLibraryLayout({
             </div>
             <div className="diagrams-wrapper">{children}</div>
           </div>
+        </div>
+
+        <div className="chord-lib-lower">
+          <ToolsRow />
         </div>
       </div>
     </ChordLibraryContext.Provider>
