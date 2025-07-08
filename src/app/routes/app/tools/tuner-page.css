@@ -8,7 +8,6 @@
 .example-buttons {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 500px) {

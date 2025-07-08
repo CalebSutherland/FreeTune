@@ -5,6 +5,7 @@ interface FingerButtonProps {
   midi: number;
   playNote: (note: string) => void;
   loadInstrument: (instrument: string) => void;
+  example?: boolean;
 }
 
 export default function FingerButton({
@@ -12,6 +13,7 @@ export default function FingerButton({
   midi,
   playNote,
   loadInstrument,
+  example,
 }: FingerButtonProps) {
   const handleClick = async () => {
     await loadInstrument("acoustic_guitar_nylon");
@@ -20,7 +22,10 @@ export default function FingerButton({
   };
 
   return (
-    <button className={`finger-${finger}`} onClick={handleClick}>
+    <button
+      className={`finger-${finger} ${example ? "example" : ""}`}
+      onClick={handleClick}
+    >
       {finger}
     </button>
   );

@@ -16,21 +16,28 @@ interface DiagramCardrops {
   chord: Chord;
   link: boolean;
   version?: number;
+  diagramSize?: "xs" | "sm" | "md" | "lg" | "xl";
+  diagramSpeed?: "slow" | "fast";
+  example?: boolean;
 }
 
-export default function diagramCard({
+export default function DiagramCard({
   keyName,
   suffix,
   chord,
   link,
   version,
+  diagramSize,
+  diagramSpeed,
+  example,
 }: DiagramCardrops) {
   const { size, speed, playNote, loadInstrument } = useChordLibrary();
-  const scale = scaleMap[size ?? "xs"];
+  const scale = scaleMap[diagramSize ?? size ?? "xs"];
+  const currentSpeed = diagramSpeed ?? speed;
 
   async function playChordSequence() {
     await loadInstrument("acoustic_guitar_nylon");
-    if (speed === "slow") {
+    if (currentSpeed === "slow") {
       for (const note of chord.midi) {
         const noteName = midiToNoteName(note);
         playNote(noteName);
@@ -51,7 +58,8 @@ export default function diagramCard({
           chord={chord}
           playNote={playNote}
           loadInstrument={loadInstrument}
-          size={size}
+          size={diagramSize ?? size ?? "xs"}
+          example={example}
         />
       </div>
       {link ? (
@@ -72,8 +80,8 @@ export default function diagramCard({
 
       <ActionIcon
         color={"var(--accent-color)"}
-        className="diagram-audio-icon"
-        size={50 * scaleMap[size ?? "xs"]}
+        className={`diagram-audio-icon ${example ? "example" : ""}`}
+        size={50 * scaleMap[diagramSize ?? size ?? "xs"]}
         onClick={playChordSequence}
       >
         <FaVolumeHigh />

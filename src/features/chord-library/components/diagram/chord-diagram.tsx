@@ -15,6 +15,7 @@ interface ChordDiagramProps {
   playNote: (note: string) => void;
   loadInstrument: (instrument: string) => void;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
+  example?: boolean;
 }
 
 export default function ChordDiagram({
@@ -22,6 +23,7 @@ export default function ChordDiagram({
   playNote,
   loadInstrument,
   size,
+  example,
 }: ChordDiagramProps) {
   const frets = [0, 1, 2, 3];
   const strings = [0, 1, 2, 3, 4, 5];
@@ -54,7 +56,7 @@ export default function ChordDiagram({
               >
                 {stringIndicator === "O" ? (
                   <button
-                    className="open-button"
+                    className={`open-button ${example ? "example" : ""}`}
                     onClick={() => playNote(note)}
                   >
                     {stringIndicator}
@@ -119,6 +121,7 @@ export default function ChordDiagram({
                   midi={midiNote}
                   playNote={playNote}
                   loadInstrument={loadInstrument}
+                  example={example}
                 />
               </div>
             );
@@ -126,7 +129,7 @@ export default function ChordDiagram({
 
           {barre && (
             <div
-              className={`barre-${barre.finger}`}
+              className={`barre-${barre.finger} ${example ? "example" : ""}`}
               style={{
                 top: `${(barre.position - 0.5) * 25}%`,
                 left: `calc(${(barre.fromString / 5) * 100}% - calc(1rem * ${

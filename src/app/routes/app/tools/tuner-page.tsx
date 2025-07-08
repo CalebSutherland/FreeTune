@@ -15,7 +15,7 @@ export default function TunerPage() {
   const [active, setActive] = useState("E2");
   const [stats, setStats] = useState(false);
 
-  const exampleButtons = ["E2", "A2", "D3", "G3", "B3", "E4"];
+  const exampleButtons = ["E2", "A2", "D3"];
   return (
     <div className="tuner-page-wrapper">
       <title>Tuner | FreeTune</title>
@@ -30,7 +30,7 @@ export default function TunerPage() {
             size="sm"
             radius="sm"
             scrollSpyOptions={{
-              selector: "#mdx :is(h1, h2, h3)",
+              selector: "#tuner :is(h1, h2, h3)",
             }}
             getControlProps={({ data }) => ({
               onClick: () => data.getNode().scrollIntoView(),
@@ -38,7 +38,7 @@ export default function TunerPage() {
             })}
           />
         </div>
-        <div className="htu-content" id="mdx">
+        <div className="htu-content" id="tuner">
           <div className="htu-main">
             <h2>Tuner Instructions</h2>
             <div className="htu-minor">
@@ -300,7 +300,7 @@ export default function TunerPage() {
             </div>
           </div>
 
-          <div className="htu-major">
+          <div className="htu-main">
             <h2>How to Tune a Guitar</h2>
             <div className="htu-minor">
               <h3>Setup</h3>

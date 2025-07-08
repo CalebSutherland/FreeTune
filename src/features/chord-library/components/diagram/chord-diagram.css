@@ -55,6 +55,10 @@
   background: transparent;
 }
 
+.open-button.example {
+  outline: 2px solid red;
+}
+
 .fret-numbers {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
@@ -150,6 +154,13 @@
   background-color: color-mix(in srgb, var(--finger-4), black 10%);
 }
 
+.finger-1.example,
+.finger-2.example,
+.finger-3.example,
+.finger-4.example {
+  outline: 2px solid red;
+}
+
 .barre-1,
 .barre-2,
 .barre-3,
@@ -178,6 +189,13 @@
 }
 .barre-4 {
   background-color: var(--finger-4);
+}
+
+.barre-1.example,
+.barre-2.example,
+.barre-3.example,
+.barre-4.example {
+  outline: 2px solid red;
 }
 
 .barre-label {

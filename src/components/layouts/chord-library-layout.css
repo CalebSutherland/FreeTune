@@ -114,7 +114,22 @@
 }
 
 .chord-lib-lower {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: var(--body-margin);
+}
+
+.example-keys {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.example-suffix {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 @media screen and (max-width: 500px) {
