@@ -5,6 +5,12 @@
   margin: var(--body-margin);
 }
 
+.example-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 @media screen and (max-width: 500px) {
   .tuner-page-wrapper {
     margin: var(--body-margin-mobile);
