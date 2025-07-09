@@ -6,6 +6,7 @@ import BackButton from "@/components/ui/back-button";
 import { ActionIcon, Button, Slider } from "@mantine/core";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { MdChevronRight } from "react-icons/md";
+import { TbHandClick } from "react-icons/tb";
 import "./metronome.css";
 
 export default function Metronome() {
@@ -53,17 +54,40 @@ export default function Metronome() {
     "9/8",
     "12/8",
   ];
+
   return (
     <div className="metronome-wrapper">
+      <div className="ts-menu-button-wrapper">
+        <p>TIME SIGNATURE</p>
+        <Button
+          color="var(--text-color)"
+          variant="transparent"
+          classNames={{ root: "ts-menu-button" }}
+          onClick={() => {
+            stop();
+            setShowMenu(true);
+          }}
+        >
+          {`${beatsPerMeasure}/${noteValue}`}
+        </Button>
+      </div>
+      <div className="beat-dots">
+        {Array.from({ length: beatsPerMeasure }).map((_, i) => (
+          <div
+            key={i}
+            className={`beat-dot ${
+              isPlaying && flashBeat === i ? "active" : ""
+            }`}
+          />
+        ))}
+      </div>
       <Button
-        color="var(--text-color)"
         variant="transparent"
-        onClick={() => {
-          stop();
-          setShowMenu(true);
-        }}
+        color="var(--text-color)"
+        classNames={{ root: "tap-button" }}
+        onClick={() => handleTap(tapTimesRef, setBpm)}
       >
-        {`${beatsPerMeasure}/${noteValue}`}
+        <TbHandClick size={24} />
       </Button>
       <div className="bpm-wrapper">
         <div className="bpm-buttons">
@@ -101,25 +125,10 @@ export default function Metronome() {
         value={bpm}
         onChange={setBpm}
       />
-      <Button
-        variant="transparent"
-        color="var(--text-color)"
-        onClick={() => handleTap(tapTimesRef, setBpm)}
-      >
-        Tap Tempo
-      </Button>
-      <div className="beat-dots">
-        {Array.from({ length: beatsPerMeasure }).map((_, i) => (
-          <div
-            key={i}
-            className={`beat-dot ${
-              isPlaying && flashBeat === i ? "active" : ""
-            }`}
-          />
-        ))}
-      </div>
+
       <Button
         color="var(--accent-color)"
+        mb={"1rem"}
         onClick={() => {
           isPlaying ? stop() : start();
         }}

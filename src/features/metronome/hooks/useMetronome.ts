@@ -11,6 +11,8 @@ export function useMetronome(initialBpm = 120) {
   const [noteValue, setNoteValue] = useState(4);
   const [beatCount, setBeatCount] = useState(0);
 
+  const clickBufferRef = useRef<AudioBuffer | null>(null);
+
   const audioContextRef = useRef<AudioContext | null>(null);
   const intervalRef = useRef<number | null>(null);
   const nextNoteTimeRef = useRef(0); // seconds
@@ -18,21 +20,25 @@ export function useMetronome(initialBpm = 120) {
   const lookahead = 25.0; // ms
   const scheduleAheadTime = 0.1; // sec
 
+  async function loadSound(url: string): Promise<void> {
+    const ctx = audioContextRef.current;
+    if (!ctx) throw new Error("Audio context not initialized");
+
+    const response = await fetch(url);
+    const arrayBuffer = await response.arrayBuffer();
+    clickBufferRef.current = await ctx.decodeAudioData(arrayBuffer);
+  }
+
   function playClick(time: number, isAccent: boolean) {
     const ctx = audioContextRef.current;
-    if (!ctx) return;
+    const buffer = clickBufferRef.current;
+    if (!ctx || !buffer) return;
 
-    const osc = ctx.createOscillator();
-    const envelope = ctx.createGain();
-
-    osc.frequency.value = isAccent ? 1500 : 1000;
-    envelope.gain.value = isAccent ? 1 : 0.6;
-
-    osc.connect(envelope);
-    envelope.connect(ctx.destination);
-
-    osc.start(time);
-    osc.stop(time + 0.05);
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.playbackRate.value = isAccent ? 1.5 : 1.0;
+    source.connect(ctx.destination);
+    source.start(time);
   }
 
   function scheduler() {
@@ -60,6 +66,10 @@ export function useMetronome(initialBpm = 120) {
       audioContextRef.current = new window.AudioContext();
     } else if (audioContextRef.current.state === "suspended") {
       await audioContextRef.current.resume();
+    }
+
+    if (!clickBufferRef.current) {
+      await loadSound("/sounds/click.mp3");
     }
 
     currentBeatRef.current = 0;
