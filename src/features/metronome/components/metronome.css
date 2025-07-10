@@ -88,13 +88,12 @@
   background: var(--note-btn);
 }
 
-.metronome-menu {
+.metronome-menu,
+.metronome-settings-menu {
   position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  transform: translateX(-100%);
   background-color: var(--secondary-color);
   transition: transform 0.3s ease;
   z-index: 10;
@@ -104,7 +103,17 @@
   flex-direction: column;
 }
 
-.metronome-menu.visible {
+.metronome-menu {
+  left: 0;
+  transform: translateX(-100%);
+}
+.metronome-settings-menu {
+  right: 0;
+  transform: translateX(100%);
+}
+
+.metronome-menu.visible,
+.metronome-settings-menu.visible {
   transform: translateX(0);
 }
 
@@ -127,11 +136,11 @@
   padding: 0 1.5rem 1.5rem;
 }
 
-.ts-button-wrapper {
+.menu-button-wrapper {
   border-bottom: 1px solid var(--border-color);
 }
 
-.ts-button {
+.menu-button {
   width: 100%;
   display: flex;
   align-items: center;
@@ -142,15 +151,21 @@
   background: var(--secondary-color);
 }
 
-.ts-button-label {
+.menu-button-label {
   flex: 1;
   padding: 0.75rem 0;
 }
 
-.ts-button-icon {
+.menu-button-icon {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+.metronome-settings {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 475px) {

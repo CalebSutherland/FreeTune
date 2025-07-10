@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 
-export function useMetronome(initialBpm = 120) {
+export function useMetronome(initialBpm = 120, selectedSound = "click") {
   const [bpm, setBpm] = useState(initialBpm);
   const bpmRef = useRef(bpm);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,7 +11,8 @@ export function useMetronome(initialBpm = 120) {
   const [noteValue, setNoteValue] = useState(4);
   const [beatCount, setBeatCount] = useState(0);
 
-  const clickBufferRef = useRef<AudioBuffer | null>(null);
+  const soundBuffersRef = useRef<Record<string, AudioBuffer>>({});
+  const soundsLoadedRef = useRef(false);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const intervalRef = useRef<number | null>(null);
@@ -20,18 +21,10 @@ export function useMetronome(initialBpm = 120) {
   const lookahead = 25.0; // ms
   const scheduleAheadTime = 0.1; // sec
 
-  async function loadSound(url: string): Promise<void> {
-    const ctx = audioContextRef.current;
-    if (!ctx) throw new Error("Audio context not initialized");
-
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    clickBufferRef.current = await ctx.decodeAudioData(arrayBuffer);
-  }
-
   function playClick(time: number, isAccent: boolean) {
     const ctx = audioContextRef.current;
-    const buffer = clickBufferRef.current;
+    const buffer = soundBuffersRef.current[selectedSound];
+
     if (!ctx || !buffer) return;
 
     const source = ctx.createBufferSource();
@@ -62,14 +55,27 @@ export function useMetronome(initialBpm = 120) {
   }
 
   async function start() {
-    if (!audioContextRef.current) {
+    if (
+      !audioContextRef.current ||
+      audioContextRef.current.state === "closed"
+    ) {
       audioContextRef.current = new window.AudioContext();
     } else if (audioContextRef.current.state === "suspended") {
       await audioContextRef.current.resume();
     }
 
-    if (!clickBufferRef.current) {
-      await loadSound("/sounds/click.mp3");
+    if (!soundsLoadedRef.current) {
+      const ctx = audioContextRef.current;
+      const soundFiles = ["click", "drumstick", "hi-hat", "cowbell"];
+
+      for (const name of soundFiles) {
+        const response = await fetch(`/sounds/${name}.mp3`);
+        const arrayBuffer = await response.arrayBuffer();
+        const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+        soundBuffersRef.current[name] = audioBuffer;
+      }
+
+      soundsLoadedRef.current = true;
     }
 
     currentBeatRef.current = 0;

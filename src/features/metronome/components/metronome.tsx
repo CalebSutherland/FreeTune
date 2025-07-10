@@ -5,12 +5,26 @@ import { handleTap } from "../utils/metronome-utils";
 import BackButton from "@/components/ui/back-button";
 import { ActionIcon, Button, Slider } from "@mantine/core";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { FaGear } from "react-icons/fa6";
 import { MdChevronRight } from "react-icons/md";
 import { TbHandClick } from "react-icons/tb";
 import "./metronome.css";
 
 export default function Metronome() {
   const tapTimesRef = useRef<number[]>([]);
+
+  const [showMenu, setShowMenu] = useState(false);
+  const [settingsMenu, setSettingsMenu] = useState(false);
+  const [flashBeat, setFlashBeat] = useState<number | null>(null);
+
+  const [sound, setSound] = useState("click");
+  const sounds = [
+    { name: "Defualt", url: "click" },
+    { name: "Drumstick", url: "drumstick" },
+    { name: "Hi-Hat", url: "hi-hat" },
+    { name: "Cowbell", url: "cowbell" },
+  ];
+
   const {
     bpm,
     setBpm,
@@ -24,10 +38,7 @@ export default function Metronome() {
     noteValue,
     setNoteValue,
     beatCount,
-  } = useMetronome();
-
-  const [showMenu, setShowMenu] = useState(false);
-  const [flashBeat, setFlashBeat] = useState<number | null>(null);
+  } = useMetronome(120, sound);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -125,16 +136,26 @@ export default function Metronome() {
         value={bpm}
         onChange={setBpm}
       />
-
       <Button
         color="var(--accent-color)"
-        mb={"1rem"}
         onClick={() => {
           isPlaying ? stop() : start();
         }}
       >
         {isPlaying ? "Stop" : "Start"}
       </Button>
+      <div className="metronome-settings">
+        <ActionIcon
+          variant="transparent"
+          color="var(--text-color)"
+          onClick={() => {
+            setSettingsMenu(true);
+            stop();
+          }}
+        >
+          <FaGear size={24} />
+        </ActionIcon>
+      </div>
 
       <div className={`metronome-menu ${showMenu ? "visible" : ""}`}>
         <div className="metronome-menu-header">
@@ -145,9 +166,9 @@ export default function Metronome() {
           {timeSigs.map((sig) => {
             const time = sig.split("/");
             return (
-              <div key={sig} className="ts-button-wrapper">
+              <div key={sig} className="menu-button-wrapper">
                 <button
-                  className="ts-button"
+                  className="menu-button"
                   onClick={() => {
                     setBeatsPerMeasure(parseInt(time[0]));
                     setNoteValue(parseInt(time[1]));
@@ -155,14 +176,42 @@ export default function Metronome() {
                     setShowMenu(false);
                   }}
                 >
-                  <span className="ts-button-icon">
+                  <span className="menu-button-icon">
                     <MdChevronRight />
                   </span>
-                  <span className="ts-button-label">{sig}</span>
+                  <span className="menu-button-label">{sig}</span>
                 </button>
               </div>
             );
           })}
+        </div>
+      </div>
+
+      <div
+        className={`metronome-settings-menu ${settingsMenu ? "visible" : ""}`}
+      >
+        <div className="metronome-menu-header">
+          <BackButton setShowMenu={setSettingsMenu} />
+          <h3 className="metronome-menu-title">Metronome Settings</h3>
+        </div>
+        <div className="metronome-menu-wrapper">
+          <h3>Sounds</h3>
+          {sounds.map((s) => (
+            <div key={s.name} className="menu-button-wrapper">
+              <button
+                className="menu-button"
+                onClick={() => {
+                  setSound(s.url);
+                  setSettingsMenu(false);
+                }}
+              >
+                <span className="menu-button-icon">
+                  <MdChevronRight />
+                </span>
+                <span className="menu-button-label">{s.name}</span>
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
