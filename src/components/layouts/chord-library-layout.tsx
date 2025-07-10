@@ -208,6 +208,7 @@ export function ChordLibraryLayout({
                     <div className="example-keys">
                       {keys.slice(0, 4).map((k) => (
                         <button
+                          key={k}
                           className={`key-button ${
                             exampleKey === k ? "active" : ""
                           }`}
@@ -231,6 +232,7 @@ export function ChordLibraryLayout({
                     <div className="example-suffix">
                       {exSuffixes.map((suf) => (
                         <button
+                          key={suf}
                           className={`suffix-button ${
                             exampleSuffix === suf ? "active" : ""
                           }`}

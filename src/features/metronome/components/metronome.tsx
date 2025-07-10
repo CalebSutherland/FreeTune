@@ -160,7 +160,7 @@ export default function Metronome() {
       <div className={`metronome-menu ${showMenu ? "visible" : ""}`}>
         <div className="metronome-menu-header">
           <BackButton setShowMenu={setShowMenu} />
-          <h3 className="metronome-menu-title">Select Time Signature</h3>
+          <h3 className="metronome-menu-title">Time Signature</h3>
         </div>
         <div className="metronome-menu-wrapper">
           {timeSigs.map((sig) => {
@@ -192,7 +192,7 @@ export default function Metronome() {
       >
         <div className="metronome-menu-header">
           <BackButton setShowMenu={setSettingsMenu} />
-          <h3 className="metronome-menu-title">Metronome Settings</h3>
+          <h3 className="metronome-menu-title">Settings</h3>
         </div>
         <div className="metronome-menu-wrapper">
           <h3>Sounds</h3>
