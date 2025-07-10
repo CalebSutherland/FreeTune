@@ -66,7 +66,14 @@ export function useMetronome(initialBpm = 120, selectedSound = "click") {
 
     if (!soundsLoadedRef.current) {
       const ctx = audioContextRef.current;
-      const soundFiles = ["click", "drumstick", "hi-hat", "cowbell"];
+      const soundFiles = [
+        "click",
+        "drumstick",
+        "hi-hat",
+        "cowbell",
+        "bongo",
+        "snare",
+      ];
 
       for (const name of soundFiles) {
         const response = await fetch(`/sounds/${name}.mp3`);

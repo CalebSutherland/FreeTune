@@ -23,6 +23,8 @@ export default function Metronome() {
     { name: "Drumstick", url: "drumstick" },
     { name: "Hi-Hat", url: "hi-hat" },
     { name: "Cowbell", url: "cowbell" },
+    { name: "Bongo", url: "bongo" },
+    { name: "Snare", url: "snare" },
   ];
 
   const {
@@ -126,7 +128,7 @@ export default function Metronome() {
             <FaPlus size={16} />
           </ActionIcon>
         </div>
-        <p>Beats per min</p>
+        <p>BPM</p>
       </div>
       <Slider
         classNames={{ root: "bpm-slider", track: "bpm-slider-track" }}
