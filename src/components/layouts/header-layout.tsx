@@ -144,7 +144,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
                 onClick={closeSidebar}
               >
                 <div className="header-element">
-                  <p>Resources</p>
+                  <p>Learn</p>
                 </div>
               </NavLink>
             </li>
@@ -205,7 +205,6 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
       <main className="main">{children}</main>
 
       <footer className="footer-wrapper">
-        <h2>Footer</h2>
         <div className="footer-content">
           <div className="footer-col">
             <p>Links 1</p>
