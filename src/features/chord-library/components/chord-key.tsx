@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom";
+import { useNotePlayer } from "@/hooks/use-note-player";
+import { useChordLibrary } from "@/contexts/chord-library-context";
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import DiagramCard from "./diagram/diagram-card";
 import type { Key } from "@/types/chord-types";
@@ -17,6 +19,9 @@ export default function ChordKey() {
   const suffixes = Array.from(new Set(chordList.map((chord) => chord.suffix)));
 
   const [scroll, scrollTo] = useWindowScroll();
+  const { playNote, loadInstrument } = useNotePlayer();
+  const { size, speed } = useChordLibrary();
+
   return (
     <>
       <Affix position={{ bottom: 20, right: 20 }}>
@@ -43,6 +48,10 @@ export default function ChordKey() {
                 suffix={suf}
                 chord={chord.positions[0]}
                 link={true}
+                diagramSize={size}
+                diagramSpeed={speed}
+                playNote={playNote}
+                loadInstrument={loadInstrument}
               />
             </div>
           )

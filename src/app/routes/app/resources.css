@@ -16,3 +16,10 @@
   overflow-x: hidden;
   flex: 1;
 }
+
+.chords-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+}

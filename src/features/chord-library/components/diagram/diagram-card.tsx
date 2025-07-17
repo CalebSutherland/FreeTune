@@ -1,10 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { paths } from "@/config/paths";
-import { useChordLibrary } from "@/contexts/chord-library-context";
 import type { Chord } from "@/types/chord-types";
+import { formatKeyName } from "@/utils/chord-utils";
 import { midiToNoteName } from "../../utils/chord-utils";
 import { scaleMap } from "../../utils/scale-map";
-import { formatKeyName } from "@/utils/chord-utils";
 import ChordDiagram from "./chord-diagram";
 import { ActionIcon } from "@mantine/core";
 import { FaVolumeHigh } from "react-icons/fa6";
@@ -15,6 +14,8 @@ interface DiagramCardrops {
   suffix: string;
   chord: Chord;
   link: boolean;
+  playNote: (note: string) => void;
+  loadInstrument: (instrument: string) => Promise<void>;
   version?: number;
   diagramSize?: "xs" | "sm" | "md" | "lg" | "xl";
   diagramSpeed?: "slow" | "fast";
@@ -26,14 +27,15 @@ export default function DiagramCard({
   suffix,
   chord,
   link,
+  playNote,
+  loadInstrument,
   version,
   diagramSize,
   diagramSpeed,
   example,
 }: DiagramCardrops) {
-  const { size, speed, playNote, loadInstrument } = useChordLibrary();
-  const scale = scaleMap[diagramSize ?? size ?? "xs"];
-  const currentSpeed = diagramSpeed ?? speed;
+  const scale = scaleMap[diagramSize ?? "xs"];
+  const currentSpeed = diagramSpeed ?? "slow";
 
   async function playChordSequence() {
     await loadInstrument("acoustic_guitar_nylon");
@@ -58,7 +60,7 @@ export default function DiagramCard({
           chord={chord}
           playNote={playNote}
           loadInstrument={loadInstrument}
-          size={diagramSize ?? size ?? "xs"}
+          size={diagramSize ?? "xs"}
           example={example}
         />
       </div>
@@ -81,7 +83,7 @@ export default function DiagramCard({
       <ActionIcon
         color={"var(--accent-color)"}
         className={`diagram-audio-icon ${example ? "example" : ""}`}
-        size={50 * scaleMap[diagramSize ?? size ?? "xs"]}
+        size={50 * scaleMap[diagramSize ?? "xs"]}
         onClick={playChordSequence}
       >
         <FaVolumeHigh />

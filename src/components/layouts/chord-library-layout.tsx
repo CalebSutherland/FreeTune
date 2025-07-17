@@ -7,8 +7,8 @@ import {
   NavLink,
 } from "react-router-dom";
 import { paths } from "@/config/paths";
-import { useNotePlayer } from "@/hooks/use-note-player";
 import { ChordLibraryContext } from "@/contexts/chord-library-context";
+import { useNotePlayer } from "@/hooks/use-note-player";
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import type { Key } from "@/types/chord-types";
 import { formatKeyName } from "@/utils/chord-utils";
@@ -39,10 +39,9 @@ export function ChordLibraryLayout({
     ? Array.from(new Set(chordList.map((chord) => chord.suffix)))
     : [];
 
-  const { playNote, loadInstrument } = useNotePlayer();
-
   const location = useLocation();
   const navigationType = useNavigationType();
+  const { playNote, loadInstrument } = useNotePlayer();
 
   useLayoutEffect(() => {
     if (navigationType === "PUSH") {
@@ -57,8 +56,6 @@ export function ChordLibraryLayout({
         setSize,
         speed,
         setSpeed,
-        playNote,
-        loadInstrument,
       }}
     >
       <div className="chord-lib-wrapper">
@@ -262,6 +259,8 @@ export function ChordLibraryLayout({
                       suffix="major"
                       chord={db.chords.C[0].positions[0]}
                       link={false}
+                      playNote={playNote}
+                      loadInstrument={loadInstrument}
                       version={1}
                       diagramSize={exampleSize}
                       diagramSpeed={exampleSpeed}

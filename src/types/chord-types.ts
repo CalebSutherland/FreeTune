@@ -14,8 +14,6 @@ export type ChordLibraryContextType = {
   setSize: (size: "xs" | "sm" | "md") => void;
   speed: "fast" | "slow";
   setSpeed: (speed: "fast" | "slow") => void;
-  playNote: (note: string) => void;
-  loadInstrument: (note: string) => void;
 };
 
 export type Key = keyof typeof db.chords;

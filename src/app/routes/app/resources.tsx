@@ -3,15 +3,18 @@ import YoutubeEmbed from "@/components/ui/youtube-embed";
 import { TableOfContents } from "@mantine/core";
 import "./resources.css";
 import DiagramCard from "@/features/chord-library/components/diagram/diagram-card";
+import { useNotePlayer } from "@/hooks/use-note-player";
 
 export default function Resources() {
+  const { playNote, loadInstrument } = useNotePlayer();
+
   const MAJOR = 0;
   const MINOR = 1;
   const chords = [
     { name: "D", suffix: "major", chord: db.chords.D[MAJOR].positions[0] },
     { name: "A", suffix: "major", chord: db.chords.A[MAJOR].positions[0] },
     { name: "E", suffix: "major", chord: db.chords.E[MAJOR].positions[0] },
-    { name: "A", suffix: "minor", chord: db.chords.C[MINOR].positions[0] },
+    { name: "A", suffix: "minor", chord: db.chords.A[MINOR].positions[0] },
     { name: "E", suffix: "major", chord: db.chords.E[MINOR].positions[0] },
     { name: "D", suffix: "major", chord: db.chords.D[MINOR].positions[0] },
     { name: "G", suffix: "major", chord: db.chords.G[MAJOR].positions[0] },
@@ -55,16 +58,18 @@ export default function Resources() {
           <h2>Essential Chords</h2>
           <div className="chords-wrapper">
             {chords.map((chord, i) => (
-              <DiagramCard
-                key={i}
-                keyName={chord.name}
-                suffix={chord.suffix}
-                chord={chord.chord}
-                link={false}
-                version={1}
-                diagramSize="md"
-                diagramSpeed="fast"
-              />
+              <div key={i}>
+                <DiagramCard
+                  keyName={chord.name}
+                  suffix={chord.suffix}
+                  chord={chord.chord}
+                  link={true}
+                  diagramSize="sm"
+                  diagramSpeed="fast"
+                  playNote={playNote}
+                  loadInstrument={loadInstrument}
+                />
+              </div>
             ))}
           </div>
         </div>
