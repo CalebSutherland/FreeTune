@@ -11,7 +11,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --body-margin: 0 clamp(1rem, 7.5vw, 7rem);
-  --body-margin-mobile: 0 clamp(1rem, 5vw, 5vw);
+  --body-margin-mobile: 0 clamp(0.5rem, 2.8vw, 1rem);
 
   --accent-color: #1660c0;
   --accent-hover-color: color-mix(in srgb, var(--accent-color), black 10%);

@@ -1,0 +1,13 @@
+.youtube-embed {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-width: 480px;
+}
+
+.youtube-embed iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
