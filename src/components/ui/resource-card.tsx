@@ -5,6 +5,7 @@ interface CreatorCardProps {
   description: string;
   imageUrl: string;
   link: string;
+  linkLabel: string;
 }
 
 export default function CreatorCard({
@@ -12,13 +13,14 @@ export default function CreatorCard({
   description,
   imageUrl,
   link,
+  linkLabel,
 }: CreatorCardProps) {
   return (
     <Card
       shadow="md"
       padding="lg"
       radius="md"
-      style={{ backgroundColor: "var(--secondary-color)", maxWidth: "15rem" }}
+      style={{ backgroundColor: "var(--secondary-color)", width: "13rem" }}
     >
       <Card.Section>
         <Image src={imageUrl} height={160} alt="Norway" />
@@ -34,7 +36,7 @@ export default function CreatorCard({
 
       <a href={link}>
         <Button color="var(--accent-color)" fullWidth mt="md" radius="md">
-          Visit Creator
+          {linkLabel}
         </Button>
       </a>
     </Card>

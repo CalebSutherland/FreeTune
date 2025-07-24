@@ -123,7 +123,7 @@ export default function InstrumentTuner() {
     <div className="tuner-app-wrapper">
       {showOverlay && (
         <Overlay
-          blur={3}
+          blur={1}
           color="#000"
           backgroundOpacity={0}
           zIndex={50}
