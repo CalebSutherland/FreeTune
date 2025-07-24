@@ -8,6 +8,7 @@ import {
 } from "./routes/app/root";
 import ToolRoot from "./routes/app/tools/tool-root";
 import ChordRoot from "./routes/app/tools/chord-library/chord-root";
+import PageLoader from "@/components/ui/page-loader";
 
 const router = createBrowserRouter([
   {
@@ -120,7 +121,5 @@ const router = createBrowserRouter([
 ]);
 
 export default function AppRouter() {
-  return (
-    <RouterProvider router={router} fallbackElement={<div>Loading...</div>} />
-  );
+  return <RouterProvider router={router} fallbackElement={<PageLoader />} />;
 }
