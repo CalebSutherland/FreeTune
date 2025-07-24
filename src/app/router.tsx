@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router/dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { paths } from "@/config/paths";
 
@@ -121,5 +120,7 @@ const router = createBrowserRouter([
 ]);
 
 export default function AppRouter() {
-  return <RouterProvider router={router} />;
+  return (
+    <RouterProvider router={router} fallbackElement={<div>Loading...</div>} />
+  );
 }
