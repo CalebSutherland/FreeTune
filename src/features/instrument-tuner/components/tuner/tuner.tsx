@@ -198,6 +198,7 @@ export default function InstrumentTuner() {
           <div className="notes-display-wrapper">
             <NotesDisplay
               instrument={current_instrument}
+              imgUrl={current_instrument.img}
               tuning={tuning}
               target={targetNote}
               setTarget={setTargetNote}

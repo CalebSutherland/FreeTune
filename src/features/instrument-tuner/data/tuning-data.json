@@ -5,7 +5,7 @@
       {
         "name": "Guitar 6-string",
         "soundfontName": "acoustic_guitar_nylon",
-        "img": "/images/guitar6.png",
+        "img": "guitar6.png",
         "left_string_count": 3,
         "standard": {
           "name": "Standard",
@@ -132,7 +132,7 @@
       {
         "name": "Guitar 7-string",
         "soundfontName": "acoustic_guitar_nylon",
-        "img": "/images/guitar7.png",
+        "img": "guitar7.png",
         "left_string_count": 3,
         "standard": {
           "name": "Standard",
@@ -166,7 +166,7 @@
       {
         "name": "Bass 4-string",
         "soundfontName": "electric_bass_pick",
-        "img": "/images/bass4.png",
+        "img": "bass4.png",
         "left_string_count": 2,
         "standard": {
           "name": "Standard",
@@ -203,7 +203,7 @@
       {
         "name": "Bass 5-string",
         "soundfontName": "electric_bass_pick",
-        "img": "/images/bass5.png",
+        "img": "bass5.png",
         "left_string_count": 3,
         "standard": {
           "name": "Standard",
@@ -237,7 +237,7 @@
       {
         "name": "Ukulele",
         "soundfontName": "acoustic_guitar_nylon",
-        "img": "/images/ukulele.png",
+        "img": "ukulele.png",
         "left_string_count": 2,
         "standard": {
           "name": "Standard",
@@ -283,7 +283,7 @@
       {
         "name": "Violin",
         "soundfontName": "violin",
-        "img": "/images/violin.png",
+        "img": "violin.png",
         "left_string_count": 2,
         "standard": {
           "name": "Standard",
@@ -294,7 +294,7 @@
       {
         "name": "Viola",
         "soundfontName": "viola",
-        "img": "/images/viola.png",
+        "img": "viola.png",
         "left_string_count": 2,
         "standard": {
           "name": "Standard",
@@ -305,7 +305,7 @@
       {
         "name": "Cello",
         "soundfontName": "cello",
-        "img": "/images/cello.png",
+        "img": "cello.png",
         "left_string_count": 2,
         "standard": {
           "name": "Standard",
@@ -316,7 +316,7 @@
       {
         "name": "Fiddle",
         "soundfontName": "fiddle",
-        "img": "/images/fiddle.png",
+        "img": "violin.png",
         "left_string_count": 2,
         "standard": {
           "name": "Standard",

@@ -1,11 +1,11 @@
 import type { Instrument, Tuning } from "../../types/types";
 import NoteButton from "../ui/note-button";
-import guitarImage from "../../assets/guitar6.png";
 import "./notes-display.css";
 import type React from "react";
 
 interface NotesDisplayProps {
   instrument: Instrument;
+  imgUrl: string;
   tuning: Tuning;
   target: string | null;
   setTarget: React.Dispatch<React.SetStateAction<string | null>>;
@@ -17,6 +17,7 @@ interface NotesDisplayProps {
 
 export default function NotesDisplay({
   instrument,
+  imgUrl,
   tuning,
   target,
   setTarget,
@@ -49,7 +50,10 @@ export default function NotesDisplay({
         ))}
       </div>
       <div className="img-wrapper">
-        <img className="instrument-img" src={guitarImage}></img>
+        <img
+          className="instrument-img"
+          src={`images/instruments/${imgUrl}`}
+        ></img>
       </div>
       <div className="notes-column">
         {rightNotes.map((note) => (

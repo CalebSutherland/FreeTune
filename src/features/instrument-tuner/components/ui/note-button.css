@@ -2,8 +2,8 @@
   background: var(--note-btn);
   color: var(--text-color);
   border-radius: 100%;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   padding: 0;
   font-weight: 600;
   cursor: pointer;
@@ -21,4 +21,11 @@
 
 .note-button.in-tune {
   border: 3px solid #12b886; /* Green border */
+}
+
+@media screen and (max-width: 500px) {
+  .note-button {
+    height: 2.3rem;
+    width: 2.3rem;
+  }
 }

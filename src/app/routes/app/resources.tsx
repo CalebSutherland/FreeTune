@@ -229,7 +229,7 @@ export default function Resources() {
               practice along with interactive tools, or dive into the
               guitar-playing community.
             </p>
-            <div className="creators-wrapper">
+            <div className="creators-wrapper" style={{ paddingBottom: "2rem" }}>
               {otherResources.map((resource, i) => (
                 <CreatorCard
                   key={i}
