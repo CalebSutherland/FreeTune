@@ -170,9 +170,9 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
         <div className="header-right-content">
           <div className="theme-switcher">
             <Tooltip
-              color="grey"
+              color="var(--secondary-color-invert)"
+              style={{ color: "var(--text-color-invert)" }}
               label={theme === "light" ? "Dark Mode" : "Light Mode"}
-              arrowSize={5}
               withArrow
             >
               <ActionIcon

@@ -8,9 +8,14 @@ import "./dial.css";
 interface DialProps {
   freqDifference: number | null;
   centsDifference: number | null;
+  displayCents: boolean;
 }
 
-export default function Dial({ freqDifference }: DialProps) {
+export default function Dial({
+  freqDifference,
+  centsDifference,
+  displayCents,
+}: DialProps) {
   const dialRef = useRef<HTMLDivElement>(null);
   const maxHz = 10;
 
@@ -70,8 +75,12 @@ export default function Dial({ freqDifference }: DialProps) {
       {/* Hz display */}
       <div className="digital-readout">
         <div className="hz-display">
-          {freqDifference !== null
-            ? `${freqDifference > 0 ? "+" : ""}${freqDifference.toFixed(0)}`
+          {displayCents
+            ? centsDifference !== null
+              ? `${centsDifference.toFixed(0)}`
+              : " "
+            : freqDifference !== null
+            ? `${freqDifference.toFixed(0)}`
             : ""}
         </div>
       </div>

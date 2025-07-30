@@ -99,6 +99,7 @@
 }
 
 .tuning-menu-header {
+  z-index: 11;
   position: sticky;
   top: 0;
   display: flex;

@@ -28,6 +28,7 @@ export default function ClassicTuner() {
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [visual, setVisual] = useState("graph");
+  const [displayCents, setDisplayCents] = useState(false);
 
   const [targetNote, setTargetNote] = useState<string | null>(null);
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
@@ -138,6 +139,7 @@ export default function ClassicTuner() {
               visual={visual}
               freqDifference={freqDifference}
               centsDifference={centsDifference}
+              displayCents={displayCents}
             />
           </div>
           <div className="note-display">
@@ -199,7 +201,12 @@ export default function ClassicTuner() {
               <BackButton setShowMenu={setShowSettingsMenu} />
               <h3 className="tuning-menu-title">Settings</h3>
             </div>
-            <SettingsMenu settings={settings} onSave={handleSettingsChange} />
+            <SettingsMenu
+              settings={settings}
+              displayCents={displayCents}
+              setDisplayCents={setDisplayCents}
+              onSave={handleSettingsChange}
+            />
           </div>
         </div>
       </div>

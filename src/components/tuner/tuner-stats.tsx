@@ -34,7 +34,7 @@ export default function TunerStats({
         <span>Target Note:</span> {target ?? "None"}
       </p>
       <p>
-        <span>Difference (freq):</span>{" "}
+        <span>Difference:</span>{" "}
         {freqDifference ? freqDifference.toFixed(2) : "N/A"}
       </p>
       <p>

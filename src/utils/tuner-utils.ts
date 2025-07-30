@@ -20,7 +20,7 @@ export function calculateFrequencyDifference(
   if (pitch === null || targetFreq === null) {
     return null;
   }
-  return pitch - targetFreq;
+  return (pitch - targetFreq) * 2; // * 2 for better percision so +1 on the tuner display is +0.5 freq from target
 }
 
 export function calculateCentsDifference(

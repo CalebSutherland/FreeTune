@@ -3,15 +3,24 @@ import { useState } from "react";
 import type { TunerSettings } from "@/types/tuner-types";
 import { defaultSettings } from "@/utils/tuner-defaults";
 import { validators } from "@/utils/settings-utils";
-import { Button, NumberInput } from "@mantine/core";
+import { Button, Checkbox, NumberInput, Tooltip } from "@mantine/core";
 import "./settings-menu.css";
+import { IoIosHelpCircleOutline } from "react-icons/io";
 
 type SettingsMenuProps = {
   settings: TunerSettings;
+  displayCents: boolean;
+  setDisplayCents: React.Dispatch<React.SetStateAction<boolean>>;
   onSave: (newSettings: TunerSettings) => void;
 };
 
-export default function SettingsMenu({ settings, onSave }: SettingsMenuProps) {
+export default function SettingsMenu({
+  settings,
+  displayCents,
+  setDisplayCents,
+  onSave,
+}: SettingsMenuProps) {
+  const [displayingCents, setDisplayingCents] = useState(displayCents); //local variable before setting is applied
   const [localSettings, setLocalSettings] = useState(settings);
   const [errors, setErrors] = useState<{ [key: string]: string | null }>({
     bufferSize: null,
@@ -65,10 +74,29 @@ export default function SettingsMenu({ settings, onSave }: SettingsMenuProps) {
       minPitch: null,
       maxPitch: null,
     });
+    setDisplayingCents(false);
   };
 
   return (
     <div className="settings-menu-wrapper">
+      <div className="cents-toggle">
+        <Checkbox
+          color="var(--accent-color)"
+          label="Pro Accuracy"
+          checked={displayingCents}
+          onChange={(event) => setDisplayingCents(event.currentTarget.checked)}
+        />
+        <Tooltip
+          color="var(--secondary-color-invert)"
+          style={{ color: "var(--text-color-invert)" }}
+          withArrow
+          multiline
+          w={200}
+          label="Tuning data is show in cents instead of frequency. 100 cents = 1 semitone."
+        >
+          <IoIosHelpCircleOutline color="var(--text-color)" size={24} />
+        </Tooltip>
+      </div>
       <div className="settings-input-wrapper">
         <NumberInput
           label="Min Volume (dB)"
@@ -130,7 +158,10 @@ export default function SettingsMenu({ settings, onSave }: SettingsMenuProps) {
         <Button
           color="var(--accent-color)"
           disabled={hasErrors}
-          onClick={() => onSave(localSettings)}
+          onClick={() => {
+            onSave(localSettings);
+            setDisplayCents(displayingCents);
+          }}
         >
           Apply
         </Button>

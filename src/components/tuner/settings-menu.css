@@ -1,9 +1,15 @@
 .settings-menu-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 2rem;
   height: 100%;
   padding: 1rem;
+}
+
+.cents-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .settings-input-wrapper {
@@ -11,6 +17,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   column-gap: 2rem;
+  margin-bottom: auto;
 }
 
 .settings-buttons-wrapper {

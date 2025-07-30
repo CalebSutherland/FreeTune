@@ -41,12 +41,13 @@ export default function InstrumentTuner() {
     instruments[instrumentFamilyIndex].instruments[instrumentIndex];
   const soundfontName = current_instrument.soundfontName;
   const [tuning, setTuning] = useState(current_instrument.standard);
-
   const [targetNote, setTargetNote] = useState<string | null>(null);
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
   const disappearanceTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
+  const [visual, setVisual] = useState("graph");
+  const [displayCents, setDisplayCents] = useState(false);
 
   const { pitch, clarity, isListening, start } = useTuner(settings);
   const { playNote, loadInstrument } = useNotePlayer();
@@ -58,8 +59,6 @@ export default function InstrumentTuner() {
   const centsDifference = targetFreq
     ? calculateCentsDifference(displayPitch, targetFreq)
     : null;
-
-  const [visual, setVisual] = useState("graph");
 
   const isSmallScreen = useMediaQuery("(max-width: 450px)");
 
@@ -192,6 +191,7 @@ export default function InstrumentTuner() {
               visual={visual}
               freqDifference={freqDifference}
               centsDifference={centsDifference}
+              displayCents={displayCents}
             />
           </div>
 
@@ -283,7 +283,14 @@ export default function InstrumentTuner() {
           <BackButton setShowMenu={setShowSettingsMenu} />
           <h3 className="tuning-menu-title">Settings</h3>
         </div>
-        <SettingsMenu settings={settings} onSave={handleSettingsChange} />
+        {showSettingsMenu && (
+          <SettingsMenu
+            settings={settings}
+            displayCents={displayCents}
+            setDisplayCents={setDisplayCents}
+            onSave={handleSettingsChange}
+          />
+        )}
       </div>
     </div>
   );

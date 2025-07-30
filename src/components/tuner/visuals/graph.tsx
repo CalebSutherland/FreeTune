@@ -5,6 +5,7 @@ import "./graph.css";
 interface GraphProps {
   freqDifference: number | null;
   centsDifference: number | null;
+  displayCents: boolean;
 }
 
 interface TrailPoint {
@@ -15,7 +16,11 @@ interface TrailPoint {
   element: HTMLDivElement;
 }
 
-export default function Graph({ freqDifference }: GraphProps) {
+export default function Graph({
+  freqDifference,
+  centsDifference,
+  displayCents,
+}: GraphProps) {
   const gridRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const trailPointsRef = useRef<TrailPoint[]>([]);
@@ -23,6 +28,7 @@ export default function Graph({ freqDifference }: GraphProps) {
   const [gridOffsetX, setGridOffsetX] = useState(0);
   const pointIdCounter = useRef(0);
   const freqDifferenceRef = useRef(freqDifference);
+  const centsDifferenceRef = useRef(centsDifference);
   const maxShiftRef = useRef(maxShift);
   const scrollSpeed = 0.5;
   const gridSize = 20;
@@ -32,6 +38,10 @@ export default function Graph({ freqDifference }: GraphProps) {
   useEffect(() => {
     freqDifferenceRef.current = freqDifference;
   }, [freqDifference]);
+
+  useEffect(() => {
+    centsDifferenceRef.current = centsDifference;
+  }, [centsDifference]);
 
   useEffect(() => {
     maxShiftRef.current = maxShift;
@@ -171,7 +181,13 @@ export default function Graph({ freqDifference }: GraphProps) {
           borderColor: currentColor,
         }}
       >
-        {freqDifference !== null ? `${freqDifference.toFixed(0)}` : ""}
+        {displayCents
+          ? centsDifference !== null
+            ? `${centsDifference.toFixed(0)}`
+            : " "
+          : freqDifference !== null
+          ? `${freqDifference.toFixed(0)}`
+          : ""}
       </div>
     </div>
   );
