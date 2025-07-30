@@ -2,7 +2,7 @@
   z-index: 2;
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr minmax(0, 175px) 1fr;
   align-items: center;
 }
 
@@ -14,18 +14,20 @@
   padding: 0 1rem;
 }
 
+.img-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .instrument-img {
   width: 100%;
   height: auto;
-  max-width: 250px;
-  max-height: 250px;
+  object-fit: contain;
 }
 
 @media screen and (max-width: 500px) {
-  .notes-column {
-    padding: 0;
-  }
   .notes-display {
+    grid-template-columns: 1fr minmax(0, 150px) 1fr;
     padding: 0 0.5rem;
   }
 }
