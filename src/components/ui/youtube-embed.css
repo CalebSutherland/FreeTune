@@ -11,3 +11,11 @@
   height: 100%;
   width: 100%;
 }
+
+.youtube-skeleton:where([data-visible])::before {
+  background-color: var(--skeleton-before);
+}
+
+.youtube-skeleton:where([data-visible])::after {
+  background-color: var(--skeleton-after);
+}

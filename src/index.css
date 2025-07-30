@@ -34,6 +34,9 @@
   --note-btn-hover: #6d6e72;
   --note-btn-active: white;
   --graph-circle-color: white;
+
+  --skeleton-before: #242424;
+  --skeleton-after: #424242;
 }
 
 .light-theme {
@@ -55,6 +58,9 @@
   --note-btn-hover: #cdcdcd;
   --note-btn-active: #2f3136;
   --graph-circle-color: #606267;
+
+  --skeleton-before: #fff;
+  --skeleton-after: #dee2e6;
 }
 
 * {
