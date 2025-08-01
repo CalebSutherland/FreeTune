@@ -1,11 +1,11 @@
 import express from "express";
-import userRoutes from "./users";
+import userRoutes from "./user/user-routes";
 
 const app = express();
-app.use(express.json());
 const port = 3000;
 
-app.use("/api/users", userRoutes);
+app.use(express.json());
+app.use("/api", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("YO MFS");
