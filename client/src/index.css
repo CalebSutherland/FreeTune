@@ -29,6 +29,7 @@
   --border-color: rgb(79, 79, 79);
   --light-text-color: rgb(170, 170, 170);
   --tools-active-color: #13181c;
+  --input-bg-color: #212326;
 
   --note-btn: #606267;
   --note-btn-hover: #6d6e72;
@@ -53,6 +54,7 @@
   --border-color: rgb(177, 177, 177);
   --light-text-color: rgb(130, 130, 130);
   --tools-active-color: #dee8f3;
+  --input-bg-color: white;
 
   --note-btn: #e7e7e7;
   --note-btn-hover: #cdcdcd;

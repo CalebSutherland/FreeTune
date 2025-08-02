@@ -4,16 +4,19 @@ import useLocalStorage from "use-local-storage";
 
 import { paths } from "@/config/paths";
 import { Button, Menu, ActionIcon, Tooltip } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { FaMoon, FaSun, FaChevronDown } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { FaX, FaGuitar, FaBook } from "react-icons/fa6";
 import { PiMetronome } from "react-icons/pi";
 import { MdTune } from "react-icons/md";
 import "./header-layout.css";
+import AuthModal from "../ui/auth-modal";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
   const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const [opened, { open, close }] = useDisclosure(false);
 
   const location = useLocation();
   const isToolsActive = location.pathname.startsWith("/tools");
@@ -69,6 +72,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="site-container">
+      <AuthModal opened={opened} close={close} />
       <header className="header-wrapper">
         <div className="header-left-content">
           <NavLink
@@ -185,15 +189,9 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
               </ActionIcon>
             </Tooltip>
           </div>
-          <NavLink
-            key="Login"
-            className="header-link"
-            to={paths.auth.login.getHref()}
-          >
-            <Button color="var(--accent-color)" variant="filled">
-              Sign In
-            </Button>
-          </NavLink>
+          <Button color="var(--accent-color)" variant="filled" onClick={open}>
+            Sign In
+          </Button>
         </div>
         <div className="header-element icon">
           <button id="open-sidebar-button" onClick={openSidebar}>

@@ -1,0 +1,28 @@
+.modal-content,
+.modal-header {
+  background-color: var(--secondary-color);
+}
+
+.modal-close {
+  color: var(--text-color);
+}
+.modal-close:hover {
+  background-color: var(--hover-color);
+}
+
+.auth-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.register-button {
+  font-size: 0.9rem;
+  color: var(--text-color-lighter);
+}
+
+.register-button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  background-color: var(--secondary-color);
+}
