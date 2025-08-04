@@ -1,9 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  registerSchema,
-  type RegisterSchema,
-} from "../../../../shared/authSchemas";
+import { registerSchema, type RegisterSchema } from "@/types/auth-schemas";
 import { registerUser } from "@/api/auth";
 import { Button, PasswordInput, TextInput } from "@mantine/core";
 

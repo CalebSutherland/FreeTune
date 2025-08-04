@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { loginSchema } from "../../../shared/authSchemas";
+import { loginSchema } from "./auth-schemas";
 import { ClientError } from "./errors";
 import { ZodError } from "zod";
 import * as userService from "./user-service";
