@@ -22,7 +22,8 @@
     "react-router": "^6.22.3",
     "react-router-dom": "^6.22.3",
     "smplr": "^0.16.3",
-    "use-local-storage": "^3.0.0"
+    "use-local-storage": "^3.0.0",
+    "zod": "^4.0.14"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
