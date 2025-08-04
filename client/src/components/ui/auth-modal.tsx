@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-import { Button, Modal, PasswordInput, TextInput } from "@mantine/core";
+import RegisterForm from "./register-form";
+import LoginForm from "./login-form";
+import { Modal } from "@mantine/core";
 import "./auth-modal.css";
 
 interface AuthModalProps {
@@ -19,46 +21,13 @@ export default function AuthModal({ opened, close }: AuthModalProps) {
       }}
       opened={opened}
       onClose={close}
-      title="Authentication"
+      title={isRegister ? "Sign Up" : "Login"}
     >
-      <TextInput
-        classNames={{ input: "text-input" }}
-        label="Username"
-        withAsterisk
-        placeholder="username"
-        mb="1rem"
-      />
-      <PasswordInput
-        classNames={{ input: "text-input" }}
-        label="Password"
-        withAsterisk
-        placeholder="password"
-        mb={isRegister ? "1rem" : "2rem"}
-      />
-      {isRegister && (
-        <PasswordInput
-          classNames={{ input: "text-input" }}
-          label="Confirm Password"
-          withAsterisk
-          placeholder="password"
-          mb="2rem"
-        />
+      {isRegister ? (
+        <RegisterForm close={close} switchForm={() => setIsRegister(false)} />
+      ) : (
+        <LoginForm close={close} switchForm={() => setIsRegister(true)} />
       )}
-      <div className="auth-footer">
-        <button
-          className="register-button"
-          onClick={() => {
-            setIsRegister((prev) => !prev);
-          }}
-        >
-          {isRegister
-            ? "Have an account? Login"
-            : "Don't have an account? Sign up"}
-        </button>
-        <Button color="var(--accent-color)">
-          {isRegister ? "Sign up" : "Login"}
-        </Button>
-      </div>
     </Modal>
   );
 }

@@ -1,58 +1,60 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { CustomError } from "../config/errors";
-import { isValidPassword, isValidUsername } from "./user-validation";
+import { loginSchema } from "../../../shared/authSchemas";
+import { ClientError } from "./errors";
+import { ZodError } from "zod";
 import * as userService from "./user-service";
 
 const registerHandler = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-
-  if (!isValidUsername(username)) {
-    return res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ error: "Invalid username" });
-  }
-
-  if (!isValidPassword(password)) {
-    return res.status(httpStatus.BAD_REQUEST).json({
-      error: "Invalid password",
-    });
-  }
-
   try {
-    const user = await userService.register(username, password);
+    const { email, password } = loginSchema.parse(req.body);
+
+    const user = await userService.register(email, password);
     return res.status(httpStatus.CREATED).send(user);
   } catch (err) {
-    console.error("User registration failed:", err);
-
-    if (err instanceof CustomError) {
-      return res.status(err.statusCode).json({ error: err.message });
+    if (err instanceof ZodError) {
+      console.error("Zod issues:", err.issues);
+      return res.status(httpStatus.BAD_REQUEST).json({
+        error: "Validation failed",
+        issues: err.issues,
+      });
     }
 
-    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send();
+    if (err instanceof ClientError) {
+      console.error("User registration failed (client):", err);
+      return res.status(err.status).json({ error: err.message });
+    }
+
+    console.error("User registration failed:", err);
+    return res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ error: "Something went wrong" });
   }
 };
 
 const loginHandler = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-
-  if (!isValidUsername(username)) {
-    return res
-      .status(httpStatus.BAD_REQUEST)
-      .json({ error: "Invalid credentials" });
-  }
-
   try {
-    const user = await userService.login(username, password);
+    const { email, password } = loginSchema.parse(req.body);
+
+    const user = await userService.login(email, password);
     return res.status(httpStatus.OK).send(user);
   } catch (err) {
-    console.error("Login failed:", err);
-
-    if (err instanceof CustomError) {
-      return res.status(err.statusCode).json({ error: err.message });
+    if (err instanceof ZodError) {
+      console.error("Zod issues:", err.issues);
+      return res.status(httpStatus.BAD_REQUEST).json({
+        error: "Validation failed",
+        issues: err.issues,
+      });
     }
 
-    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send();
+    if (err instanceof ClientError) {
+      return res.status(err.status).json({ error: err.message });
+    }
+
+    console.error("Login failed:", err);
+    return res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ error: "Something went wrong" });
   }
 };
 
