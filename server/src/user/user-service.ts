@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { ClientError } from "./errors";
+import { ClientError } from "../config/errors";
 import { insertDefualtMetronome } from "../metronome/metronome-queries";
 import { insertDefaultTunerSettings } from "../tuner-settings/tuner/tuner-queries";
 import { insertDefaultClassicSettings } from "../tuner-settings/classic/classic-queries";
@@ -32,4 +32,23 @@ export async function login(email: string, password: string) {
   if (!isMatch) throw new ClientError("Invalid credentials");
 
   return user;
+}
+
+export async function findOrCreateOAuthUser(profile: any) {
+  const email = profile.emails?.[0]?.value;
+  const provider = profile.provider;
+  const providerId = profile.id;
+  if (!email || !providerId) throw new Error("No email found in profile");
+
+  let user = await userRepository.getByOAuth(provider, providerId);
+  if (!user) {
+    user = await userRepository.insertOAuthUser(email, provider, providerId);
+  }
+
+  return user;
+}
+
+export async function findById(id: string) {
+  const userId = parseInt(id, 10);
+  return await userRepository.getById(userId);
 }

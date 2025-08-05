@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { loginSchema } from "./auth-schemas";
-import { ClientError } from "./errors";
+import { loginSchema } from "../types/auth-schemas";
+import { ClientError } from "../config/errors";
 import { ZodError } from "zod";
 import * as userService from "./user-service";
 
-const registerHandler = async (req: Request, res: Response) => {
+export const registerHandler = async (req: Request, res: Response) => {
   try {
     const { email, password } = loginSchema.parse(req.body);
 
@@ -32,7 +32,7 @@ const registerHandler = async (req: Request, res: Response) => {
   }
 };
 
-const loginHandler = async (req: Request, res: Response) => {
+export const loginHandler = async (req: Request, res: Response) => {
   try {
     const { email, password } = loginSchema.parse(req.body);
 
@@ -58,4 +58,15 @@ const loginHandler = async (req: Request, res: Response) => {
   }
 };
 
-export { registerHandler, loginHandler };
+export const logoutHandler = async (req: Request, res: Response) => {
+  req.logout((err) => {
+    if (err) {
+      console.error("Logout error:", err);
+      return res.status(500).json({ error: "Logout failed" });
+    }
+    req.session?.destroy(() => {
+      res.clearCookie("connect.sid");
+      res.redirect("http://localhost:5173");
+    });
+  });
+};
