@@ -11,7 +11,7 @@ import { FaX, FaGuitar, FaBook } from "react-icons/fa6";
 import { PiMetronome } from "react-icons/pi";
 import { MdTune } from "react-icons/md";
 import "./header-layout.css";
-import AuthModal from "../ui/auth-modal";
+import AuthModal from "../auth/auth-modal";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);

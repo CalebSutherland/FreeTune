@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { loginUser } from "@/api/auth";
+import { loginUser, OAuthLogin } from "@/api/auth";
 import { Button, PasswordInput, TextInput } from "@mantine/core";
 
 type LoginFormData = {
@@ -53,6 +53,10 @@ export default function LoginForm({
         error={errors.password?.message}
         mb="2rem"
       />
+
+      <Button color="var(--accent-color)" onClick={() => OAuthLogin()}>
+        Google
+      </Button>
 
       <div className="auth-footer">
         <button className="register-button" type="button" onClick={switchForm}>

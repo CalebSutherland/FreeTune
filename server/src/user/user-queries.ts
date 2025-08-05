@@ -1,5 +1,7 @@
 import db from "../config/db";
 
+const DEFAULT_NOTES = ["E2", "A2", "D3", "G3", "B3", "E4"];
+
 export async function insert(email: string, password: string) {
   const result = await db.one(
     `
@@ -7,7 +9,7 @@ export async function insert(email: string, password: string) {
     VALUES ($1, $2, $3)
     RETURNING id, email, password_hash;
     `,
-    [email, password, ["E2", "A2", "D3", "G3", "B3", "E4"]]
+    [email, password, DEFAULT_NOTES]
   );
   return result;
 }
@@ -24,7 +26,7 @@ export async function insertOAuthUser(
     ON CONFLICT (provider, provider_id) DO UPDATE SET email = EXCLUDED.email
     RETURNING id, email;
     `,
-    [email, provider, providerId, ["E2", "A2", "D3", "G3", "B3", "E4"]]
+    [email, provider, providerId, DEFAULT_NOTES]
   );
   return result;
 }

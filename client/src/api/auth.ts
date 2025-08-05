@@ -35,3 +35,7 @@ export async function loginUser(email: string, password: string) {
 
   return data;
 }
+
+export function OAuthLogin() {
+  window.location.href = `${API_URL}/api/auth/google`;
+}
