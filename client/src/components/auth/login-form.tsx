@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { loginUser, OAuthLogin } from "@/api/auth";
 import { Button, PasswordInput, TextInput } from "@mantine/core";
+import { useAuth } from "@/contexts/user-auth-context";
 
 type LoginFormData = {
   email: string;
@@ -21,9 +22,12 @@ export default function LoginForm({
     formState: { errors },
   } = useForm<LoginFormData>();
 
+  const { login } = useAuth();
+
   const onSubmit = async (data: LoginFormData) => {
     try {
-      await loginUser(data.email, data.password);
+      const user = await loginUser(data.email, data.password);
+      login(user);
       close();
     } catch (err) {
       console.error("Login error:", err);

@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterSchema } from "@/types/auth-schemas";
 import { registerUser } from "@/api/auth";
 import { Button, PasswordInput, TextInput } from "@mantine/core";
+import { useAuth } from "@/contexts/user-auth-context";
 
 export default function RegisterForm({
   close,
@@ -20,9 +21,12 @@ export default function RegisterForm({
     resolver: zodResolver(registerSchema),
   });
 
+  const { login } = useAuth();
+
   const onSubmit = async (data: RegisterSchema) => {
     try {
-      await registerUser(data.email, data.password);
+      const user = await registerUser(data.email, data.password);
+      login(user);
       close();
     } catch (err) {
       console.error("Register error:", err);

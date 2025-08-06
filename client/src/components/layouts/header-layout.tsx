@@ -12,6 +12,7 @@ import { PiMetronome } from "react-icons/pi";
 import { MdTune } from "react-icons/md";
 import "./header-layout.css";
 import AuthModal from "../auth/auth-modal";
+import { useAuth } from "@/contexts/user-auth-context";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
@@ -21,6 +22,8 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isToolsActive = location.pathname.startsWith("/tools");
   const navigationType = useNavigationType();
+
+  const { isLoggedIn, logout } = useAuth();
 
   const tools_navigation = [
     {
@@ -189,9 +192,19 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
               </ActionIcon>
             </Tooltip>
           </div>
-          <Button color="var(--accent-color)" variant="filled" onClick={open}>
-            Sign In
-          </Button>
+          {!isLoggedIn ? (
+            <Button color="var(--accent-color)" variant="filled" onClick={open}>
+              Sign In
+            </Button>
+          ) : (
+            <Button
+              color="var(--accent-color)"
+              variant="filled"
+              onClick={logout}
+            >
+              Logout
+            </Button>
+          )}
         </div>
         <div className="header-element icon">
           <button id="open-sidebar-button" onClick={openSidebar}>

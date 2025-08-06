@@ -1,4 +1,6 @@
 import bcrypt from "bcrypt";
+import { Profile as GoogleProfile } from "passport-google-oauth20";
+import { User } from "../types/user-type";
 import { ClientError } from "../config/errors";
 import * as userRepository from "./user-queries";
 
@@ -23,10 +25,11 @@ export async function login(email: string, password: string) {
   const isMatch = await bcrypt.compare(password, user.password_hash);
   if (!isMatch) throw new ClientError("Invalid credentials");
 
-  return user;
+  const userInfo: User = { id: user.id };
+  return userInfo;
 }
 
-export async function findOrCreateOAuthUser(profile: any) {
+export async function findOrCreateOAuthUser(profile: GoogleProfile) {
   const email = profile.emails?.[0]?.value;
   const provider = profile.provider;
   const providerId = profile.id;

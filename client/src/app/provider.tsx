@@ -2,6 +2,7 @@ import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";
 import { UserSettingsProvider } from "@/contexts/user-settings-context";
+import { AuthProvider } from "@/contexts/user-auth-context";
 
 interface ProviderProps {
   children: React.ReactNode;
@@ -10,7 +11,9 @@ interface ProviderProps {
 export default function AppProvider({ children }: ProviderProps) {
   return (
     <MantineProvider>
-      <UserSettingsProvider>{children}</UserSettingsProvider>
+      <AuthProvider>
+        <UserSettingsProvider>{children}</UserSettingsProvider>
+      </AuthProvider>
     </MantineProvider>
   );
 }

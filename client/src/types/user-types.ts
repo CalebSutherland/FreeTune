@@ -32,3 +32,15 @@ export type UserSettings = {
   metronome: MetronomeSettings;
   chordLibrary: ChordLibrarySettings;
 };
+
+export type User = {
+  id: number;
+};
+
+export type AuthContextType = {
+  user: User | null;
+  isLoggedIn: boolean;
+  login: (user: User) => void;
+  logout: () => void;
+  loading: boolean;
+};
