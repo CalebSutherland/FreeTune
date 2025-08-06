@@ -1,17 +1,23 @@
 import db from "../config/db";
 
-const DEFAULT_NOTES = ["E2", "A2", "D3", "G3", "B3", "E4"];
-
 export async function insert(email: string, password: string) {
-  const result = await db.one(
+  const user = await db.one(
     `
-    INSERT INTO users (email, password_hash, tuning_notes)
-    VALUES ($1, $2, $3)
+    INSERT INTO users (email, password_hash)
+    VALUES ($1, $2)
     RETURNING id, email, password_hash;
     `,
-    [email, password, DEFAULT_NOTES]
+    [email, password]
   );
-  return result;
+
+  await db.none(
+    `
+    INSERT INTO user_settings (user_id)
+    VALUES ($1);
+    `,
+    [user.id]
+  );
+  return user;
 }
 
 export async function insertOAuthUser(
@@ -19,16 +25,25 @@ export async function insertOAuthUser(
   provider: string,
   providerId: string
 ) {
-  const result = await db.one(
+  const user = await db.one(
     `
-    INSERT INTO users (email, provider, provider_id, tuning_notes)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO users (email, provider, provider_id)
+    VALUES ($1, $2, $3)
     ON CONFLICT (provider, provider_id) DO UPDATE SET email = EXCLUDED.email
     RETURNING id, email;
     `,
-    [email, provider, providerId, DEFAULT_NOTES]
+    [email, provider, providerId]
   );
-  return result;
+
+  await db.none(
+    `
+    INSERT INTO user_settings (user_id)
+    VALUES ($1);
+    `,
+    [user.id]
+  );
+
+  return user;
 }
 
 export async function getByEmail(email: string) {
