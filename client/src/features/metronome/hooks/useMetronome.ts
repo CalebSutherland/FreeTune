@@ -1,14 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 
-export function useMetronome(initialBpm = 120, selectedSound = "click") {
-  const [bpm, setBpm] = useState(initialBpm);
-  const bpmRef = useRef(bpm);
+import { useUserSettings } from "@/contexts/user-settings-context";
+
+export function useMetronome(localBpm: number) {
+  const { metronomeSettings } = useUserSettings();
+  const bpmRef = useRef(localBpm);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [currentBeat, setCurrentBeat] = useState(0);
   const currentBeatRef = useRef(0);
-  const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
-  const [noteValue, setNoteValue] = useState(4);
   const [beatCount, setBeatCount] = useState(0);
 
   const soundBuffersRef = useRef<Record<string, AudioBuffer>>({});
@@ -23,7 +23,7 @@ export function useMetronome(initialBpm = 120, selectedSound = "click") {
 
   function playClick(time: number, isAccent: boolean) {
     const ctx = audioContextRef.current;
-    const buffer = soundBuffersRef.current[selectedSound];
+    const buffer = soundBuffersRef.current[metronomeSettings.sound];
 
     if (!ctx || !buffer) return;
 
@@ -40,16 +40,17 @@ export function useMetronome(initialBpm = 120, selectedSound = "click") {
 
     while (nextNoteTimeRef.current < ctx.currentTime + scheduleAheadTime) {
       const beat = currentBeatRef.current;
-      const isAccent = beat % beatsPerMeasure === 0;
+      const isAccent = beat % metronomeSettings.beatsPerMeasure === 0;
 
       playClick(nextNoteTimeRef.current, isAccent);
       setCurrentBeat(beat);
       setBeatCount((prev) => prev + 1);
 
-      currentBeatRef.current = (beat + 1) % beatsPerMeasure;
+      currentBeatRef.current = (beat + 1) % metronomeSettings.beatsPerMeasure;
 
       const beatDuration = 60.0 / bpmRef.current;
-      const adjustedBeat = noteValue === 8 ? beatDuration / 2 : beatDuration;
+      const adjustedBeat =
+        metronomeSettings.beatType === 8 ? beatDuration / 2 : beatDuration;
       nextNoteTimeRef.current += adjustedBeat;
     }
   }
@@ -101,8 +102,8 @@ export function useMetronome(initialBpm = 120, selectedSound = "click") {
   }
 
   useEffect(() => {
-    bpmRef.current = bpm;
-  }, [bpm]);
+    bpmRef.current = localBpm;
+  }, [localBpm]);
 
   useEffect(() => {
     return () => {
@@ -112,17 +113,11 @@ export function useMetronome(initialBpm = 120, selectedSound = "click") {
   }, []);
 
   return {
-    bpm,
-    setBpm,
     isPlaying,
     start,
     stop,
     currentBeat,
-    beatsPerMeasure,
-    setBeatsPerMeasure,
     setCurrentBeat,
-    noteValue,
-    setNoteValue,
     beatCount,
   };
 }

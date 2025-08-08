@@ -1,18 +1,14 @@
+import { useUserSettings } from "@/contexts/user-settings-context";
+
 import { ActionIcon } from "@mantine/core";
 import { FaGear } from "react-icons/fa6";
 import { MdOutlineShowChart } from "react-icons/md";
 import { PiGauge } from "react-icons/pi";
 import "./visual-selector.css";
 
-interface visualSelectorProps {
-  visual: string;
-  setVisual: React.Dispatch<React.SetStateAction<string>>;
-}
+export default function visualSelector() {
+  const { instrumentSettings, updateInstrumentSettings } = useUserSettings();
 
-export default function visualSelector({
-  visual,
-  setVisual,
-}: visualSelectorProps) {
   const visuals = [
     { name: "graph", icon: <MdOutlineShowChart size={20} /> },
     { name: "dial", icon: <PiGauge size={20} /> },
@@ -23,10 +19,12 @@ export default function visualSelector({
       {visuals.map((vis) => (
         <ActionIcon
           key={vis.name}
-          className={`visual-icon ${visual === vis.name ? "active" : ""}`}
+          className={`visual-icon ${
+            instrumentSettings.visualName === vis.name ? "active" : ""
+          }`}
           variant="outline"
           size="md"
-          onClick={() => setVisual(vis.name)}
+          onClick={() => updateInstrumentSettings({ visualName: vis.name })}
         >
           {vis.icon}
         </ActionIcon>

@@ -1,33 +1,26 @@
 import Graph from "./graph";
 import Dial from "./dial";
+import { useUserSettings } from "@/contexts/user-settings-context";
 
 interface VisualProps {
-  visual: string;
   freqDifference: number | null;
   centsDifference: number | null;
-  displayCents: boolean;
 }
 
 export default function Visual({
-  visual,
   freqDifference,
   centsDifference,
-  displayCents,
 }: VisualProps) {
-  if (visual === "graph")
+  const { instrumentSettings } = useUserSettings();
+  if (instrumentSettings.visualName === "graph")
     return (
       <Graph
         freqDifference={freqDifference}
         centsDifference={centsDifference}
-        displayCents={displayCents}
       />
     );
-  if (visual === "dial")
+  if (instrumentSettings.visualName === "dial")
     return (
-      <Dial
-        freqDifference={freqDifference}
-        centsDifference={centsDifference}
-        displayCents={displayCents}
-      />
+      <Dial freqDifference={freqDifference} centsDifference={centsDifference} />
     );
 }

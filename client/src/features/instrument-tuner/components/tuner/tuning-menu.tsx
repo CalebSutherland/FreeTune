@@ -1,8 +1,9 @@
 import { useState } from "react";
 
+import { useUserSettings } from "@/contexts/user-settings-context";
 import type { InstrumentFamily, Tuning } from "../../types/types";
 import TuningCard from "../ui/tuning-card";
-import BackButton from "../../../../components/ui/back-button";
+import BackButton from "@/components/ui/back-button";
 import { Accordion, AccordionItem, LoadingOverlay } from "@mantine/core";
 import { MdChevronRight } from "react-icons/md";
 import "./tuning-menu.css";
@@ -12,9 +13,6 @@ interface TuningMenuProps {
   currentTuning: Tuning;
   autoMode: boolean;
   setTarget: React.Dispatch<React.SetStateAction<string | null>>;
-  setInstrumentFamilyIndex: React.Dispatch<React.SetStateAction<number>>;
-  setInstrumentIndex: React.Dispatch<React.SetStateAction<number>>;
-  setTuning: React.Dispatch<React.SetStateAction<Tuning>>;
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
   loadInstrument: (instrumentName: string) => Promise<void>;
   soundfontName: string;
@@ -25,15 +23,14 @@ export default function TuningMenu({
   currentTuning,
   autoMode,
   setTarget,
-  setInstrumentFamilyIndex,
-  setInstrumentIndex,
-  setTuning,
   setShowMenu,
   loadInstrument,
 }: TuningMenuProps) {
   const [showSecondMenu, setShowSecondMenu] = useState(false);
   const [displayIndex, setDisplayIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  const { updateInstrumentSettings } = useUserSettings();
 
   async function changeInstrument(
     display: number,
@@ -44,9 +41,12 @@ export default function TuningMenu({
     if (!autoMode) {
       setTarget(tuning.notes[0]); // Set target to the first note of the tuning
     }
-    setInstrumentFamilyIndex(display);
-    setInstrumentIndex(instrument);
-    setTuning(tuning);
+    updateInstrumentSettings({
+      instrumentFamilyIndex: display,
+      instrumentIndex: instrument,
+      tuningName: tuning.name,
+      tuningNotes: tuning.notes,
+    });
 
     try {
       setLoading(true);

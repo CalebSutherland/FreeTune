@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { getColorFromFreqDiff } from "@/utils/visual-utils";
 import "./graph.css";
+import { useUserSettings } from "@/contexts/user-settings-context";
 
 interface GraphProps {
   freqDifference: number | null;
   centsDifference: number | null;
-  displayCents: boolean;
 }
 
 interface TrailPoint {
@@ -16,11 +16,7 @@ interface TrailPoint {
   element: HTMLDivElement;
 }
 
-export default function Graph({
-  freqDifference,
-  centsDifference,
-  displayCents,
-}: GraphProps) {
+export default function Graph({ freqDifference, centsDifference }: GraphProps) {
   const gridRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const trailPointsRef = useRef<TrailPoint[]>([]);
@@ -33,6 +29,8 @@ export default function Graph({
   const scrollSpeed = 0.5;
   const gridSize = 20;
   const gridHeight = 250;
+
+  const { tunerSettings } = useUserSettings();
 
   // Keep refs updated
   useEffect(() => {
@@ -181,7 +179,7 @@ export default function Graph({
           borderColor: currentColor,
         }}
       >
-        {displayCents
+        {tunerSettings.isProAccuracy
           ? centsDifference !== null
             ? `${centsDifference.toFixed(0)}`
             : " "

@@ -4,19 +4,19 @@ export function isPowerOfTwo(n: number): boolean {
 
 type Validator = (value: number) => string | null;
 export const validators: { [key: string]: Validator } = {
-  bufferSize: (value) => {
+  buffer: (value) => {
     if (!isPowerOfTwo(value) || value < 32 || value > 32768) {
       return "Buffer size must be a power of 2 between 32 and 32768.";
     }
     return null;
   },
-  minVolumeDecibels: (value) => {
+  minVolume: (value) => {
     if (value > 0) {
       return "Min volume must be less than or equal to 0.";
     }
     return null;
   },
-  minClarityPercent: (value) => {
+  clarity: (value) => {
     if (value < 1 || value > 100) {
       return "Min clarity must be between 1 and 100.";
     }

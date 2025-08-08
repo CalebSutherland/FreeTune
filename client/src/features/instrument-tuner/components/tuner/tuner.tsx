@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 
+import { useUserSettings } from "@/contexts/user-settings-context";
 import { useTuner } from "@/hooks/use-tuner";
 import { useNotePlayer } from "@/hooks/use-note-player";
-import type { TunerSettings } from "@/types/tuner-types";
-import { defaultSettings } from "@/utils/tuner-defaults";
 import data from "../../data/tuning-data.json";
 import type { InstrumentFamily } from "../../types/types";
 import {
@@ -26,30 +25,29 @@ import { FaGear } from "react-icons/fa6";
 import "./tuner.css";
 
 const instruments = data as InstrumentFamily[];
+
 export default function InstrumentTuner() {
+  const { instrumentSettings } = useUserSettings();
+
   const [showMenu, setShowMenu] = useState(false);
-  const [settings, setSettings] = useState<TunerSettings>(defaultSettings);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [autoMode, setAutoMode] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
   const [loadingTuner, setLoadingTuner] = useState(false);
 
-  const [instrumentFamilyIndex, setInstrumentFamilyIndex] = useState(0);
-  const [instrumentIndex, setInstrumentIndex] = useState(0);
   const current_instrument =
-    instruments[instrumentFamilyIndex].instruments[instrumentIndex];
+    instruments[instrumentSettings.instrumentFamilyIndex].instruments[
+      instrumentSettings.instrumentIndex
+    ];
   const soundfontName = current_instrument.soundfontName;
-  const [tuning, setTuning] = useState(current_instrument.standard);
   const [targetNote, setTargetNote] = useState<string | null>(null);
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
   const disappearanceTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
-  const [visual, setVisual] = useState("graph");
-  const [displayCents, setDisplayCents] = useState(false);
 
-  const { pitch, clarity, isListening, start } = useTuner(settings);
+  const { pitch, clarity, isListening, start } = useTuner();
   const { playNote, loadInstrument } = useNotePlayer();
 
   const targetFreq = getFrequencyFromNote(targetNote);
@@ -61,11 +59,6 @@ export default function InstrumentTuner() {
     : null;
 
   const isSmallScreen = useMediaQuery("(max-width: 450px)");
-
-  const handleSettingsChange = (newSettings: TunerSettings) => {
-    setSettings(newSettings);
-    setShowSettingsMenu(false);
-  };
 
   async function startTuner() {
     try {
@@ -111,12 +104,12 @@ export default function InstrumentTuner() {
   // Update target note based on pitch and tuning if auto mode is on
   useEffect(() => {
     if (autoMode && pitch && clarity > 0.95) {
-      const closestNote = getClosestNote(pitch, tuning.notes);
+      const closestNote = getClosestNote(pitch, instrumentSettings.tuningNotes);
       if (closestNote !== targetNote) {
         setTargetNote(closestNote);
       }
     }
-  }, [pitch, clarity, autoMode, tuning.notes, targetNote]);
+  }, [pitch, clarity, autoMode, instrumentSettings.tuningNotes, targetNote]);
 
   return (
     <div className="tuner-app-wrapper">
@@ -155,12 +148,12 @@ export default function InstrumentTuner() {
             onClick={() => setShowMenu(true)}
           >
             <p>{current_instrument.name}</p>
-            <p className="tuning-name">{tuning.name}</p>
+            <p className="tuning-name">{instrumentSettings.tuningName}</p>
           </Button>
 
           {!isSmallScreen && (
             <div className="visual-buttons">
-              <VisualSelector visual={visual} setVisual={setVisual} />
+              <VisualSelector />
             </div>
           )}
 
@@ -171,8 +164,8 @@ export default function InstrumentTuner() {
               onChange={(event) => {
                 const isAuto = event.currentTarget.checked;
                 setAutoMode(isAuto);
-                if (!isAuto && tuning.notes.length > 0) {
-                  setTargetNote(tuning.notes[0]);
+                if (!isAuto && instrumentSettings.tuningNotes.length > 0) {
+                  setTargetNote(instrumentSettings.tuningNotes[0]);
                 }
                 if (isAuto) {
                   setTargetNote(null);
@@ -188,10 +181,8 @@ export default function InstrumentTuner() {
         <div className="tuner-app-content">
           <div className="visual-wrapper">
             <Visual
-              visual={visual}
               freqDifference={freqDifference}
               centsDifference={centsDifference}
-              displayCents={displayCents}
             />
           </div>
 
@@ -199,7 +190,10 @@ export default function InstrumentTuner() {
             <NotesDisplay
               instrument={current_instrument}
               imgUrl={current_instrument.img}
-              tuning={tuning}
+              tuning={{
+                name: instrumentSettings.tuningName,
+                notes: instrumentSettings.tuningNotes,
+              }}
               target={targetNote}
               setTarget={setTargetNote}
               autoMode={autoMode}
@@ -228,7 +222,7 @@ export default function InstrumentTuner() {
 
             {isSmallScreen && (
               <div className="visual-buttons">
-                <VisualSelector visual={visual} setVisual={setVisual} />
+                <VisualSelector />
               </div>
             )}
 
@@ -263,10 +257,10 @@ export default function InstrumentTuner() {
         </div>
         <TuningMenu
           instruments={instruments}
-          currentTuning={tuning}
-          setInstrumentFamilyIndex={setInstrumentFamilyIndex}
-          setInstrumentIndex={setInstrumentIndex}
-          setTuning={setTuning}
+          currentTuning={{
+            name: instrumentSettings.tuningName,
+            notes: instrumentSettings.tuningNotes,
+          }}
           setShowMenu={setShowMenu}
           autoMode={autoMode}
           setTarget={setTargetNote}
@@ -284,12 +278,7 @@ export default function InstrumentTuner() {
           <h3 className="tuning-menu-title">Settings</h3>
         </div>
         {showSettingsMenu && (
-          <SettingsMenu
-            settings={settings}
-            displayCents={displayCents}
-            setDisplayCents={setDisplayCents}
-            onSave={handleSettingsChange}
-          />
+          <SettingsMenu setShowSettingsMenu={setShowSettingsMenu} />
         )}
       </div>
     </div>

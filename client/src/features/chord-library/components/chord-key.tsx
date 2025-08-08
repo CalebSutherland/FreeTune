@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useNotePlayer } from "@/hooks/use-note-player";
-import { useChordLibrary } from "@/contexts/chord-library-context";
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import DiagramCard from "./diagram/diagram-card";
 import type { Key } from "@/types/chord-types";
 import { useWindowScroll } from "@mantine/hooks";
 import { Affix, Button, Transition } from "@mantine/core";
 import { FaArrowUp } from "react-icons/fa";
+import { useUserSettings } from "@/contexts/user-settings-context";
 
 export default function ChordKey() {
   const { key: routeKey } = useParams<{ key: string }>();
@@ -20,7 +20,7 @@ export default function ChordKey() {
 
   const [scroll, scrollTo] = useWindowScroll();
   const { playNote, loadInstrument } = useNotePlayer();
-  const { size, speed } = useChordLibrary();
+  const { chordSettings } = useUserSettings();
 
   return (
     <>
@@ -48,8 +48,8 @@ export default function ChordKey() {
                 suffix={suf}
                 chord={chord.positions[0]}
                 link={true}
-                diagramSize={size}
-                diagramSpeed={speed}
+                diagramSize={chordSettings.size}
+                diagramSpeed={chordSettings.speed}
                 playNote={playNote}
                 loadInstrument={loadInstrument}
               />

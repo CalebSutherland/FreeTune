@@ -3,7 +3,7 @@ import { useNotePlayer } from "@/hooks/use-note-player";
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import DiagramCard from "./diagram/diagram-card";
 import type { Key } from "@/types/chord-types";
-import { useChordLibrary } from "@/contexts/chord-library-context";
+import { useUserSettings } from "@/contexts/user-settings-context";
 
 export default function ChordSuffix() {
   const params = useParams<{ key: string; suffix: string }>();
@@ -29,7 +29,8 @@ export default function ChordSuffix() {
   }
 
   const { playNote, loadInstrument } = useNotePlayer();
-  const { size, speed } = useChordLibrary();
+  const { chordSettings } = useUserSettings();
+
   return (
     <>
       {chord.positions.map((pos, i) => (
@@ -40,8 +41,8 @@ export default function ChordSuffix() {
           chord={pos}
           link={false}
           version={i + 1}
-          diagramSize={size}
-          diagramSpeed={speed}
+          diagramSize={chordSettings.size}
+          diagramSpeed={chordSettings.speed}
           playNote={playNote}
           loadInstrument={loadInstrument}
         />

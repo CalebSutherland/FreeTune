@@ -4,23 +4,21 @@ import {
   calculateNeedleRotation,
 } from "@/utils/visual-utils";
 import "./dial.css";
+import { useUserSettings } from "@/contexts/user-settings-context";
 
 interface DialProps {
   freqDifference: number | null;
   centsDifference: number | null;
-  displayCents: boolean;
 }
 
-export default function Dial({
-  freqDifference,
-  centsDifference,
-  displayCents,
-}: DialProps) {
+export default function Dial({ freqDifference, centsDifference }: DialProps) {
   const dialRef = useRef<HTMLDivElement>(null);
   const maxHz = 10;
 
   const needleRotation = calculateNeedleRotation(freqDifference, maxHz);
   const currentColor = getColorFromFreqDiff(freqDifference, "var(--note-btn)");
+
+  const { tunerSettings } = useUserSettings();
 
   // Generate tick marks on the arc
   const generateTicks = (): React.JSX.Element[] => {
@@ -75,7 +73,7 @@ export default function Dial({
       {/* Hz display */}
       <div className="digital-readout">
         <div className="hz-display">
-          {displayCents
+          {tunerSettings.isProAccuracy
             ? centsDifference !== null
               ? `${centsDifference.toFixed(0)}`
               : " "

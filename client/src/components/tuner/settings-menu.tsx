@@ -1,31 +1,27 @@
 import { useState } from "react";
 
-import type { TunerSettings } from "@/types/tuner-types";
-import { defaultSettings } from "@/utils/tuner-defaults";
+import { defaultTunerSettings } from "@/contexts/user-settings-context";
 import { validators } from "@/utils/settings-utils";
 import { Button, Checkbox, NumberInput, Tooltip } from "@mantine/core";
-import "./settings-menu.css";
 import { IoIosHelpCircleOutline } from "react-icons/io";
+import { useUserSettings } from "@/contexts/user-settings-context";
+import "./settings-menu.css";
+import type { TunerSettings } from "@/types/user-types";
 
-type SettingsMenuProps = {
-  settings: TunerSettings;
-  displayCents: boolean;
-  setDisplayCents: React.Dispatch<React.SetStateAction<boolean>>;
-  onSave: (newSettings: TunerSettings) => void;
-};
+interface settingsMenuProps {
+  setShowSettingsMenu: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export default function SettingsMenu({
-  settings,
-  displayCents,
-  setDisplayCents,
-  onSave,
-}: SettingsMenuProps) {
-  const [displayingCents, setDisplayingCents] = useState(displayCents); //local variable before setting is applied
-  const [localSettings, setLocalSettings] = useState(settings);
+  setShowSettingsMenu,
+}: settingsMenuProps) {
+  const { tunerSettings, updateTunerSettings } = useUserSettings();
+
+  const [localSettings, setLocalSettings] = useState(tunerSettings);
   const [errors, setErrors] = useState<{ [key: string]: string | null }>({
-    bufferSize: null,
-    minVolumeDecibels: null,
-    minClarityPercent: null,
+    buffer: null,
+    minVolume: null,
+    clarity: null,
     minPitch: null,
     maxPitch: null,
   });
@@ -66,7 +62,7 @@ export default function SettingsMenu({
   };
 
   const handleReset = () => {
-    setLocalSettings(defaultSettings);
+    setLocalSettings(defaultTunerSettings);
     setErrors({
       bufferSize: null,
       minVolumeDecibels: null,
@@ -74,7 +70,6 @@ export default function SettingsMenu({
       minPitch: null,
       maxPitch: null,
     });
-    setDisplayingCents(false);
   };
 
   return (
@@ -83,8 +78,14 @@ export default function SettingsMenu({
         <Checkbox
           color="var(--accent-color)"
           label="Pro Accuracy"
-          checked={displayingCents}
-          onChange={(event) => setDisplayingCents(event.currentTarget.checked)}
+          checked={localSettings.isProAccuracy}
+          onChange={(event) => {
+            const checked = event.currentTarget.checked;
+            setLocalSettings((prev) => ({
+              ...prev,
+              isProAccuracy: checked,
+            }));
+          }}
         />
         <Tooltip
           color="var(--secondary-color-invert)"
@@ -100,23 +101,23 @@ export default function SettingsMenu({
       <div className="settings-input-wrapper">
         <NumberInput
           label="Min Volume (dB)"
-          value={localSettings.minVolumeDecibels}
+          value={localSettings.minVolume}
           min={-1000}
           max={0}
           clampBehavior="none"
-          onChange={(value) => handleChange("minVolumeDecibels", value ?? 0)}
-          error={errors.minVolumeDecibels}
+          onChange={(value) => handleChange("minVolume", value ?? 0)}
+          error={errors.minVolume}
         />
 
         <NumberInput
           label="Clarity Threshold (%)"
-          value={localSettings.minClarityPercent}
+          value={localSettings.clarity}
           min={1}
           max={100}
           suffix="%"
           clampBehavior="none"
-          onChange={(value) => handleChange("minClarityPercent", value ?? 0)}
-          error={errors.minClarityPercent}
+          onChange={(value) => handleChange("clarity", value ?? 0)}
+          error={errors.clarity}
         />
         <NumberInput
           label="Min Pitch (Hz)"
@@ -139,12 +140,12 @@ export default function SettingsMenu({
 
         <NumberInput
           label="Buffer Size"
-          value={localSettings.bufferSize}
+          value={localSettings.buffer}
           min={32}
           max={32768}
           clampBehavior="none"
-          error={errors.bufferSize}
-          onChange={(value) => handleChange("bufferSize", value ?? 0)}
+          error={errors.buffer}
+          onChange={(value) => handleChange("buffer", value ?? 0)}
         />
       </div>
       <div className="settings-buttons-wrapper">
@@ -159,8 +160,8 @@ export default function SettingsMenu({
           color="var(--accent-color)"
           disabled={hasErrors}
           onClick={() => {
-            onSave(localSettings);
-            setDisplayCents(displayingCents);
+            updateTunerSettings(localSettings);
+            setShowSettingsMenu(false);
           }}
         >
           Apply

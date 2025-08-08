@@ -1,90 +1,108 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-import merge from "lodash/merge";
-import type { UserSettings } from "@/types/user-types";
+import type {
+  ChordSettings,
+  InstrumentSettings,
+  MetronomeSettings,
+  TunerSettings,
+  UserSettingsContextType,
+} from "@/types/user-types";
 
-const defaultSettings: UserSettings = {
-  instrument: {
-    instrumentFamilyIndex: 0,
-    instrumentIndex: 0,
-    tuningName: "Standard",
-    tuningNotes: ["E2", "A2", "D3", "G3", "B3", "E4"],
-    visualName: "graph",
-  },
-  tuner: {
-    isProAccuracy: false,
-    minVolume: -40,
-    clarity: 0.95,
-    minPitch: 30,
-    maxPitch: 10000,
-    buffer: 2048,
-  },
-  metronome: {
-    timeSignature: "4/4",
-    bpm: 120,
-    sound: "default",
-  },
-  chordLibrary: {
-    chordSize: "sm",
-    chordSpeed: "fast",
-  },
+const defaultInstrumentSettings: InstrumentSettings = {
+  instrumentFamilyIndex: 0,
+  instrumentIndex: 0,
+  tuningName: "Standard",
+  tuningNotes: ["E2", "A2", "D3", "G3", "B3", "E4"],
+  visualName: "graph",
 };
 
-type UserSettingsContextType = {
-  settings: UserSettings;
-  updateSettings: (updates: Partial<UserSettings>) => void;
-  loading: boolean;
+export const defaultTunerSettings: TunerSettings = {
+  isProAccuracy: false,
+  minVolume: -40,
+  clarity: 0.95,
+  minPitch: 30,
+  maxPitch: 10000,
+  buffer: 2048,
 };
 
-const UserSettingsContext = createContext<UserSettingsContextType>({
-  settings: defaultSettings,
-  updateSettings: () => {},
-  loading: true,
-});
+const defaultMetronomeSettings: MetronomeSettings = {
+  beatsPerMeasure: 4,
+  beatType: 4,
+  bpm: 120,
+  sound: "click",
+};
 
-export const UserSettingsProvider = ({
+const defaultChordSettings: ChordSettings = {
+  size: "sm",
+  speed: "fast",
+};
+
+export const UserSettingsContext = createContext<
+  UserSettingsContextType | undefined
+>(undefined);
+
+export const UserSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
-}: {
-  children: React.ReactNode;
 }) => {
-  const [settings, setSettings] = useState<UserSettings>(defaultSettings);
-  const [loading, setLoading] = useState(true);
+  const [instrumentSettings, setInstrumentSettings] =
+    useState<InstrumentSettings>(defaultInstrumentSettings);
+  const [tunerSettings, setTunerSettings] =
+    useState<TunerSettings>(defaultTunerSettings);
+  const [metronomeSettings, setMetronomeSettings] = useState<MetronomeSettings>(
+    defaultMetronomeSettings
+  );
+  const [chordSettings, setChordSettings] =
+    useState<ChordSettings>(defaultChordSettings);
 
-  // useEffect(() => {
-  //   const fetchSettings = async () => {
-  //     try {
-  //       const res = await fetch("/api/user/settings");
-  //       if (!res.ok) throw new Error("Failed to fetch settings");
-  //       const data: UserSettings = await res.json();
-  //       setSettings(data);
-  //     } catch (error) {
-  //       console.error("Error loading user settings:", error);
-  //       // fallback to defaults
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchSettings();
-  // }, []);
+  const updateInstrumentSettings = (updates: Partial<InstrumentSettings>) =>
+    setInstrumentSettings((prev) => ({ ...prev, ...updates }));
 
-  const updateSettings = (updates: Partial<UserSettings>) => {
-    const newSettings = merge({}, settings, updates);
+  const updateTunerSettings = (updates: Partial<TunerSettings>) =>
+    setTunerSettings((prev) => ({ ...prev, ...updates }));
 
-    setSettings(newSettings);
+  const updateMetronomeSettings = (updates: Partial<MetronomeSettings>) =>
+    setMetronomeSettings((prev) => ({ ...prev, ...updates }));
 
-    // Save to backend
-    // fetch("/api/user/settings", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(newSettings),
-    // }).catch((err) => console.error("Failed to save settings:", err));
-  };
+  const updateChordSettings = (updates: Partial<ChordSettings>) =>
+    setChordSettings((prev) => ({ ...prev, ...updates }));
+
+  useEffect(() => {
+    console.log(instrumentSettings);
+  }, [instrumentSettings]);
+
+  useEffect(() => {
+    console.log(tunerSettings);
+  }, [tunerSettings]);
+
+  useEffect(() => {
+    console.log(metronomeSettings);
+  }, [metronomeSettings]);
+
+  useEffect(() => {
+    console.log(chordSettings);
+  }, [chordSettings]);
 
   return (
-    <UserSettingsContext.Provider value={{ settings, updateSettings, loading }}>
+    <UserSettingsContext.Provider
+      value={{
+        instrumentSettings,
+        tunerSettings,
+        metronomeSettings,
+        chordSettings,
+        updateInstrumentSettings,
+        updateTunerSettings,
+        updateMetronomeSettings,
+        updateChordSettings,
+      }}
+    >
       {children}
     </UserSettingsContext.Provider>
   );
 };
 
-export const useUserSettings = () => useContext(UserSettingsContext);
+export function useUserSettings() {
+  const context = useContext(UserSettingsContext);
+  if (!context)
+    throw new Error("useUserSettings must be used within UserSettingsProvider");
+  return context;
+}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
+import { useUserSettings } from "@/contexts/user-settings-context";
 import { useMetronome } from "../hooks/useMetronome";
 import { handleTap } from "../utils/metronome-utils";
 import BackButton from "@/components/ui/back-button";
@@ -17,7 +18,9 @@ export default function Metronome() {
   const [settingsMenu, setSettingsMenu] = useState(false);
   const [flashBeat, setFlashBeat] = useState<number | null>(null);
 
-  const [sound, setSound] = useState("click");
+  const { metronomeSettings, updateMetronomeSettings } = useUserSettings();
+  const [localBpm, setLocalBpm] = useState(metronomeSettings.bpm);
+
   const sounds = [
     { name: "Defualt", url: "click" },
     { name: "Drumstick", url: "drumstick" },
@@ -27,20 +30,8 @@ export default function Metronome() {
     { name: "Snare", url: "snare" },
   ];
 
-  const {
-    bpm,
-    setBpm,
-    isPlaying,
-    start,
-    stop,
-    currentBeat,
-    beatsPerMeasure,
-    setBeatsPerMeasure,
-    setCurrentBeat,
-    noteValue,
-    setNoteValue,
-    beatCount,
-  } = useMetronome(120, sound);
+  const { isPlaying, start, stop, currentBeat, setCurrentBeat, beatCount } =
+    useMetronome(localBpm);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -81,24 +72,26 @@ export default function Metronome() {
             setShowMenu(true);
           }}
         >
-          {`${beatsPerMeasure}/${noteValue}`}
+          {`${metronomeSettings.beatsPerMeasure}/${metronomeSettings.beatType}`}
         </Button>
       </div>
       <div className="beat-dots">
-        {Array.from({ length: beatsPerMeasure }).map((_, i) => (
-          <div
-            key={i}
-            className={`beat-dot ${
-              isPlaying && flashBeat === i ? "active" : ""
-            }`}
-          />
-        ))}
+        {Array.from({ length: metronomeSettings.beatsPerMeasure }).map(
+          (_, i) => (
+            <div
+              key={i}
+              className={`beat-dot ${
+                isPlaying && flashBeat === i ? "active" : ""
+              }`}
+            />
+          )
+        )}
       </div>
       <Button
         variant="transparent"
         color="var(--text-color)"
         classNames={{ root: "tap-button" }}
-        onClick={() => handleTap(tapTimesRef, setBpm)}
+        onClick={() => handleTap(tapTimesRef)}
       >
         <TbHandClick size={24} />
       </Button>
@@ -108,21 +101,21 @@ export default function Metronome() {
             className="bpm-btn"
             color="var(--text-color)"
             variant="transparent"
-            disabled={bpm <= 30}
+            disabled={metronomeSettings.bpm <= 30}
             onClick={() => {
-              setBpm((prev) => prev - 1);
+              updateMetronomeSettings({ bpm: metronomeSettings.bpm - 1 });
             }}
           >
             <FaMinus size={16} />
           </ActionIcon>
-          <p>{bpm}</p>
+          <p>{metronomeSettings.bpm}</p>
           <ActionIcon
             className="bpm-btn"
             color="var(--text-color)"
             variant="transparent"
-            disabled={bpm >= 240}
+            disabled={metronomeSettings.bpm >= 240}
             onClick={() => {
-              setBpm((prev) => prev + 1);
+              updateMetronomeSettings({ bpm: metronomeSettings.bpm + 1 });
             }}
           >
             <FaPlus size={16} />
@@ -135,8 +128,9 @@ export default function Metronome() {
         color="var(--accent-color)"
         min={30}
         max={240}
-        value={bpm}
-        onChange={setBpm}
+        value={localBpm}
+        onChange={setLocalBpm}
+        onChangeEnd={() => updateMetronomeSettings({ bpm: localBpm })}
       />
       <Button
         color="var(--accent-color)"
@@ -172,8 +166,10 @@ export default function Metronome() {
                 <button
                   className="menu-button"
                   onClick={() => {
-                    setBeatsPerMeasure(parseInt(time[0]));
-                    setNoteValue(parseInt(time[1]));
+                    updateMetronomeSettings({
+                      beatsPerMeasure: parseInt(time[0]),
+                      beatType: parseInt(time[1]),
+                    });
                     setCurrentBeat(0);
                     setShowMenu(false);
                   }}
@@ -203,7 +199,7 @@ export default function Metronome() {
               <button
                 className="menu-button"
                 onClick={() => {
-                  setSound(s.url);
+                  updateMetronomeSettings({ sound: s.url });
                   setSettingsMenu(false);
                 }}
               >

@@ -1,4 +1,4 @@
-type InstrumentSettings = {
+export type InstrumentSettings = {
   instrumentFamilyIndex: number;
   instrumentIndex: number;
   tuningName: string;
@@ -6,7 +6,7 @@ type InstrumentSettings = {
   visualName: string;
 };
 
-type TunerSettings = {
+export type TunerSettings = {
   isProAccuracy: boolean;
   minVolume: number;
   clarity: number;
@@ -15,22 +15,28 @@ type TunerSettings = {
   buffer: number;
 };
 
-type MetronomeSettings = {
-  timeSignature: string;
+export type MetronomeSettings = {
+  beatsPerMeasure: number;
+  beatType: number;
   bpm: number;
   sound: string;
 };
 
-type ChordLibrarySettings = {
-  chordSize: string;
-  chordSpeed: string;
+export type ChordSettings = {
+  size: "sm" | "xs" | "md" | "lg" | "xl";
+  speed: "slow" | "fast";
 };
 
-export type UserSettings = {
-  instrument: InstrumentSettings;
-  tuner: TunerSettings;
-  metronome: MetronomeSettings;
-  chordLibrary: ChordLibrarySettings;
+export type UserSettingsContextType = {
+  instrumentSettings: InstrumentSettings;
+  tunerSettings: TunerSettings;
+  metronomeSettings: MetronomeSettings;
+  chordSettings: ChordSettings;
+
+  updateInstrumentSettings: (updates: Partial<InstrumentSettings>) => void;
+  updateTunerSettings: (updates: Partial<TunerSettings>) => void;
+  updateMetronomeSettings: (updates: Partial<MetronomeSettings>) => void;
+  updateChordSettings: (updates: Partial<ChordSettings>) => void;
 };
 
 export type User = {

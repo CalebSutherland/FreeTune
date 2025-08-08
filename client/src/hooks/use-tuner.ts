@@ -2,14 +2,21 @@ import { useEffect, useRef, useState } from "react";
 
 import { PitchDetector } from "pitchy";
 import type { TunerSettings } from "@/types/tuner-types";
-import { defaultSettings } from "@/utils/tuner-defaults";
+import { useUserSettings } from "@/contexts/user-settings-context";
 
-export function useTuner(settings: TunerSettings = defaultSettings) {
+export function useTuner() {
+  const { tunerSettings } = useUserSettings();
   const [pitch, setPitch] = useState<number | null>(null);
   const [clarity, setClarity] = useState<number>(0);
   const [isListening, setIsListening] = useState(false);
 
-  const settingsRef = useRef<TunerSettings>(settings);
+  const settingsRef = useRef<TunerSettings>({
+    bufferSize: tunerSettings.buffer,
+    minVolumeDecibels: tunerSettings.minVolume,
+    minClarityPercent: tunerSettings.clarity,
+    minPitch: tunerSettings.minPitch,
+    maxPitch: tunerSettings.maxPitch,
+  });
   const isListeningRef = useRef<boolean>(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
@@ -21,19 +28,25 @@ export function useTuner(settings: TunerSettings = defaultSettings) {
 
   // Update settings ref when settings change
   useEffect(() => {
-    settingsRef.current = settings;
+    settingsRef.current = {
+      bufferSize: tunerSettings.buffer,
+      minVolumeDecibels: tunerSettings.minVolume,
+      minClarityPercent: tunerSettings.clarity,
+      minPitch: tunerSettings.minPitch,
+      maxPitch: tunerSettings.maxPitch,
+    };
 
     if (pitchDetectorRef.current) {
-      pitchDetectorRef.current.minVolumeDecibels = settings.minVolumeDecibels;
+      pitchDetectorRef.current.minVolumeDecibels = tunerSettings.minVolume;
     }
 
     if (isListeningRef.current && analyserRef.current) {
       const currentBufferSize = analyserRef.current.fftSize;
-      if (currentBufferSize !== settings.bufferSize) {
+      if (currentBufferSize !== tunerSettings.buffer) {
         restart();
       }
     }
-  }, [settings]);
+  }, [tunerSettings]);
 
   const stop = () => {
     if (intervalIdRef.current) {

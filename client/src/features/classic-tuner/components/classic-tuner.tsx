@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-import { defaultSettings } from "@/utils/tuner-defaults";
-import type { TunerSettings } from "@/types/tuner-types";
 import { useTuner } from "@/hooks/use-tuner";
 import { ActionIcon, Button, Loader, Overlay } from "@mantine/core";
 import "./classic-tuner.css";
@@ -24,11 +22,8 @@ import Note from "./note";
 export default function ClassicTuner() {
   const [showOverlay, setShowOverlay] = useState(true);
   const [loadingTuner, setLoadingTuner] = useState(false);
-  const [settings, setSettings] = useState<TunerSettings>(defaultSettings);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [showStats, setShowStats] = useState(false);
-  const [visual, setVisual] = useState("graph");
-  const [displayCents, setDisplayCents] = useState(false);
 
   const [targetNote, setTargetNote] = useState<string | null>(null);
   const [displayPitch, setDisplayPitch] = useState<number | null>(null);
@@ -37,7 +32,7 @@ export default function ClassicTuner() {
   );
   const [lastDetectedNote, setLastDetectedNote] = useState<string>("A4");
 
-  const { pitch, clarity, isListening, start } = useTuner(settings);
+  const { pitch, clarity, isListening, start } = useTuner();
   const targetFreq = getFrequencyFromNote(targetNote);
 
   const freqDifference = targetFreq
@@ -55,11 +50,6 @@ export default function ClassicTuner() {
     centerIndex >= 0 && centerIndex < allNotes.length - 1
       ? allNotes[centerIndex + 1]
       : null;
-
-  const handleSettingsChange = (newSettings: TunerSettings) => {
-    setSettings(newSettings);
-    setShowSettingsMenu(false);
-  };
 
   function startTuner() {
     try {
@@ -130,16 +120,14 @@ export default function ClassicTuner() {
       <div className="classic-tuner">
         <div className="classic-tuner-header">
           <div className="visual-buttons">
-            <VisualSelector visual={visual} setVisual={setVisual} />
+            <VisualSelector />
           </div>
         </div>
         <div className="classic-tuner-content">
           <div className="visual-wrapper">
             <Visual
-              visual={visual}
               freqDifference={freqDifference}
               centsDifference={centsDifference}
-              displayCents={displayCents}
             />
           </div>
           <div className="note-display">
@@ -201,12 +189,7 @@ export default function ClassicTuner() {
               <BackButton setShowMenu={setShowSettingsMenu} />
               <h3 className="tuning-menu-title">Settings</h3>
             </div>
-            <SettingsMenu
-              settings={settings}
-              displayCents={displayCents}
-              setDisplayCents={setDisplayCents}
-              onSave={handleSettingsChange}
-            />
+            <SettingsMenu setShowSettingsMenu={setShowSettingsMenu} />
           </div>
         </div>
       </div>

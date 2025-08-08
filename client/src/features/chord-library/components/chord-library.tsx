@@ -1,17 +1,17 @@
 import db from "@tombatossals/chords-db/lib/guitar.json";
 import { useNotePlayer } from "@/hooks/use-note-player";
-import { useChordLibrary } from "@/contexts/chord-library-context";
 import type { Key } from "@/types/chord-types";
 import DiagramCard from "./diagram/diagram-card";
 import { useWindowScroll } from "@mantine/hooks";
 import { Affix, Button, Transition } from "@mantine/core";
 import { FaArrowUp } from "react-icons/fa";
+import { useUserSettings } from "@/contexts/user-settings-context";
 
 export default function ChordLibrary() {
   const keys = Object.keys(db.chords) as Key[];
   const [scroll, scrollTo] = useWindowScroll();
   const { playNote, loadInstrument } = useNotePlayer();
-  const { size, speed } = useChordLibrary();
+  const { chordSettings } = useUserSettings();
 
   return (
     <>
@@ -45,8 +45,8 @@ export default function ChordLibrary() {
                   suffix={suf}
                   chord={chord.positions[0]}
                   link={true}
-                  diagramSize={size}
-                  diagramSpeed={speed}
+                  diagramSize={chordSettings.size}
+                  diagramSpeed={chordSettings.speed}
                   playNote={playNote}
                   loadInstrument={loadInstrument}
                 />

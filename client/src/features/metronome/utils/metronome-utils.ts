@@ -1,7 +1,8 @@
-export function handleTap(
-  tapTimesRef: React.RefObject<number[]>,
-  setBpm: React.Dispatch<React.SetStateAction<number>>
-) {
+import { useUserSettings } from "@/contexts/user-settings-context";
+
+export function handleTap(tapTimesRef: React.RefObject<number[]>) {
+  const { updateMetronomeSettings } = useUserSettings();
+
   const now = performance.now();
 
   if (
@@ -26,11 +27,11 @@ export function handleTap(
     const tappedBpm = Math.round(60000 / avgInterval);
 
     if (tappedBpm <= 30) {
-      setBpm(30);
+      updateMetronomeSettings({ bpm: 30 });
     } else if (tappedBpm >= 240) {
-      setBpm(240);
+      updateMetronomeSettings({ bpm: 240 });
     } else {
-      setBpm(tappedBpm);
+      updateMetronomeSettings({ bpm: tappedBpm });
     }
   }
 }
