@@ -98,3 +98,51 @@ export async function patchChordSettings(settings: ChordSettings) {
     throw error;
   }
 }
+
+export async function getInstrumentSettings() {
+  const result = await fetch(`${API_URL}/api/user_settings/instrument`, {
+    credentials: "include",
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to load instrument settings");
+  }
+  const settings: InstrumentSettings = await result.json();
+  return settings;
+}
+
+export async function getTunerSettings() {
+  const result = await fetch(`${API_URL}/api/user_settings/tuner`, {
+    credentials: "include",
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to load tuner settings");
+  }
+  const settings: TunerSettings = await result.json();
+  return settings;
+}
+
+export async function getMetronomeSettings() {
+  const result = await fetch(`${API_URL}/api/user_settings/metronome`, {
+    credentials: "include",
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to load metronome settings");
+  }
+  const settings: MetronomeSettings = await result.json();
+  return settings;
+}
+
+export async function getChordSettings() {
+  const result = await fetch(`${API_URL}/api/user_settings/chord`, {
+    credentials: "include",
+  });
+
+  if (!result.ok) {
+    throw new Error("Failed to load chord settings");
+  }
+  const settings: ChordSettings = await result.json();
+  return settings;
+}

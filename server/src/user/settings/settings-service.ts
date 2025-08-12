@@ -43,3 +43,39 @@ export async function updateChord(userId: number, settings: ChordSettings) {
     throw new Error("Database update failed");
   }
 }
+
+export async function getInstrument(userId: number) {
+  try {
+    const settings = await settingsRepository.getInstrument(userId);
+    return settings;
+  } catch (err) {
+    throw new Error("Failed to get data");
+  }
+}
+
+export async function getTuner(userId: number) {
+  try {
+    const settings = await settingsRepository.getTuner(userId);
+    return settings;
+  } catch (err) {
+    throw new Error("Failed to get data");
+  }
+}
+
+export async function getMetronome(userId: number) {
+  try {
+    const settings = await settingsRepository.getMetronome(userId);
+    return settings;
+  } catch (err) {
+    throw new Error("Failed to get data");
+  }
+}
+
+export async function getChord(userId: number) {
+  try {
+    const settings = await settingsRepository.getChord(userId);
+    return settings;
+  } catch (err) {
+    throw new Error("Failed to get data");
+  }
+}

@@ -1,12 +1,18 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { useAuth } from "./user-auth-context";
+
 import {
+  getChordSettings,
+  getInstrumentSettings,
+  getMetronomeSettings,
+  getTunerSettings,
   patchChordSettings,
   patchInstrumentSettings,
   patchMetronomeSettings,
   patchTunerSettings,
 } from "@/api/user-settings";
+
 import type {
   ChordSettings,
   InstrumentSettings,
@@ -62,6 +68,29 @@ export const UserSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
     useState<ChordSettings>(defaultChordSettings);
 
   const { isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    async function loadSettings() {
+      try {
+        const [instrument, tuner, metronome, chord] = await Promise.all([
+          getInstrumentSettings(),
+          getTunerSettings(),
+          getMetronomeSettings(),
+          getChordSettings(),
+        ]);
+        setInstrumentSettings(instrument);
+        setTunerSettings(tuner);
+        setMetronomeSettings(metronome);
+        setChordSettings(chord);
+      } catch (error) {
+        console.error("Failed to load user settings: ", error);
+      }
+    }
+
+    loadSettings();
+  }, [isLoggedIn]);
 
   const updateInstrumentSettings = (updates: Partial<InstrumentSettings>) => {
     setInstrumentSettings((prev) => {

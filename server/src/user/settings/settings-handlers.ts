@@ -99,3 +99,67 @@ export const chordHandler = async (
       .json({ success: false, message: "Error updating chord settings" });
   }
 };
+
+export const getInstrumentHandler = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  if (!userId)
+    return res
+      .status(httpStatus.UNAUTHORIZED)
+      .json({ message: "Unauthorized" });
+
+  try {
+    const settings = await settingsService.getInstrument(userId);
+    res.json(settings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to load instrument settings" });
+  }
+};
+
+export const getTunerHandler = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  if (!userId)
+    return res
+      .status(httpStatus.UNAUTHORIZED)
+      .json({ message: "Unauthorized" });
+
+  try {
+    const settings = await settingsService.getTuner(userId);
+    res.json(settings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to load instrument settings" });
+  }
+};
+
+export const getMetronomeHandler = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  if (!userId)
+    return res
+      .status(httpStatus.UNAUTHORIZED)
+      .json({ message: "Unauthorized" });
+
+  try {
+    const settings = await settingsService.getMetronome(userId);
+    res.json(settings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to load instrument settings" });
+  }
+};
+
+export const getChordHandler = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  if (!userId)
+    return res
+      .status(httpStatus.UNAUTHORIZED)
+      .json({ message: "Unauthorized" });
+
+  try {
+    const settings = await settingsService.getChord(userId);
+    res.json(settings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to load instrument settings" });
+  }
+};

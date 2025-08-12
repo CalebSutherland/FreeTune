@@ -89,3 +89,72 @@ export async function updateChord(userId: number, settings: ChordSettings) {
     [settings.size, settings.speed, userId]
   );
 }
+
+export async function getInstrument(userId: number) {
+  const settings: InstrumentSettings = await db.one(
+    `
+    SELECT
+      instrument_family_index AS "instrumentFamilyIndex",
+      instrument_index AS "instrumentIndex",
+      tuning_name AS "tuningName",
+      tuning_notes AS "tuningNotes",
+      visual_name AS "visualName"
+    FROM user_settings
+    WHERE user_id = $1
+    `,
+    [userId]
+  );
+
+  return settings;
+}
+
+export async function getTuner(userId: number) {
+  const settings: TunerSettings = await db.one(
+    `
+    SELECT
+      is_pro_accuracy AS "isProAccuracy",
+      min_volume AS "minVolume",
+      clarity AS "clarity",
+      min_pitch AS "minPitch",
+      max_pitch AS "maxPitch",
+      buffer AS "buffer"
+    FROM user_settings
+    WHERE user_id = $1
+    `,
+    [userId]
+  );
+
+  return settings;
+}
+
+export async function getMetronome(userId: number) {
+  const settings: MetronomeSettings = await db.one(
+    `
+    SELECT
+      beats_per_measure AS "beatsPerMeasure",
+      beat_type AS "beatType",
+      bpm AS "bpm",
+      sound AS "sound"
+    FROM user_settings
+    WHERE user_id = $1
+    `,
+    [userId]
+  );
+
+  return settings;
+}
+
+export async function getChord(userId: number) {
+  const settings: ChordSettings = await db.one(
+    `
+    SELECT
+      chord_speed AS "speed",
+      chord_size AS "size"
+    FROM user_settings
+    WHERE user_id = $1
+    `,
+    [userId]
+  );
+
+  return settings;
+}
