@@ -1,7 +1,7 @@
 import "dotenv";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import type { User } from "../types/user-type";
+import type { User } from "../types/user-types";
 import * as userService from "./user-service";
 
 passport.use(

@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { Profile as GoogleProfile } from "passport-google-oauth20";
-import { User } from "../types/user-type";
+import { User } from "../types/user-types";
 import { ClientError } from "../config/errors";
 import * as userRepository from "./user-queries";
 

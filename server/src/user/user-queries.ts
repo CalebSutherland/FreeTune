@@ -1,5 +1,5 @@
 import db from "../config/db";
-import { User, UserWithPassword } from "../types/user-type";
+import { User, UserWithPassword } from "../types/user-types";
 
 export async function insert(email: string, password: string) {
   const user: User = await db.one(

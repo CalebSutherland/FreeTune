@@ -1,4 +1,4 @@
-import type { User as AppUser } from "../user-type";
+import type { User as AppUser } from "../user-types";
 
 declare global {
   namespace Express {

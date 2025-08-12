@@ -1,5 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+import { useAuth } from "./user-auth-context";
+import {
+  patchChordSettings,
+  patchInstrumentSettings,
+  patchMetronomeSettings,
+  patchTunerSettings,
+} from "@/api/user-settings";
 import type {
   ChordSettings,
   InstrumentSettings,
@@ -19,7 +26,7 @@ const defaultInstrumentSettings: InstrumentSettings = {
 export const defaultTunerSettings: TunerSettings = {
   isProAccuracy: false,
   minVolume: -40,
-  clarity: 0.95,
+  clarity: 95,
   minPitch: 30,
   maxPitch: 10000,
   buffer: 2048,
@@ -54,17 +61,63 @@ export const UserSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
   const [chordSettings, setChordSettings] =
     useState<ChordSettings>(defaultChordSettings);
 
-  const updateInstrumentSettings = (updates: Partial<InstrumentSettings>) =>
-    setInstrumentSettings((prev) => ({ ...prev, ...updates }));
+  const { isLoggedIn } = useAuth();
 
-  const updateTunerSettings = (updates: Partial<TunerSettings>) =>
-    setTunerSettings((prev) => ({ ...prev, ...updates }));
+  const updateInstrumentSettings = (updates: Partial<InstrumentSettings>) => {
+    setInstrumentSettings((prev) => {
+      const newSettings = { ...prev, ...updates };
 
-  const updateMetronomeSettings = (updates: Partial<MetronomeSettings>) =>
-    setMetronomeSettings((prev) => ({ ...prev, ...updates }));
+      if (isLoggedIn) {
+        patchInstrumentSettings(newSettings).catch((error) => {
+          console.error(error);
+        });
+      }
 
-  const updateChordSettings = (updates: Partial<ChordSettings>) =>
-    setChordSettings((prev) => ({ ...prev, ...updates }));
+      return newSettings;
+    });
+  };
+
+  const updateTunerSettings = (updates: Partial<TunerSettings>) => {
+    setTunerSettings((prev) => {
+      const newSettings = { ...prev, ...updates };
+
+      if (isLoggedIn) {
+        patchTunerSettings(newSettings).catch((error) => {
+          console.error(error);
+        });
+      }
+
+      return newSettings;
+    });
+  };
+
+  const updateMetronomeSettings = (updates: Partial<MetronomeSettings>) => {
+    setMetronomeSettings((prev) => {
+      const newSettings = { ...prev, ...updates };
+
+      if (isLoggedIn) {
+        patchMetronomeSettings(newSettings).catch((error) => {
+          console.error(error);
+        });
+      }
+
+      return newSettings;
+    });
+  };
+
+  const updateChordSettings = (updates: Partial<ChordSettings>) => {
+    setChordSettings((prev) => {
+      const newSettings = { ...prev, ...updates };
+
+      if (isLoggedIn) {
+        patchChordSettings(newSettings).catch((error) => {
+          console.error(error);
+        });
+      }
+
+      return newSettings;
+    });
+  };
 
   useEffect(() => {
     console.log(instrumentSettings);
