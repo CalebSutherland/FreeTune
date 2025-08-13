@@ -6,7 +6,6 @@ import { FaGear } from "react-icons/fa6";
 import VisualSelector from "../tuner/visual-selector";
 
 export default function ClassicTunerInstructions() {
-  const [vis, setVis] = useState("graph");
   const [stats, setStats] = useState(false);
   return (
     <div className="htu-wrapper">
@@ -46,7 +45,7 @@ export default function ClassicTunerInstructions() {
           <div className="htu-minor">
             <h3>Choose Display</h3>
             <div className="htu-card">
-              <VisualSelector visual={vis} setVisual={setVis} />
+              <VisualSelector />
             </div>
             <p>
               Use the display selector to switch between visualizations. This

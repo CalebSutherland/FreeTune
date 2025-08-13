@@ -8,7 +8,6 @@ import { MdChevronRight } from "react-icons/md";
 import { FaGear } from "react-icons/fa6";
 
 export default function TunerInstructions() {
-  const [vis, setVis] = useState("graph");
   const [auto, setAuto] = useState(true);
   const [active, setActive] = useState("E2");
   const [stats, setStats] = useState(false);
@@ -106,7 +105,7 @@ export default function TunerInstructions() {
           <div className="htu-minor">
             <h3>Choose Display</h3>
             <div className="htu-card">
-              <VisualSelector visual={vis} setVisual={setVis} />
+              <VisualSelector />
             </div>
             <p>
               Use the display selector to switch between visualizations. This
