@@ -148,21 +148,21 @@ export const UserSettingsProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
-  useEffect(() => {
-    console.log(instrumentSettings);
-  }, [instrumentSettings]);
+  // useEffect(() => {
+  //   console.log(instrumentSettings);
+  // }, [instrumentSettings]);
 
-  useEffect(() => {
-    console.log(tunerSettings);
-  }, [tunerSettings]);
+  // useEffect(() => {
+  //   console.log(tunerSettings);
+  // }, [tunerSettings]);
 
-  useEffect(() => {
-    console.log(metronomeSettings);
-  }, [metronomeSettings]);
+  // useEffect(() => {
+  //   console.log(metronomeSettings);
+  // }, [metronomeSettings]);
 
-  useEffect(() => {
-    console.log(chordSettings);
-  }, [chordSettings]);
+  // useEffect(() => {
+  //   console.log(chordSettings);
+  // }, [chordSettings]);
 
   return (
     <UserSettingsContext.Provider

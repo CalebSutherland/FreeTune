@@ -23,17 +23,18 @@ export async function insert(email: string, password: string) {
 
 export async function insertOAuthUser(
   email: string,
+  picture: string | null,
   provider: string,
   providerId: string
 ) {
   const user: User = await db.one(
     `
-    INSERT INTO users (email, provider, provider_id)
-    VALUES ($1, $2, $3)
+    INSERT INTO users (email, picture, provider, provider_id)
+    VALUES ($1, $2, $3, $4)
     ON CONFLICT (provider, provider_id) DO UPDATE SET email = EXCLUDED.email
-    RETURNING id;
+    RETURNING id, picture;
     `,
-    [email, provider, providerId]
+    [email, picture, provider, providerId]
   );
 
   await db.none(
@@ -42,6 +43,17 @@ export async function insertOAuthUser(
     VALUES ($1);
     `,
     [user.id]
+  );
+
+  return user;
+}
+
+export async function updatePicture(picture: string | null, userId: number) {
+  const user: User = await db.one(
+    `
+    UPDATE users SET picture = $1 WHERE id = $2 RETURNING id, picture
+    `,
+    [picture, userId]
   );
 
   return user;
@@ -62,7 +74,7 @@ export async function getByEmail(email: string) {
 export async function getById(id: number) {
   const user: User | null = await db.oneOrNone(
     `
-    SELECT id
+    SELECT id, picture
     FROM users
     WHERE id = $1
     `,

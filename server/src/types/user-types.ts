@@ -1,5 +1,6 @@
 export type User = {
   id: number;
+  picture?: string | null;
 };
 
 export type UserWithPassword = {

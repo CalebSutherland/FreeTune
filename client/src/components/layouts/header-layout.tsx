@@ -3,16 +3,15 @@ import { NavLink, useLocation, useNavigationType } from "react-router-dom";
 import useLocalStorage from "use-local-storage";
 
 import { paths } from "@/config/paths";
-import { Button, Menu, ActionIcon, Tooltip } from "@mantine/core";
+import { Button, ActionIcon, Tooltip } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FaMoon, FaSun, FaChevronDown } from "react-icons/fa";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
-import { FaX, FaGuitar, FaBook } from "react-icons/fa6";
-import { PiMetronome } from "react-icons/pi";
-import { MdTune } from "react-icons/md";
+import { FaX } from "react-icons/fa6";
 import "./header-layout.css";
 import AuthModal from "../auth/auth-modal";
-import { useAuth } from "@/contexts/user-auth-context";
+import LoginButton from "../auth/login-button";
+import ToolsMenu from "../ui/tools-menu";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
@@ -22,31 +21,6 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isToolsActive = location.pathname.startsWith("/tools");
   const navigationType = useNavigationType();
-
-  const { isLoggedIn, logout } = useAuth();
-
-  const tools_navigation = [
-    {
-      name: "Instrument Tuner",
-      to: paths.app.tools.tuner.getHref(),
-      icon: <FaGuitar />,
-    },
-    {
-      name: "Chord Library",
-      to: paths.app.tools.chord_library.root.getHref(),
-      icon: <FaBook />,
-    },
-    {
-      name: "Metronome",
-      to: paths.app.tools.metronome.getHref(),
-      icon: <PiMetronome />,
-    },
-    {
-      name: "Classic Tuner",
-      to: paths.app.tools.classic_tuner.getHref(),
-      icon: <MdTune />,
-    },
-  ];
 
   useLayoutEffect(() => {
     if (navigationType === "PUSH") {
@@ -100,44 +74,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
             <li key={"Tools"}>
               <div className={`nav-link ${isToolsActive ? "active-link" : ""}`}>
                 <div className="header-element">
-                  <Menu
-                    trigger="click-hover"
-                    openDelay={100}
-                    closeDelay={400}
-                    shadow="xs"
-                    width={200}
-                    position="bottom"
-                    offset={10}
-                    classNames={{
-                      dropdown: "tools-menu",
-                      item: "tools-menu-item",
-                    }}
-                  >
-                    <Menu.Target>
-                      <div className="tools-header-element">
-                        <p>Tools</p>
-                        <FaChevronDown size={12} />
-                      </div>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                      {tools_navigation.map((item) => (
-                        <Menu.Item
-                          component={NavLink}
-                          key={item.name}
-                          to={item.to}
-                          leftSection={item.icon}
-                          onClick={closeSidebar}
-                          className={`${
-                            location.pathname === item.to
-                              ? "active-menu-item"
-                              : ""
-                          }`}
-                        >
-                          {item.name}
-                        </Menu.Item>
-                      ))}
-                    </Menu.Dropdown>
-                  </Menu>
+                  <ToolsMenu closeSidebar={closeSidebar} />
                 </div>
               </div>
             </li>
@@ -192,19 +129,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
               </ActionIcon>
             </Tooltip>
           </div>
-          {!isLoggedIn ? (
-            <Button color="var(--accent-color)" variant="filled" onClick={open}>
-              Sign In
-            </Button>
-          ) : (
-            <Button
-              color="var(--accent-color)"
-              variant="filled"
-              onClick={logout}
-            >
-              Logout
-            </Button>
-          )}
+          <LoginButton open={open} />
         </div>
         <div className="header-element icon">
           <button id="open-sidebar-button" onClick={openSidebar}>

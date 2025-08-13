@@ -15,6 +15,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     async function loadUser() {
       const user = await checkSession();
       setUser(user);
+      console.log(user);
       setLoading(false);
     }
 

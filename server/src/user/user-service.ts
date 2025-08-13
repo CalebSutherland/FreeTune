@@ -31,13 +31,23 @@ export async function login(email: string, password: string) {
 
 export async function findOrCreateOAuthUser(profile: GoogleProfile) {
   const email = profile.emails?.[0]?.value;
+  const picture = profile.photos?.[0]?.value || null;
   const provider = profile.provider;
   const providerId = profile.id;
   if (!email || !providerId) throw new Error("No email found in profile");
 
   let user = await userRepository.getByOAuth(provider, providerId);
   if (!user) {
-    user = await userRepository.insertOAuthUser(email, provider, providerId);
+    user = await userRepository.insertOAuthUser(
+      email,
+      picture,
+      provider,
+      providerId
+    );
+  } else {
+    if (user.picture !== picture) {
+      user = await userRepository.updatePicture(picture, user.id);
+    }
   }
 
   return user;
