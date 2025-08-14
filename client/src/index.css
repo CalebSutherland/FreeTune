@@ -26,6 +26,7 @@
   --text-color-invert: black;
   --text-color-lighter: #b8b8b8;
   --seperator-color: #424242;
+  --seperator-text: #828282;
   --border-color: rgb(79, 79, 79);
   --light-text-color: rgb(170, 170, 170);
   --tools-active-color: #13181c;
@@ -51,6 +52,7 @@
   --text-color-invert: white;
   --text-color-lighter: #495057;
   --seperator-color: #dee2e6;
+  --seperator-text: #868e96;
   --border-color: rgb(177, 177, 177);
   --light-text-color: rgb(130, 130, 130);
   --tools-active-color: #dee8f3;
@@ -102,11 +104,7 @@ h1 {
 }
 
 button {
-  background: var(--secondary-color);
+  background-color: var(--secondary-color);
   color: var(--text-color);
   border: none;
-}
-
-button:hover {
-  background: var(--secondary-hover-color);
 }
