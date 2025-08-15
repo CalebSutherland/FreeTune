@@ -17,33 +17,32 @@ export default function ToolCard({
   size = 200,
 }: ToolCardProps) {
   return (
-    <>
-      <NavLink
-        to={to}
+    <NavLink
+      to={to}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        background: bgColor,
+        color: "white",
+        width: size,
+        height: size,
+        borderRadius: size * 0.08,
+        gap: size * 0.125,
+        boxShadow: "var(--mantine-shadow-md)",
+      }}
+    >
+      <Icon size={size * 0.5} />
+      <p
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          background: bgColor,
-          color: "white",
-          width: size,
-          height: size,
-          borderRadius: size * 0.08,
-          gap: size * 0.125,
+          fontSize: 20,
+          fontWeight: 600,
+          marginBottom: "0.25rem",
         }}
       >
-        <Icon size={size * 0.5} />
-        <p
-          style={{
-            fontSize: 20,
-            fontWeight: 600,
-            marginBottom: "0.25rem",
-          }}
-        >
-          {name}
-        </p>
-      </NavLink>
-    </>
+        {name}
+      </p>
+    </NavLink>
   );
 }

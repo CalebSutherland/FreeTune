@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { loginUser } from "@/api/auth";
 import { Button, PasswordInput, TextInput } from "@mantine/core";
 import { useAuth } from "@/contexts/user-auth-context";
-import GoogleLogin from "./google-login";
 
 type LoginFormData = {
   email: string;

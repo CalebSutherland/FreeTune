@@ -1,0 +1,32 @@
+.essential-chords {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2rem;
+}
+
+.essential-chords h2 {
+  align-self: center;
+  padding-bottom: 1rem;
+}
+
+.essential-chords a:hover {
+  text-decoration: underline;
+}
+
+.chords-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.chords-wrapper.home {
+  justify-content: space-evenly;
+  gap: 1.75rem;
+}
+
+@media screen and (max-width: 786px) {
+  .chords-wrapper {
+    justify-content: space-evenly;
+  }
+}

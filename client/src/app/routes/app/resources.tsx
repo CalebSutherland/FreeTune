@@ -1,105 +1,13 @@
 import { paths } from "@/config/paths";
-import db from "@tombatossals/chords-db/lib/guitar.json";
 import YoutubeEmbed from "@/components/ui/youtube-embed";
+import ToolsRow from "@/components/ui/tools-row";
+import EssentialChords from "@/components/ui/essential-chords";
+import CreatorRow from "@/components/ui/creator-row";
+import ResourceRow from "@/components/ui/resource-row";
 import { TableOfContents } from "@mantine/core";
 import "./resources.css";
-import DiagramCard from "@/features/chord-library/components/diagram/diagram-card";
-import { useNotePlayer } from "@/hooks/use-note-player";
-import ToolsRow from "@/components/ui/tools-row";
-import CreatorCard from "@/components/ui/resource-card";
 
 export default function Resources() {
-  const { playNote, loadInstrument } = useNotePlayer();
-
-  const MAJOR = 0;
-  const MINOR = 1;
-  const chords = [
-    { name: "D", suffix: "major", chord: db.chords.D[MAJOR].positions[0] },
-    { name: "A", suffix: "major", chord: db.chords.A[MAJOR].positions[0] },
-    { name: "E", suffix: "major", chord: db.chords.E[MAJOR].positions[0] },
-    { name: "A", suffix: "minor", chord: db.chords.A[MINOR].positions[0] },
-    { name: "E", suffix: "minor", chord: db.chords.E[MINOR].positions[0] },
-    { name: "D", suffix: "minor", chord: db.chords.D[MINOR].positions[0] },
-    { name: "G", suffix: "major", chord: db.chords.G[MAJOR].positions[0] },
-    { name: "C", suffix: "major", chord: db.chords.C[MAJOR].positions[0] },
-  ];
-
-  const creators = [
-    {
-      name: "Marty Music",
-      description:
-        "Laid-back, easy-to-follow lessons from one of the most popular teachers on YouTube.",
-      link: "https://www.youtube.com/@MartyMusic",
-      imageUrl: "/images/creators/marty-music.jpg",
-    },
-    {
-      name: "GuitarZero2Hero",
-      description:
-        "Step-by-step tutorials for popular songs, with chord breakdowns and guitar tabs.",
-      link: "https://www.youtube.com/@GuitarZero2Hero",
-      imageUrl: "/images/creators/guitar-zero-2-hero.jpg",
-    },
-    {
-      name: "for3v3rfaithful",
-      description:
-        "Beginner-friendly song tutorials with a focus on rhythm and acoustic guitar basics.",
-      link: "https://www.youtube.com/@for3v3rfaithful",
-      imageUrl: "/images/creators/forever.jpg",
-    },
-    {
-      name: "Justin Guitar",
-      description:
-        "One of the most trusted names in online guitar education. Offers full beginner courses.",
-      link: "https://www.youtube.com/@JustinGuitar",
-      imageUrl: "/images/creators/justin-guitar.jpg",
-    },
-    {
-      name: "GuitarLessons365",
-      description:
-        "In-depth lessons on classic rock, metal, and advanced techniques. Great for players looking to level up.",
-      link: "https://www.youtube.com/@GuitarLessons365Song",
-      imageUrl: "/images/creators/guitar-lessons-365.jpg",
-    },
-    {
-      name: "Redlight Blue",
-      description:
-        "Clean, clear tutorials with tabs on screen—ideal for learning full songs quickly and accurately.",
-      link: "https://www.youtube.com/@RedlightBlue",
-      imageUrl: "/images/creators/redlight-blue.jpg",
-    },
-  ];
-
-  const otherResources = [
-    {
-      name: "Ultimate Guitar",
-      description:
-        "One of the largest online libraries of guitar tabs, chords, and user-submitted song sheets.",
-      link: "https://www.ultimate-guitar.com/",
-      imageUrl: "/images/resources/ult-guitar.png",
-    },
-    {
-      name: "Chordify",
-      description:
-        "Automatically generates chords from any song. Perfect for quick practice and learning by ear.",
-      link: "https://chordify.net/",
-      imageUrl: "/images/resources/chordify.png",
-    },
-    {
-      name: "Songsterr",
-      description:
-        "Interactive tabs with audio playback and real-time scrolling. Great for learning riffs, solos, and full songs.",
-      link: "https://www.songsterr.com/",
-      imageUrl: "/images/resources/songsterr.png",
-    },
-    {
-      name: "r/Guitar",
-      description:
-        "A Reddit community for guitarists to share tips, ask questions, and discover new gear and songs.",
-      link: "https://www.reddit.com/r/Guitar/",
-      imageUrl: "/images/resources/reddit.png",
-    },
-  ];
-
   return (
     <div className="resources-page-wrapper">
       <title>Resources | FreeTune</title>
@@ -167,22 +75,7 @@ export default function Resources() {
               </a>
               .
             </p>
-            <div className="chords-wrapper">
-              {chords.map((chord, i) => (
-                <div key={i}>
-                  <DiagramCard
-                    keyName={chord.name}
-                    suffix={chord.suffix}
-                    chord={chord.chord}
-                    link={true}
-                    diagramSize="sm"
-                    diagramSpeed="fast"
-                    playNote={playNote}
-                    loadInstrument={loadInstrument}
-                  />
-                </div>
-              ))}
-            </div>
+            <EssentialChords />
           </div>
           <div className="resourcs">
             <h2>First Songs</h2>
@@ -208,18 +101,7 @@ export default function Resources() {
               you're learning your first chords or tackling full songs, their
               videos are a great place to start.
             </p>
-            <div className="creators-wrapper">
-              {creators.map((creator, i) => (
-                <CreatorCard
-                  key={i}
-                  name={creator.name}
-                  description={creator.description}
-                  imageUrl={creator.imageUrl}
-                  link={creator.link}
-                  linkLabel={"Visit Creator"}
-                />
-              ))}
-            </div>
+            <CreatorRow />
           </div>
           <div className="resource">
             <h2>Other Resources</h2>
@@ -229,18 +111,7 @@ export default function Resources() {
               practice along with interactive tools, or dive into the
               guitar-playing community.
             </p>
-            <div className="creators-wrapper" style={{ paddingBottom: "2rem" }}>
-              {otherResources.map((resource, i) => (
-                <CreatorCard
-                  key={i}
-                  name={resource.name}
-                  description={resource.description}
-                  imageUrl={resource.imageUrl}
-                  link={resource.link}
-                  linkLabel={"Visit Website"}
-                />
-              ))}
-            </div>
+            <ResourceRow />
           </div>
         </div>
       </div>

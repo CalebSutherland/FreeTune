@@ -12,6 +12,7 @@
   border-radius: calc(1rem * var(--scale));
   gap: calc(0.25rem * var(--scale));
   font-size: calc(1rem * var(--scale));
+  box-shadow: var(--mantine-shadow-sm);
 }
 
 .diagram-label,

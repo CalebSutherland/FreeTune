@@ -1,0 +1,31 @@
+.creator-row {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 4rem;
+}
+
+.creator-row h2 {
+  align-self: center;
+  padding-bottom: 1rem;
+}
+
+.creator-row a:hover {
+  text-decoration: underline;
+}
+
+.creators-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.creators-wrapper.home {
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width: 600px) {
+  .creators-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+}

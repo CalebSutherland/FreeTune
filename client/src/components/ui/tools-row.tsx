@@ -34,7 +34,7 @@ export default function ToolsRow() {
   ];
   return (
     <div className="tools-wrapper">
-      <h2>Tools</h2>
+      <h2 style={{ paddingBottom: "1rem" }}>Tools</h2>
       <div className="card-row">
         {tools.map((tool) => (
           <ToolCard

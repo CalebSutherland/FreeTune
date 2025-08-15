@@ -6,6 +6,7 @@
   height: 100%;
   background: var(--secondary-color);
   border-radius: 1rem;
+  box-shadow: var(--mantine-shadow-md);
 }
 
 .tuner-view {

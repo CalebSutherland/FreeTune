@@ -7,18 +7,49 @@
 
 .landing-wrapper {
   display: flex;
+  padding-bottom: 2rem;
 }
 
 .side-content {
   flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.side-content h1 {
+  font-size: 4rem;
+  padding-bottom: 1rem;
+}
+
+.side-content p {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .main-content {
+  display: flex;
+  flex-direction: column;
   flex: 1.5 1 0;
+}
+
+/* .main-content p {
+  padding: 0.5rem 0;
+} */
+
+.main-content a:hover {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 700px) {
   .landing-wrapper {
     flex-direction: column;
+  }
+  .side-content h1 {
+    padding-bottom: 0.5rem;
+  }
+  .side-content p {
+    padding-bottom: 2rem;
   }
 }
