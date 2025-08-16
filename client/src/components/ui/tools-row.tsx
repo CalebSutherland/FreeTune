@@ -47,7 +47,7 @@ export default function ToolsRow() {
             to={tool.to}
             name={tool.name}
             icon={tool.icon}
-            size={isSmScreen ? 125 : isMdScreen ? 150 : 200}
+            size={isSmScreen ? 145 : isMdScreen ? 150 : 200}
           />
         ))}
       </div>

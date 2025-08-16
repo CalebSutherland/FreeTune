@@ -17,5 +17,8 @@
   gap: 2rem;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 425px) {
+  .card-row {
+    gap: 1rem;
+  }
 }
