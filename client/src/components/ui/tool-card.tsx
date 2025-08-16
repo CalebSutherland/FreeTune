@@ -36,7 +36,7 @@ export default function ToolCard({
       <Icon size={size * 0.5} />
       <p
         style={{
-          fontSize: 20,
+          fontSize: size * 0.1,
           fontWeight: 600,
           marginBottom: "0.25rem",
         }}

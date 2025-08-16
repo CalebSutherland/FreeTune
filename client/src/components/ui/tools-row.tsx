@@ -1,4 +1,5 @@
 import { paths } from "@/config/paths";
+import { useMediaQuery } from "@mantine/hooks";
 import { FaBook, FaGuitar } from "react-icons/fa6";
 import { MdTune } from "react-icons/md";
 import { PiMetronome } from "react-icons/pi";
@@ -6,6 +7,9 @@ import ToolCard from "./tool-card";
 import "./tools-row.css";
 
 export default function ToolsRow() {
+  const isMdScreen = useMediaQuery("(max-width: 525px)");
+  const isSmScreen = useMediaQuery("(max-width: 425px)");
+
   const tools = [
     {
       name: "Instrument Tuner",
@@ -43,6 +47,7 @@ export default function ToolsRow() {
             to={tool.to}
             name={tool.name}
             icon={tool.icon}
+            size={isSmScreen ? 125 : isMdScreen ? 150 : 200}
           />
         ))}
       </div>

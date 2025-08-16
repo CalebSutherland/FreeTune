@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "@mantine/hooks";
 import { paths } from "@/config/paths";
 import { useNotePlayer } from "@/hooks/use-note-player";
 import db from "@tombatossals/chords-db/lib/guitar.json";
@@ -24,6 +25,7 @@ export default function EssentialChords({ homePage }: EssentialChordsProps) {
   ];
 
   const { playNote, loadInstrument } = useNotePlayer();
+  const isSmallScreen = useMediaQuery("(max-width: 525px)");
 
   if (homePage) {
     chords = chords.slice(0, 5);
@@ -40,7 +42,7 @@ export default function EssentialChords({ homePage }: EssentialChordsProps) {
               suffix={chord.suffix}
               chord={chord.chord}
               link={true}
-              diagramSize={homePage ? "md" : "sm"}
+              diagramSize={homePage ? (isSmallScreen ? "sm" : "md") : "sm"}
               diagramSpeed="fast"
               playNote={playNote}
               loadInstrument={loadInstrument}
