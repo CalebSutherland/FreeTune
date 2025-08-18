@@ -1,8 +1,8 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { NavLink, useLocation, useNavigationType } from "react-router-dom";
-import useLocalStorage from "use-local-storage";
 
 import { paths } from "@/config/paths";
+import { useTheme } from "@/hooks/use-theme";
 import { Button, ActionIcon, Tooltip } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -15,7 +15,7 @@ import ToolsMenu from "../ui/tools-menu";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const { theme, toggleTheme } = useTheme();
   const [opened, { open, close }] = useDisclosure(false);
 
   const location = useLocation();
@@ -28,23 +28,11 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
     }
   }, [location.pathname]);
 
-  useEffect(() => {
-    // clean just in case theme gets saved with quotes (which they were)
-    const cleanTheme = theme.replace(/['"]+/g, "");
-    document.documentElement.classList.remove("dark-theme", "light-theme");
-    document.documentElement.classList.add(`${cleanTheme}-theme`);
-  }, [theme]);
-
   const openSidebar = () => {
     navbarRef.current?.classList.add("show");
   };
   const closeSidebar = () => {
     navbarRef.current?.classList.remove("show");
-  };
-
-  const switchTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
   };
 
   return (
@@ -122,7 +110,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
             >
               <ActionIcon
                 classNames={{ root: "theme-button" }}
-                onClick={switchTheme}
+                onClick={toggleTheme}
                 variant="transparent"
                 size="lg"
               >

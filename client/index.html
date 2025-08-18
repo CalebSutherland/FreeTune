@@ -6,26 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FreeTune</title>
 
-    <!--script to keep background color and avoid screen flash when refreshing.
-    sets a temp sytle to html and body that gets removed on DOM load.
-    possibly a better way to do this but this works correctly-->
     <script>
-      const savedTheme =
-        // clean just in case theme gets saved with quotes (which it was)
-        localStorage.getItem("theme")?.replace(/['"]+/g, "") || "dark";
-      document.documentElement.classList.remove("dark-theme", "light-theme");
-      document.documentElement.classList.add(`${savedTheme}-theme`);
-      const bgColor = savedTheme === "light" ? "#e9eef3" : "#202225";
-      const textColor = savedTheme === "light" ? "black" : "white";
-      const tempStyle = document.createElement("style");
-      tempStyle.id = "temp-theme-style";
-      tempStyle.innerHTML = `
-        html, body {
-          background-color: ${bgColor} !important;
-          color: ${textColor} !important;
-        }
-      `;
-      document.head.appendChild(tempStyle);
+      (function () {
+        const theme = localStorage.getItem("theme") || "dark";
+        document.documentElement.classList.add(`${theme}-theme`);
+      })();
     </script>
   </head>
   <body>
