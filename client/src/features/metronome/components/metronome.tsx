@@ -6,7 +6,7 @@ import { handleTap } from "../utils/metronome-utils";
 import BackButton from "@/components/ui/back-button";
 import { ActionIcon, Button, Slider } from "@mantine/core";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { FaGear } from "react-icons/fa6";
+import { FaGear, FaRegCircleCheck } from "react-icons/fa6";
 import { MdChevronRight } from "react-icons/md";
 import { TbHandClick } from "react-icons/tb";
 import "./metronome.css";
@@ -166,10 +166,13 @@ export default function Metronome() {
         <div className="metronome-menu-wrapper">
           {timeSigs.map((sig) => {
             const time = sig.split("/");
+            const isActive =
+              parseInt(time[0]) === metronomeSettings.beatsPerMeasure &&
+              parseInt(time[1]) === metronomeSettings.beatType;
             return (
               <div key={sig} className="menu-button-wrapper">
                 <button
-                  className="menu-button"
+                  className={`menu-button ${isActive ? "active" : ""}`}
                   onClick={() => {
                     updateMetronomeSettings({
                       beatsPerMeasure: parseInt(time[0]),
@@ -182,6 +185,7 @@ export default function Metronome() {
                   <span className="menu-button-icon">
                     <MdChevronRight />
                   </span>
+                  {isActive && <FaRegCircleCheck color="green" size={26} />}
                   <span className="menu-button-label">{sig}</span>
                 </button>
               </div>
@@ -202,7 +206,9 @@ export default function Metronome() {
           {sounds.map((s) => (
             <div key={s.name} className="menu-button-wrapper">
               <button
-                className="menu-button"
+                className={`menu-button ${
+                  s.url === metronomeSettings.sound ? "active" : ""
+                }`}
                 onClick={() => {
                   updateMetronomeSettings({ sound: s.url });
                   setSettingsMenu(false);
@@ -211,6 +217,9 @@ export default function Metronome() {
                 <span className="menu-button-icon">
                   <MdChevronRight />
                 </span>
+                {s.url === metronomeSettings.sound && (
+                  <FaRegCircleCheck color="green" size={26} />
+                )}
                 <span className="menu-button-label">{s.name}</span>
               </button>
             </div>

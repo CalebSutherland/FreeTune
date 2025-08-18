@@ -151,6 +151,14 @@
   background: var(--secondary-color);
 }
 
+.menu-button.active {
+  border-bottom: 2px solid green;
+}
+
+.menu-button:hover {
+  background-color: var(--secondary-hover-color);
+}
+
 .menu-button-label {
   flex: 1;
   padding: 0.75rem 0;
@@ -160,6 +168,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding-left: 1rem;
 }
 
 .metronome-settings {
