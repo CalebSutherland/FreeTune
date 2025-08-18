@@ -1,6 +1,7 @@
 import type { Tuning } from "../../types/types";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import "./tuning-card.css";
+import { isActiveTuning } from "../../utils/utils";
 
 interface TuningCardProps {
   instrumentName: string;
@@ -53,7 +54,7 @@ export default function TuningCard({
         })}
       </span>
       <div className="active-icon-wrapper">
-        {currentTuning === tuning && (
+        {isActiveTuning(currentTuning, tuning) && (
           <FaRegCircleCheck color="green" size={26} />
         )}
       </div>

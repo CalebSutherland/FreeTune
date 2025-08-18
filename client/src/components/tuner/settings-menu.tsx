@@ -94,6 +94,7 @@ export default function SettingsMenu({
           multiline
           w={200}
           label="Tuning data is show in cents instead of frequency. 100 cents = 1 semitone."
+          events={{ hover: true, focus: false, touch: true }}
         >
           <IoIosHelpCircleOutline color="var(--text-color)" size={24} />
         </Tooltip>

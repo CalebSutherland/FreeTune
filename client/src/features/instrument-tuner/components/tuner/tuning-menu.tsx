@@ -7,6 +7,7 @@ import BackButton from "@/components/ui/back-button";
 import { Accordion, AccordionItem, LoadingOverlay } from "@mantine/core";
 import { MdChevronRight } from "react-icons/md";
 import "./tuning-menu.css";
+import { isActiveTuning } from "../../utils/utils";
 
 interface TuningMenuProps {
   instruments: InstrumentFamily[];
@@ -109,66 +110,72 @@ export default function TuningMenu({
 
         {/* selected instrument family */}
         <div className="instrument-list-content">
-          {instruments[displayIndex].instruments.map((instrument, i) => (
-            <div key={instrument.name}>
-              <h3>{instrument.name}</h3>
-              {/* standard tuning */}
-              <div
-                className={`tuning-card-wrapper ${
-                  currentTuning === instrument.standard ? "active" : ""
-                }`}
-              >
-                <TuningCard
-                  instrumentName={instrument.name}
-                  tuning={instrument.standard}
-                  soundfontName={instrument.soundfontName}
-                  currentTuning={currentTuning}
-                  displayIndex={displayIndex}
-                  instrumentIndex={i}
-                  changeInstrument={changeInstrument}
-                />
-              </div>
-
-              {/* instrument categories */}
-              {instrument.categories.map((category) => (
-                <div key={category.name}>
-                  <Accordion
-                    classNames={{
-                      control: "accordion",
-                      content: "accordion-content",
-                      item: "accordion-item",
-                    }}
-                  >
-                    <AccordionItem key={category.name} value={category.name}>
-                      <Accordion.Control>{category.name}</Accordion.Control>
-                      <Accordion.Panel>
-                        {/* category tunings */}
-                        {category.tunings.map((tuning) => (
-                          <div key={tuning.name}>
-                            <div
-                              className={`tuning-card-wrapper ${
-                                currentTuning === tuning ? "active" : ""
-                              }`}
-                            >
-                              <TuningCard
-                                instrumentName={instrument.name}
-                                tuning={tuning}
-                                soundfontName={instrument.soundfontName}
-                                currentTuning={currentTuning}
-                                displayIndex={displayIndex}
-                                instrumentIndex={i}
-                                changeInstrument={changeInstrument}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </Accordion.Panel>
-                    </AccordionItem>
-                  </Accordion>
+          {instruments[displayIndex].instruments.map((instrument, i) => {
+            return (
+              <div key={instrument.name}>
+                <h3>{instrument.name}</h3>
+                {/* standard tuning */}
+                <div
+                  className={`tuning-card-wrapper ${
+                    isActiveTuning(currentTuning, instrument.standard)
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  <TuningCard
+                    instrumentName={instrument.name}
+                    tuning={instrument.standard}
+                    soundfontName={instrument.soundfontName}
+                    currentTuning={currentTuning}
+                    displayIndex={displayIndex}
+                    instrumentIndex={i}
+                    changeInstrument={changeInstrument}
+                  />
                 </div>
-              ))}
-            </div>
-          ))}
+
+                {/* instrument categories */}
+                {instrument.categories.map((category) => (
+                  <div key={category.name}>
+                    <Accordion
+                      classNames={{
+                        control: "accordion",
+                        content: "accordion-content",
+                        item: "accordion-item",
+                      }}
+                    >
+                      <AccordionItem key={category.name} value={category.name}>
+                        <Accordion.Control>{category.name}</Accordion.Control>
+                        <Accordion.Panel>
+                          {/* category tunings */}
+                          {category.tunings.map((tuning) => (
+                            <div key={tuning.name}>
+                              <div
+                                className={`tuning-card-wrapper ${
+                                  isActiveTuning(currentTuning, tuning)
+                                    ? "active"
+                                    : ""
+                                }`}
+                              >
+                                <TuningCard
+                                  instrumentName={instrument.name}
+                                  tuning={tuning}
+                                  soundfontName={instrument.soundfontName}
+                                  currentTuning={currentTuning}
+                                  displayIndex={displayIndex}
+                                  instrumentIndex={i}
+                                  changeInstrument={changeInstrument}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </Accordion.Panel>
+                      </AccordionItem>
+                    </Accordion>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -117,6 +117,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
               color="var(--secondary-color-invert)"
               style={{ color: "var(--text-color-invert)" }}
               label={theme === "light" ? "Dark Mode" : "Light Mode"}
+              events={{ hover: true, focus: false, touch: true }}
               withArrow
             >
               <ActionIcon
