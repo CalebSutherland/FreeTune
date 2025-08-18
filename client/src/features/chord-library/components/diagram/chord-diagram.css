@@ -176,6 +176,7 @@
   color: var(--text-color-invert);
   transform: translateY(-50%);
   z-index: 4;
+  pointer-events: none;
 }
 
 .barre-1 {

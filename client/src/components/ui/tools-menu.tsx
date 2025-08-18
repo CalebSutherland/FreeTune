@@ -55,20 +55,23 @@ export default function ToolsMenu({ closeSidebar }: ToolsMenuProps) {
         </div>
       </Menu.Target>
       <Menu.Dropdown>
-        {tools_navigation.map((item) => (
-          <Menu.Item
-            component={NavLink}
-            key={item.name}
-            to={item.to}
-            leftSection={item.icon}
-            onClick={closeSidebar}
-            className={`${
-              location.pathname === item.to ? "active-menu-item" : ""
-            }`}
-          >
-            {item.name}
-          </Menu.Item>
-        ))}
+        {tools_navigation.map((item) => {
+          const isActive =
+            location.pathname === item.to ||
+            (item.to !== "/tools" && location.pathname.startsWith(item.to));
+          return (
+            <Menu.Item
+              component={NavLink}
+              key={item.name}
+              to={item.to}
+              leftSection={item.icon}
+              onClick={closeSidebar}
+              className={`${isActive ? "active-menu-item" : ""}`}
+            >
+              {item.name}
+            </Menu.Item>
+          );
+        })}
       </Menu.Dropdown>
     </Menu>
   );
