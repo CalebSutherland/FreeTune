@@ -74,7 +74,7 @@ export default function TuningMenu({
             description: "notification-description",
             closeButton: "notification-close",
           },
-          autoClose: 7500,
+          autoClose: 5000,
         });
         setIsFirstAlert(false);
       }

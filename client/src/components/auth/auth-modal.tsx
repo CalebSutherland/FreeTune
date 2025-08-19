@@ -1,10 +1,7 @@
-import { useState } from "react";
-
-import RegisterForm from "./register-form";
-import LoginForm from "./login-form";
 import GoogleLogin from "./google-login";
 
-import { Modal, Divider } from "@mantine/core";
+import { Modal, Button } from "@mantine/core";
+import { githubLogin } from "@/api/auth";
 import "./auth-modal.css";
 
 interface AuthModalProps {
@@ -13,7 +10,6 @@ interface AuthModalProps {
 }
 
 export default function AuthModal({ opened, close }: AuthModalProps) {
-  const [isRegister, setIsRegister] = useState(false);
   return (
     <Modal
       classNames={{
@@ -23,25 +19,13 @@ export default function AuthModal({ opened, close }: AuthModalProps) {
       }}
       opened={opened}
       onClose={close}
-      title={isRegister ? "Sign Up" : "Login"}
+      title="Sign in"
     >
       <div className="google-wrapper">
         <GoogleLogin />
       </div>
 
-      <Divider
-        classNames={{ root: "divider", label: "divider-label" }}
-        size="xs"
-        label="or"
-        labelPosition="center"
-        pb="0.5rem"
-      />
-
-      {isRegister ? (
-        <RegisterForm close={close} switchForm={() => setIsRegister(false)} />
-      ) : (
-        <LoginForm close={close} switchForm={() => setIsRegister(true)} />
-      )}
+      <Button onClick={githubLogin}>Github</Button>
     </Modal>
   );
 }

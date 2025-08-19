@@ -1,49 +1,18 @@
-import bcrypt from "bcrypt";
 import { Profile as GoogleProfile } from "passport-google-oauth20";
-import { User } from "../types/user-types";
-import { ClientError } from "../config/errors";
+import { Profile as GitHubProfile } from "passport-github2";
 import * as userRepository from "./user-queries";
 
-export async function register(email: string, password: string) {
-  const existingUser = await userRepository.getByEmail(email);
-  if (existingUser) {
-    throw new ClientError("User already exists");
-  }
+type OAuthProfile = GoogleProfile | GitHubProfile;
 
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  const user = await userRepository.insert(email, hashedPassword);
-
-  return user;
-}
-
-export async function login(email: string, password: string) {
-  const user = await userRepository.getByEmail(email);
-  if (!user) throw new ClientError("User not found");
-
-  const isMatch = await bcrypt.compare(password, user.password_hash);
-  if (!isMatch) throw new ClientError("Invalid credentials");
-
-  const userInfo: User = { id: user.id };
-  return userInfo;
-}
-
-export async function findOrCreateOAuthUser(profile: GoogleProfile) {
-  const email = profile.emails?.[0]?.value;
+export async function findOrCreateOAuthUser(profile: OAuthProfile) {
   const picture = profile.photos?.[0]?.value || null;
   const provider = profile.provider;
   const providerId = profile.id;
-  if (!email || !providerId) throw new Error("No email found in profile");
+  if (!providerId) throw new Error("No email found in profile");
 
   let user = await userRepository.getByOAuth(provider, providerId);
   if (!user) {
-    user = await userRepository.insertOAuthUser(
-      email,
-      picture,
-      provider,
-      providerId
-    );
+    user = await userRepository.insertOAuthUser(picture, provider, providerId);
   } else {
     if (user.picture !== picture) {
       user = await userRepository.updatePicture(picture, user.id);

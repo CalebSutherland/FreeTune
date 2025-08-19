@@ -3,11 +3,6 @@ export type User = {
   picture?: string | null;
 };
 
-export type UserWithPassword = {
-  id: number;
-  password_hash: string;
-};
-
 export type InstrumentSettings = {
   instrumentFamilyIndex: number;
   instrumentIndex: number;

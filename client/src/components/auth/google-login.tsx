@@ -1,4 +1,4 @@
-import { OAuthLogin } from "@/api/auth";
+import { googleLogin } from "@/api/auth";
 import "./google-login.css";
 
 export default function GoogleLogin() {
@@ -6,7 +6,7 @@ export default function GoogleLogin() {
     <button
       className="gsi-material-button"
       disabled={false}
-      onClick={OAuthLogin}
+      onClick={googleLogin}
     >
       <div className="gsi-material-button-state"></div>
       <div className="gsi-material-button-content-wrapper">
