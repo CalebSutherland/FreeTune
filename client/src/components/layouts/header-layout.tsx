@@ -3,7 +3,7 @@ import { NavLink, useLocation, useNavigationType } from "react-router-dom";
 
 import { paths } from "@/config/paths";
 import { useTheme } from "@/hooks/use-theme";
-import { Button, ActionIcon, Tooltip } from "@mantine/core";
+import { ActionIcon, Tooltip } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
@@ -12,6 +12,7 @@ import "./header-layout.css";
 import AuthModal from "../auth/auth-modal";
 import LoginButton from "../auth/login-button";
 import ToolsMenu from "../ui/tools-menu";
+import Footer from "../ui/footer";
 
 export function HeaderLayout({ children }: { children: React.ReactNode }) {
   const navbarRef = useRef<HTMLElement | null>(null);
@@ -80,23 +81,6 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
                 </div>
               </NavLink>
             </li>
-            <li className="mobile-only">
-              <NavLink
-                key="Login"
-                className="nav-link accent-link"
-                to={paths.auth.login.getHref()}
-                onClick={closeSidebar}
-              >
-                <Button
-                  classNames={{ root: "login-button-mobile" }}
-                  variant="filled"
-                  size="md"
-                  fullWidth
-                >
-                  Sign In
-                </Button>
-              </NavLink>
-            </li>
           </ul>
         </nav>
         <div className="header-right-content">
@@ -129,46 +113,7 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
 
       <main className="main">{children}</main>
 
-      <footer className="footer-wrapper">
-        <div className="footer-content">
-          <div className="footer-col">
-            <p>Links 1</p>
-            <ul>
-              <li>link</li>
-              <li>link</li>
-              <li>link</li>
-              <li>link</li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <p>Links 2</p>
-            <ul>
-              <li>link</li>
-              <li>link</li>
-              <li>link</li>
-              <li>link</li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <p>Links 3</p>
-            <ul>
-              <li>link</li>
-              <li>link</li>
-              <li>link</li>
-              <li>link</li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <p>Links 4</p>
-            <ul>
-              <li>link</li>
-              <li>link</li>
-              <li>link</li>
-              <li>link</li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -137,23 +137,6 @@ nav li {
   display: none;
 }
 
-.footer-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: var(--body-margin);
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.footer-content ul {
-  list-style: none;
-}
-
 @media screen and (max-width: 700px) {
   #open-sidebar-button,
   #close-sidebar-button {
@@ -210,11 +193,6 @@ nav li {
     border-bottom: none;
     border-left: 3px solid var(--accent-color);
   }
-
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-  }
 }
 
 @media screen and (max-width: 500px) {
@@ -224,8 +202,5 @@ nav li {
   .mobile-only {
     display: flex;
     border-bottom: none;
-  }
-  .footer-wrapper {
-    margin: var(--body-margin-mobile);
   }
 }
