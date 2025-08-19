@@ -9,13 +9,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isFirstAlert, setIsFirstAlert] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadUser() {
       const user = await checkSession();
       setUser(user);
-      console.log(user);
+      if (user) {
+        setIsFirstAlert(false);
+      }
       setLoading(false);
     }
 
@@ -24,6 +27,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = (userData: User) => {
     setUser(userData);
+    setIsFirstAlert(false);
   };
 
   const logout = async () => {
@@ -37,6 +41,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     isLoggedIn: !!user,
     login,
     logout,
+    isFirstAlert,
+    setIsFirstAlert,
     loading,
   };
 

@@ -8,6 +8,8 @@ import { Accordion, AccordionItem, LoadingOverlay } from "@mantine/core";
 import { MdChevronRight } from "react-icons/md";
 import "./tuning-menu.css";
 import { isActiveTuning } from "../../utils/utils";
+import { useAuth } from "@/contexts/user-auth-context";
+import { notifications } from "@mantine/notifications";
 
 interface TuningMenuProps {
   instruments: InstrumentFamily[];
@@ -32,6 +34,7 @@ export default function TuningMenu({
   const [loading, setLoading] = useState(false);
 
   const { updateInstrumentSettings } = useUserSettings();
+  const { isLoggedIn, isFirstAlert, setIsFirstAlert } = useAuth();
 
   async function changeInstrument(
     display: number,
@@ -58,6 +61,23 @@ export default function TuningMenu({
       setLoading(false);
       setShowSecondMenu(false);
       setShowMenu(false);
+
+      if (!isLoggedIn && isFirstAlert) {
+        notifications.show({
+          title: "Login or Register",
+          message:
+            "Create an account to save tuning and other preferences for next time.",
+          color: "white",
+          classNames: {
+            root: "notification-root",
+            title: "notification-title",
+            description: "notification-description",
+            closeButton: "notification-close",
+          },
+          autoClose: 7500,
+        });
+        setIsFirstAlert(false);
+      }
     }
   }
 

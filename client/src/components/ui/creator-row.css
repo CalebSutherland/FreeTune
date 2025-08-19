@@ -9,10 +9,6 @@
   padding-bottom: 1rem;
 }
 
-.creator-row a:hover {
-  text-decoration: underline;
-}
-
 .creators-wrapper {
   display: flex;
   flex-wrap: wrap;

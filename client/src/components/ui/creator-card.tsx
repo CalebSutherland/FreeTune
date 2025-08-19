@@ -1,4 +1,5 @@
 import { Card, Image, Text, Button, Group } from "@mantine/core";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 interface CreatorCardProps {
   name: string;
@@ -34,8 +35,14 @@ export default function CreatorCard({
         {description}
       </Text>
 
-      <a href={link}>
-        <Button color="var(--accent-color)" fullWidth mt="md" radius="md">
+      <a href={link} target="_blank" rel="noopener noreferrer">
+        <Button
+          color="var(--accent-color)"
+          fullWidth
+          mt="md"
+          radius="md"
+          rightSection={<FaExternalLinkAlt />}
+        >
           {linkLabel}
         </Button>
       </a>

@@ -49,5 +49,7 @@ export type AuthContextType = {
   isLoggedIn: boolean;
   login: (user: User) => void;
   logout: () => void;
+  isFirstAlert: boolean;
+  setIsFirstAlert: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
 };

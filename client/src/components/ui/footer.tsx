@@ -29,6 +29,8 @@ export default function Footer() {
         <Link
           className="social-link"
           to="https://github.com/CalebSutherland/FreeTune"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <FaGithub />
           <span style={{ paddingLeft: "0.5rem" }}>Github</span>

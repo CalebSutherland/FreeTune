@@ -97,3 +97,17 @@
 .tuning-card-wrapper.active {
   border-bottom: 2px solid green;
 }
+
+.notification-root {
+  background-color: var(--accent-color);
+}
+
+.notification-title,
+.notification-description,
+.notification-close {
+  color: white;
+}
+
+.notification-close:hover {
+  background-color: var(--accent-hover-color);
+}
