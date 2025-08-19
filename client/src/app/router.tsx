@@ -12,20 +12,6 @@ import PageLoader from "@/components/ui/page-loader";
 
 const router = createBrowserRouter([
   {
-    path: paths.auth.register.path,
-    lazy: () =>
-      import("./routes/auth/register").then((module) => ({
-        Component: module.default,
-      })),
-  },
-  {
-    path: paths.auth.login.path,
-    lazy: () =>
-      import("./routes/auth/login").then((module) => ({
-        Component: module.default,
-      })),
-  },
-  {
     path: paths.app.root.path,
     element: <AppRoot />,
     ErrorBoundary: AppRootErrorBoundary,

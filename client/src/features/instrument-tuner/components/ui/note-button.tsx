@@ -32,7 +32,7 @@ export default function NoteButton({
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-  }, [tuning]);
+  }, [tuning.notes.join(",")]);
 
   useEffect(() => {
     // If it's not the active target, clear any timer and return

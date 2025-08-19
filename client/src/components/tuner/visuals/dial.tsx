@@ -13,7 +13,7 @@ interface DialProps {
 
 export default function Dial({ freqDifference, centsDifference }: DialProps) {
   const dialRef = useRef<HTMLDivElement>(null);
-  const maxHz = 10;
+  const maxHz = 5;
 
   const needleRotation = calculateNeedleRotation(freqDifference, maxHz);
   const currentColor = getColorFromFreqDiff(freqDifference, "var(--note-btn)");

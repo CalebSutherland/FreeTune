@@ -26,11 +26,12 @@ export default function Footer() {
       </div>
       <div className="footer-col">
         <p>Social</p>
-        <Link to="https://github.com/CalebSutherland/FreeTune">
-          <span style={{ paddingRight: "0.5rem" }}>
-            <FaGithub />
-          </span>
-          <span>Github</span>
+        <Link
+          className="social-link"
+          to="https://github.com/CalebSutherland/FreeTune"
+        >
+          <FaGithub />
+          <span style={{ paddingLeft: "0.5rem" }}>Github</span>
         </Link>
       </div>
       <div className="footer-col">
