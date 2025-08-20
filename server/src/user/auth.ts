@@ -18,7 +18,10 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const user = await userService.findOrCreateOAuthUser(profile);
+        const user = await userService.findOrCreateOAuthUser(
+          profile,
+          accessToken
+        );
         return done(null, user);
       } catch (err) {
         return done(err, false);

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Profile as GoogleProfile } from "passport-google-oauth20";
 import { Profile as GitHubProfile } from "passport-github2";
 import * as userRepository from "./user-queries";
@@ -5,8 +6,26 @@ import { TwitterProfile } from "./user-types";
 
 type OAuthProfile = GoogleProfile | GitHubProfile | TwitterProfile;
 
-export async function findOrCreateOAuthUser(profile: OAuthProfile) {
-  const picture = profile.photos?.[0]?.value || null;
+async function getGoogleProfilePhoto(
+  accessToken: string
+): Promise<string | null> {
+  const res = await axios.get(
+    "https://people.googleapis.com/v1/people/me?personFields=photos",
+    { headers: { Authorization: `Bearer ${accessToken}` } }
+  );
+  return res.data.photos?.[0]?.url || null;
+}
+
+export async function findOrCreateOAuthUser(
+  profile: OAuthProfile,
+  access_token?: string
+) {
+  let picture;
+  if (profile.provider === "google" && access_token) {
+    picture = await getGoogleProfilePhoto(access_token);
+  } else {
+    picture = profile.photos?.[0]?.value || null;
+  }
   const provider = profile.provider;
   const providerId = profile.id;
   if (!providerId) throw new Error("No email found in profile");

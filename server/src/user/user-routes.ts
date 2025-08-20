@@ -14,7 +14,7 @@ router.get("/me", getUser);
 router.get(
   "/auth/google",
   passport.authenticate("google", {
-    scope: ["profile"],
+    scope: ["profile", "https://www.googleapis.com/auth/userinfo.profile"],
     // prompt: "consent",
   })
 );
@@ -91,7 +91,6 @@ router.get("/auth/twitter/callback", async (req, res) => {
       }
     );
     const data = await userResp.json();
-    console.log(data);
 
     const twitterProfile: TwitterProfile = {
       provider: "twitter",
