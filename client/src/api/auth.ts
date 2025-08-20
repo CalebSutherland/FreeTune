@@ -10,6 +10,10 @@ export function githubLogin() {
   window.location.href = `${API_URL}/api/auth/github`;
 }
 
+export function twitterLogin() {
+  window.location.href = `${API_URL}/api/auth/twitter`;
+}
+
 export async function logoutUser() {
   await fetch(`${API_URL}/api/logout`, {
     method: "POST",

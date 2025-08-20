@@ -1,7 +1,11 @@
 import "dotenv";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import { Strategy as GitHubStrategy, type Profile } from "passport-github2";
+import {
+  Strategy as GitHubStrategy,
+  type Profile as GitHubProfile,
+} from "passport-github2";
+
 import type { User } from "../types/user-types";
 import * as userService from "./user-service";
 
@@ -33,7 +37,7 @@ passport.use(
     async (
       accessToken: string,
       refreshToken: string,
-      profile: Profile,
+      profile: GitHubProfile,
       done: Function
     ) => {
       try {
@@ -46,7 +50,7 @@ passport.use(
   )
 );
 
-passport.serializeUser((user: User, done) => {
+passport.serializeUser((user: any, done) => {
   done(null, user.id);
 });
 

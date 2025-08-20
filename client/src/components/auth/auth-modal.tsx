@@ -1,7 +1,7 @@
 import GoogleLogin from "./google-login";
 
 import { Modal, Button } from "@mantine/core";
-import { githubLogin } from "@/api/auth";
+import { githubLogin, twitterLogin } from "@/api/auth";
 import "./auth-modal.css";
 
 interface AuthModalProps {
@@ -26,6 +26,7 @@ export default function AuthModal({ opened, close }: AuthModalProps) {
       </div>
 
       <Button onClick={githubLogin}>Github</Button>
+      <Button onClick={twitterLogin}>Twitter</Button>
     </Modal>
   );
 }

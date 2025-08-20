@@ -1,8 +1,9 @@
 import { Profile as GoogleProfile } from "passport-google-oauth20";
 import { Profile as GitHubProfile } from "passport-github2";
 import * as userRepository from "./user-queries";
+import { TwitterProfile } from "./user-types";
 
-type OAuthProfile = GoogleProfile | GitHubProfile;
+type OAuthProfile = GoogleProfile | GitHubProfile | TwitterProfile;
 
 export async function findOrCreateOAuthUser(profile: OAuthProfile) {
   const picture = profile.photos?.[0]?.value || null;
