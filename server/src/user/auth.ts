@@ -9,12 +9,14 @@ import {
 import type { User } from "../types/user-types";
 import * as userService from "./user-service";
 
+const SERVER_URL = process.env.SERVER_URL;
+
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      callbackURL: "http://localhost:3000/api/auth/google/callback",
+      callbackURL: `${SERVER_URL}/api/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -35,7 +37,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-      callbackURL: "http://localhost:3000/api/auth/github/callback",
+      callbackURL: `${SERVER_URL}/api/auth/github/callback`,
     },
     async (
       accessToken: string,

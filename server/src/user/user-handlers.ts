@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import httpStatus from "http-status";
 
 export const logoutHandler = async (req: Request, res: Response) => {

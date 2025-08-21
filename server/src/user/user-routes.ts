@@ -6,6 +6,9 @@ import { logoutHandler, getUser } from "./user-handlers";
 import * as userService from "./user-service";
 import { TwitterProfile } from "./user-types";
 
+const CLIENT_URL = process.env.CLIENT_URL;
+const SERVER_URL = process.env.SERVER_URL;
+
 const router = express.Router();
 
 router.post("/logout", logoutHandler);
@@ -18,22 +21,20 @@ router.get(
     // prompt: "consent",
   })
 );
-
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:5173",
-    successRedirect: "http://localhost:5173",
+    failureRedirect: CLIENT_URL,
+    successRedirect: CLIENT_URL,
   })
 );
 
 router.get("/auth/github", passport.authenticate("github"));
-
 router.get(
   "/auth/github/callback",
   passport.authenticate("github", {
-    failureRedirect: "http://localhost:5173",
-    successRedirect: "http://localhost:5173",
+    failureRedirect: CLIENT_URL,
+    successRedirect: CLIENT_URL,
   })
 );
 
@@ -51,7 +52,7 @@ router.get("/auth/twitter", (req, res) => {
   const params = new URLSearchParams({
     response_type: "code",
     client_id: process.env.TWITTER_CLIENT_ID!,
-    redirect_uri: "http://localhost:3000/api/auth/twitter/callback",
+    redirect_uri: `${SERVER_URL}/api/auth/twitter/callback`,
     scope: "tweet.read users.read offline.access",
     state: crypto.randomBytes(16).toString("hex"), // random state
     code_challenge: codeChallenge,
@@ -75,7 +76,7 @@ router.get("/auth/twitter/callback", async (req, res) => {
       body: new URLSearchParams({
         grant_type: "authorization_code",
         code: code as string,
-        redirect_uri: "http://localhost:3000/api/auth/twitter/callback",
+        redirect_uri: `${SERVER_URL}/api/auth/twitter/callback`,
         code_verifier: codeVerifier,
         client_id: process.env.TWITTER_CLIENT_ID!,
       }),
@@ -108,13 +109,13 @@ router.get("/auth/twitter/callback", async (req, res) => {
     req.login(user, (err) => {
       if (err) {
         console.error(err);
-        return res.redirect("http://localhost:5173?error=true");
+        return res.redirect(`${CLIENT_URL}?error=true`);
       }
-      res.redirect("http://localhost:5173");
+      res.redirect(CLIENT_URL!);
     });
   } catch (err) {
     console.error(err);
-    res.redirect("http://localhost:5173?error=true");
+    res.redirect(`${CLIENT_URL}?error=true`);
   }
 });
 

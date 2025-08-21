@@ -23,7 +23,7 @@ export async function logoutUser() {
 
 export async function checkSession() {
   try {
-    const user = await fetch(`${import.meta.env.VITE_API_URL}/api/me`, {
+    const user = await fetch(`${API_URL}/api/me`, {
       credentials: "include",
     });
 
