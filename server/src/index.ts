@@ -18,6 +18,7 @@ app.use(
         connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false },
       },
+      createTableIfMissing: true,
     }),
     secret: process.env.SESSION_SECRET || "some_secret",
     resave: false,
