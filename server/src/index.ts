@@ -5,6 +5,7 @@ import cors from "cors";
 import userRoutes from "./user/user-routes";
 import userSettingsRoutes from "./user/settings/settings-routes";
 import "./user/auth";
+import db from "./config/db";
 
 const app = express();
 const port = process.env.PORT || 10000;
@@ -33,6 +34,16 @@ app.use("/api/user_settings", userSettingsRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "YO MFS" });
+});
+
+app.get("/test-db", async (req, res) => {
+  try {
+    const result = await db.one("SELECT 1 AS status");
+    res.json({ success: true, db: result });
+  } catch (err) {
+    console.error("DB connection error:", err);
+    res.status(500).json({ success: false, error: err });
+  }
 });
 
 app.listen(port, () => {
