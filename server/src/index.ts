@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import pgSession from "connect-pg-simple";
 import passport from "passport";
 import cors from "cors";
 import userRoutes from "./user/user-routes";
@@ -12,9 +13,20 @@ const port = process.env.PORT || 10000;
 
 app.use(
   session({
+    store: new (pgSession(session))({
+      conObject: {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+      },
+    }),
     secret: process.env.SESSION_SECRET || "some_secret",
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: true,
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    },
   })
 );
 
