@@ -4,6 +4,7 @@ import { TableOfContents, Button, ActionIcon } from "@mantine/core";
 import { FaChevronDown } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import VisualSelector from "../tuner/visual-selector";
+import "./instructions.css";
 
 export default function ClassicTunerInstructions() {
   const [stats, setStats] = useState(false);

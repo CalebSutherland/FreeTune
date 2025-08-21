@@ -4,6 +4,7 @@ import { TableOfContents, Button, ActionIcon, Slider } from "@mantine/core";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { TbHandClick } from "react-icons/tb";
+import "./instructions.css";
 
 export default function MetronomeInstructions() {
   const [isPlaying, setIsPlaying] = useState(false);

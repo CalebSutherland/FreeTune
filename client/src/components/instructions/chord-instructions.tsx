@@ -7,6 +7,7 @@ import { SegmentedControl, TableOfContents } from "@mantine/core";
 import type { Key } from "@/types/chord-types";
 import { formatKeyName } from "@/utils/chord-utils";
 import { LuRabbit, LuTurtle } from "react-icons/lu";
+import "./instructions.css";
 
 export default function ChordInstructions() {
   const keys = Object.keys(db.chords) as Key[];

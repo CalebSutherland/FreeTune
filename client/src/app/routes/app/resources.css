@@ -10,7 +10,7 @@
 .resources {
   display: flex;
   align-items: flex-start;
-  padding: var(--body-margin);
+  padding-inline: var(--body-inline-padding);
   padding-left: 0;
   width: 100%;
 }
@@ -24,7 +24,7 @@
   top: 1rem;
   flex: 0 0 10rem;
   overflow-y: auto;
-  margin-left: 1rem;
+  padding-left: 1rem;
 }
 
 .resources-content {
@@ -42,7 +42,7 @@
 }
 
 .resources-tools {
-  padding: var(--body-margin);
+  padding-inline: var(--body-inline-padding);
 }
 
 @media screen and (max-width: 786px) {
@@ -55,7 +55,6 @@
 
 @media screen and (max-width: 600px) {
   .resources {
-    padding: var(--body-margin);
     flex-direction: column;
   }
 
@@ -65,17 +64,9 @@
     top: unset;
     flex: 1;
     margin-bottom: 1rem;
-    margin-left: 0;
   }
 
   .resources-content {
     width: 100%;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .resources,
-  .resources-tools {
-    padding: var(--body-margin-mobile);
   }
 }

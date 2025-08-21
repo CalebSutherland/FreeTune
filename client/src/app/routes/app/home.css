@@ -1,7 +1,7 @@
 .home-wrapper {
   display: flex;
   flex-direction: column;
-  margin: var(--body-margin);
+  padding-inline: var(--body-inline-padding);
   padding-top: 2rem;
 }
 

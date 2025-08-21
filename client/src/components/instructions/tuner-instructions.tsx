@@ -6,6 +6,7 @@ import { ActionIcon, Button, Switch, TableOfContents } from "@mantine/core";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { MdChevronRight } from "react-icons/md";
 import { FaGear } from "react-icons/fa6";
+import "./instructions.css";
 
 export default function TunerInstructions() {
   const [auto, setAuto] = useState(true);

@@ -153,9 +153,14 @@ export function ChordLibraryLayout({
       </div>
 
       <div className="chord-lib-lower">
-        <h2>How to Use</h2>
-        <ChordInstructions />
-        <ToolsRow />
+        <div className="chord-lib-instructions">
+          <h2>How to Use</h2>
+          <ChordInstructions />
+        </div>
+
+        <div className="chord-lib-lower-content">
+          <ToolsRow />
+        </div>
       </div>
     </div>
   );
