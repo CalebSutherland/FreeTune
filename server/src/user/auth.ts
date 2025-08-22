@@ -6,17 +6,17 @@ import {
   type Profile as GitHubProfile,
 } from "passport-github2";
 
-import type { User } from "../types/user-types";
 import * as userService from "./user-service";
 
 const SERVER_URL = process.env.SERVER_URL;
+const CLIENT_URL = process.env.CLIENT_URL;
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      callbackURL: `${SERVER_URL}/api/auth/google/callback`,
+      callbackURL: `${CLIENT_URL}/api/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
