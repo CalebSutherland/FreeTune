@@ -33,7 +33,6 @@ app.use(
     saveUninitialized: false,
     proxy: true,
     cookie: {
-      domain: process.env.CLIENT_URL,
       secure: true,
       sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000,
