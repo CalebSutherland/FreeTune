@@ -25,10 +25,8 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: CLIENT_URL,
-  }),
-  (req, res) => {
-    res.redirect(`${CLIENT_URL}/auth/success`);
-  }
+    successRedirect: CLIENT_URL,
+  })
 );
 
 router.get("/auth/github", passport.authenticate("github"));
