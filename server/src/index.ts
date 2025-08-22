@@ -11,6 +11,8 @@ import db from "./config/db";
 const app = express();
 const port = process.env.PORT || 10000;
 
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
@@ -38,14 +40,14 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use((req, res, next) => {
   console.log("SESSION:", req.session);
   console.log("USER:", req.user);
   next();
 });
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(express.json());
 app.use("/api", userRoutes);
@@ -63,6 +65,15 @@ app.get("/test-db", async (req, res) => {
     console.error("DB connection error:", err);
     res.status(500).json({ success: false, error: err });
   }
+});
+
+app.get("/api/debug", (req, res) => {
+  res.json({
+    isAuthenticated: req.isAuthenticated?.() || false,
+    user: req.user || null,
+    hasSession: !!req.session,
+    sessionID: (req as any).sessionID || null,
+  });
 });
 
 app.listen(port, () => {
