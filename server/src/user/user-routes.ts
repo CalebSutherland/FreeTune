@@ -21,21 +21,15 @@ router.get(
     // prompt: "consent",
   })
 );
-router.get("/auth/google/callback", (req, res, next) => {
-  passport.authenticate("google", async (err: any, user: any) => {
-    if (err) return next(err);
-    if (!user)
-      return res.redirect(process.env.CLIENT_URL! + "/login?err=oauth");
-
-    req.logIn(user, (err) => {
-      if (err) return next(err);
-
-      req.session.save(() => {
-        res.redirect(process.env.CLIENT_URL! + "/auth/success");
-      });
-    });
-  })(req, res, next);
-});
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: CLIENT_URL,
+  }),
+  (req, res) => {
+    res.redirect(`${CLIENT_URL}/auth/success`);
+  }
+);
 
 router.get("/auth/github", passport.authenticate("github"));
 router.get(
