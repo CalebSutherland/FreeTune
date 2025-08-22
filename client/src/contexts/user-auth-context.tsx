@@ -13,16 +13,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadUser() {
-      const user = await checkSession();
-      setUser(user);
-      if (user) {
-        setIsFirstAlert(false);
-      }
-      setLoading(false);
-    }
-
-    loadUser();
+    checkSession()
+      .then((user) => {
+        setUser(user);
+        if (user) setIsFirstAlert(false);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const login = (userData: User) => {
@@ -46,11 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     loading,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = (): AuthContextType => {
