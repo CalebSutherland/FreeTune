@@ -12,6 +12,13 @@ const app = express();
 const port = process.env.PORT || 10000;
 
 app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  })
+);
+
+app.use(
   session({
     store: new (pgSession(session))({
       conObject: {
@@ -33,13 +40,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-  })
-);
 
 app.use(express.json());
 app.use("/api", userRoutes);
