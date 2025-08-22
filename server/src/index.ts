@@ -38,6 +38,12 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  console.log("SESSION:", req.session);
+  console.log("USER:", req.user);
+  next();
+});
+
 app.use(passport.initialize());
 app.use(passport.session());
 

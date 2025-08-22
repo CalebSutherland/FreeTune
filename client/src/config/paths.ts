@@ -44,4 +44,10 @@ export const paths = {
       getHref: () => "/resources",
     },
   },
+  auth: {
+    success: {
+      path: "/auth/success",
+      getHref: () => "/auth/success",
+    },
+  },
 } as const;

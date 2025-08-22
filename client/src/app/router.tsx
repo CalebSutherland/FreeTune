@@ -98,6 +98,13 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: paths.auth.success.path,
+    lazy: () =>
+      import("./routes/auth/auth-success").then((module) => ({
+        Component: module.default,
+      })),
+  },
+  {
     path: "*",
     lazy: () =>
       import("./routes/not-found").then((module) => ({
