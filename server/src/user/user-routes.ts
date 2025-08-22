@@ -7,7 +7,6 @@ import * as userService from "./user-service";
 import { TwitterProfile } from "./user-types";
 
 const CLIENT_URL = process.env.CLIENT_URL;
-const SERVER_URL = process.env.SERVER_URL;
 
 const router = express.Router();
 
@@ -52,9 +51,9 @@ router.get("/auth/twitter", (req, res) => {
   const params = new URLSearchParams({
     response_type: "code",
     client_id: process.env.TWITTER_CLIENT_ID!,
-    redirect_uri: `${SERVER_URL}/api/auth/twitter/callback`,
+    redirect_uri: `${CLIENT_URL}/api/auth/twitter/callback`,
     scope: "tweet.read users.read offline.access",
-    state: crypto.randomBytes(16).toString("hex"), // random state
+    state: crypto.randomBytes(16).toString("hex"),
     code_challenge: codeChallenge,
     code_challenge_method: "S256",
   });
@@ -76,7 +75,7 @@ router.get("/auth/twitter/callback", async (req, res) => {
       body: new URLSearchParams({
         grant_type: "authorization_code",
         code: code as string,
-        redirect_uri: `${SERVER_URL}/api/auth/twitter/callback`,
+        redirect_uri: `${CLIENT_URL}/api/auth/twitter/callback`,
         code_verifier: codeVerifier,
         client_id: process.env.TWITTER_CLIENT_ID!,
       }),
