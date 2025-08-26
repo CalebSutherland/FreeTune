@@ -33,7 +33,7 @@ export default function NotesDisplay({
 
   return (
     <div className="notes-display">
-      <div className="notes-column">
+      <div className="notes-column left">
         {leftNotes.map((note) => (
           <div key={note}>
             <NoteButton

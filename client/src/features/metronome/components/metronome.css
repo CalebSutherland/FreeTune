@@ -10,6 +10,7 @@
   width: 100%;
   max-width: 40rem;
   border-radius: 1rem;
+  box-shadow: var(--mantine-shadow-md);
 }
 
 .ts-menu-button-wrapper {

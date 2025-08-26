@@ -12,6 +12,7 @@
   align-items: flex-start;
   padding-inline: var(--body-inline-padding);
   padding-left: 0;
+  padding-top: 1rem;
   width: 100%;
 }
 

@@ -11,9 +11,6 @@ export default function Resources() {
   return (
     <div className="resources-page-wrapper">
       <title>Resources | FreeTune</title>
-      <div className="resources-page-landing">
-        <p>Cool message and image</p>
-      </div>
       <div className="resources">
         <div className="resources-nav">
           <p>Table of Contents</p>
