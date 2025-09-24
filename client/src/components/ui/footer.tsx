@@ -8,7 +8,7 @@ export default function Footer() {
     { name: "Instrument Tuner", link: paths.app.tools.tuner.getHref() },
     {
       name: "Chord Library",
-      link: paths.app.tools.chord_library.root.getHref(),
+      link: paths.app.tools.chord_library.chord_library_key.getHref("C"),
     },
     { name: "Metronome", link: paths.app.tools.metronome.getHref() },
     { name: "Classic Tuner", link: paths.app.tools.classic_tuner.getHref() },
@@ -35,10 +35,6 @@ export default function Footer() {
           <FaGithub />
           <span style={{ paddingLeft: "0.5rem" }}>Github</span>
         </Link>
-      </div>
-      <div className="footer-col">
-        <p>Legal</p>
-        <Link to={paths.app.tools.tuner.getHref()}>Privacy Policy</Link>
       </div>
     </footer>
   );

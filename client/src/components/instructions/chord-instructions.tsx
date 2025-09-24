@@ -42,18 +42,6 @@ export default function ChordInstructions() {
         <div className="htu-main">
           <h2>Library Instructions</h2>
           <div className="htu-minor">
-            <h3>All Chords Page</h3>
-            <div className="htu-card">
-              <button className="key-button">All</button>
-            </div>
-            <p>
-              When you first open the Chord Library, you'll land on the All
-              Chords page. This shows one chord diagram for each key (C, C♯, D,
-              etc.) and suffix (major, minor, etc.). Click on the title of any
-              card to go to a specific suffix page with more chord variations.
-            </p>
-          </div>
-          <div className="htu-minor">
             <h3>Note Pages</h3>
             <div className="htu-card">
               <div className="example-keys">

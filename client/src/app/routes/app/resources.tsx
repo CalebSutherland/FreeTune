@@ -67,7 +67,11 @@ export default function Resources() {
               These eight essential chords are the foundation of guitar playing.
               Mastering them will unlock the ability to play thousands of
               popular songs. To learn and practice more chords, check out the{" "}
-              <a href={paths.app.tools.chord_library.root.getHref()}>
+              <a
+                href={paths.app.tools.chord_library.chord_library_key.getHref(
+                  "C"
+                )}
+              >
                 Chord Library
               </a>
               .

@@ -53,7 +53,9 @@ export default function EssentialChords({ homePage }: EssentialChordsProps) {
       {homePage && (
         <p style={{ paddingTop: "0.5rem" }}>
           More chords can be found on the{" "}
-          <Link to={paths.app.tools.chord_library.root.getHref()}>
+          <Link
+            to={paths.app.tools.chord_library.chord_library_key.getHref("C")}
+          >
             Chord Library
           </Link>{" "}
           page.

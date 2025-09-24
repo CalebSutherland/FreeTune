@@ -45,14 +45,6 @@ export function ChordLibraryLayout({
     <div className="chord-lib-wrapper">
       <title>Chord Library | FreeTune</title>
       <div className="chord-lib-header">
-        <NavLink
-          key="allKeys"
-          className="key-button"
-          to={paths.app.tools.chord_library.root.getHref()}
-          end
-        >
-          All
-        </NavLink>
         {keys.map((k) => (
           <NavLink
             key={k}

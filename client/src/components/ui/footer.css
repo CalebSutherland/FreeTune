@@ -2,7 +2,7 @@
   width: 80%;
   align-self: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: var(--body-margin);
   padding-top: 2rem;
   padding-bottom: 4rem;

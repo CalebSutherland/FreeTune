@@ -57,15 +57,6 @@ const router = createBrowserRouter([
             ErrorBoundary: AppRootErrorBoundary,
             children: [
               {
-                index: true,
-                lazy: () =>
-                  import(
-                    "./routes/app/tools/chord-library/chord-library-page"
-                  ).then((module) => ({
-                    Component: module.default,
-                  })),
-              },
-              {
                 path: paths.app.tools.chord_library.chord_library_key.path,
                 lazy: () =>
                   import(

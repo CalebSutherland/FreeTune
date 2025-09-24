@@ -19,7 +19,7 @@ export default function ToolsRow() {
     },
     {
       name: "Chord Library",
-      to: paths.app.tools.chord_library.root.getHref(),
+      to: paths.app.tools.chord_library.chord_library_key.getHref("C"),
       icon: FaBook,
       color: "orange",
     },
