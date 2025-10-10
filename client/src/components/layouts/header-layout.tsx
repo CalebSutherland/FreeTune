@@ -40,74 +40,82 @@ export function HeaderLayout({ children }: { children: React.ReactNode }) {
     <div className="site-container">
       <AuthModal opened={opened} close={close} />
       <header className="header-wrapper">
-        <div className="header-left-content">
-          <NavLink
-            key="Home"
-            className={({ isActive }) => {
-              return isActive ? "header-link active-link" : "header-link";
-            }}
-            to={paths.app.home.getHref()}
-          >
-            <div className="header-element">
-              <p>Home</p>
-            </div>
-          </NavLink>
-        </div>
-        <nav id="navbar" ref={navbarRef}>
-          <ul>
-            <li>
-              <button id="close-sidebar-button" onClick={closeSidebar}>
-                <FaX />
-              </button>
-            </li>
-            <li key={"Tools"}>
-              <div className={`nav-link ${isToolsActive ? "active-link" : ""}`}>
-                <div className="header-element">
-                  <ToolsMenu closeSidebar={closeSidebar} />
-                </div>
-              </div>
-            </li>
-            <li key={"Resources"}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active-link" : "nav-link"
-                }
-                to={paths.app.resources.getHref()}
-                key={"Resources"}
-                onClick={closeSidebar}
-              >
-                <div className="header-element">
-                  <p>Learn</p>
-                </div>
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-        <div className="header-right-content">
-          <div className="theme-switcher">
-            <Tooltip
-              color="var(--secondary-color-invert)"
-              style={{ color: "var(--text-color-invert)" }}
-              label={theme === "light" ? "Dark Mode" : "Light Mode"}
-              events={{ hover: true, focus: false, touch: true }}
-              withArrow
+        <div className="header-content">
+          <div className="header-left-content">
+            <NavLink
+              key="Home"
+              className={({ isActive }) => {
+                return isActive ? "header-link active-link" : "header-link";
+              }}
+              to={paths.app.home.getHref()}
             >
-              <ActionIcon
-                classNames={{ root: "theme-button" }}
-                onClick={toggleTheme}
-                variant="transparent"
-                size="lg"
-              >
-                {theme === "light" ? <FaMoon size={20} /> : <FaSun size={20} />}
-              </ActionIcon>
-            </Tooltip>
+              <div className="header-element">
+                <p>Home</p>
+              </div>
+            </NavLink>
           </div>
-          <LoginButton open={open} />
-        </div>
-        <div className="header-element icon">
-          <button id="open-sidebar-button" onClick={openSidebar}>
-            <FiMenu size={24} />
-          </button>
+          <nav id="navbar" ref={navbarRef}>
+            <ul>
+              <li>
+                <button id="close-sidebar-button" onClick={closeSidebar}>
+                  <FaX />
+                </button>
+              </li>
+              <li key={"Tools"}>
+                <div
+                  className={`nav-link ${isToolsActive ? "active-link" : ""}`}
+                >
+                  <div className="header-element">
+                    <ToolsMenu closeSidebar={closeSidebar} />
+                  </div>
+                </div>
+              </li>
+              <li key={"Resources"}>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active-link" : "nav-link"
+                  }
+                  to={paths.app.resources.getHref()}
+                  key={"Resources"}
+                  onClick={closeSidebar}
+                >
+                  <div className="header-element">
+                    <p>Learn</p>
+                  </div>
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+          <div className="header-right-content">
+            <div className="theme-switcher">
+              <Tooltip
+                color="var(--secondary-color-invert)"
+                style={{ color: "var(--text-color-invert)" }}
+                label={theme === "light" ? "Dark Mode" : "Light Mode"}
+                events={{ hover: true, focus: false, touch: true }}
+                withArrow
+              >
+                <ActionIcon
+                  classNames={{ root: "theme-button" }}
+                  onClick={toggleTheme}
+                  variant="transparent"
+                  size="lg"
+                >
+                  {theme === "light" ? (
+                    <FaMoon size={20} />
+                  ) : (
+                    <FaSun size={20} />
+                  )}
+                </ActionIcon>
+              </Tooltip>
+            </div>
+            <LoginButton open={open} />
+          </div>
+          <div className="header-element icon">
+            <button id="open-sidebar-button" onClick={openSidebar}>
+              <FiMenu size={24} />
+            </button>
+          </div>
         </div>
       </header>
 

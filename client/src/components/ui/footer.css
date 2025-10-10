@@ -1,5 +1,6 @@
 .footer-wrapper {
   width: 80%;
+  max-width: 1280px;
   align-self: center;
   display: flex;
   justify-content: space-around;
